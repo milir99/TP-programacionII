@@ -1,0 +1,6 @@
+typedef struct
+{
+     int nroPractica;
+    char nombrePractica[30];
+    int eliminado;
+} Practica;
