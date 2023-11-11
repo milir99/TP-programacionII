@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1699730700 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1699736843 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.h
+
