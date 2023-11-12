@@ -7,7 +7,7 @@ nodoPracticasXIngreso alta_de_pxi(int nroDeIngreso)
     //Pedir datos de la practica
     //Buscar si existe la practica
     nodoPracticasXIngreso*nuevaPXI=crearNodoPXI(nroDeIngreso,nroPractica)
-    //SI EXISTE LA PRACTIGA AGREGAR AL PRINCIPIO SI NO EXISTE IMPRIMIR CARTEL DE ERROR Y PEDIR QUE INGRESE LA PRACTICA NUEVAMENTE(HACER DO WHILE TAL VEZ PARA ESOY DEJAR QUE AGREGUE LA CANTIDAAD DE PRACTICAS QUE QUIERA),
+    //SI EXISTE LA PRACTICA AGREGAR AL PRINCIPIO SI NO EXISTE IMPRIMIR CARTEL DE ERROR Y PEDIR QUE INGRESE LA PRACTICA NUEVAMENTE(HACER DO WHILE TAL VEZ PARA ESOY DEJAR QUE AGREGUE LA CANTIDAAD DE PRACTICAS QUE QUIERA),
 
 }
 //FUNCION CREAR NODO PRACTICAS X INGRESO
@@ -18,10 +18,10 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
     {
         printf("Error al crear Nodo Practica x Ingreso");
     }
-     aux.nroIngreso= nroIngreso;
- aux.nroPractica= nroPractica;
- aux.resultado=NULL;
-aux.siguiente=NULL;
+    aux.nroIngreso= nroIngreso;
+    aux.nroPractica= nroPractica;
+    aux.resultado=NULL;
+    aux.siguiente=NULL;
 
 }
 
@@ -38,10 +38,10 @@ nodoPaciente* alta_de_ingreso(nodoPaciente *paciente,char fechaIngreso[] ,char f
     }
     else
     {
-        int nroIngreso= buscarUltimoNroIngreso(existencia->listaIngresos);
-        nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(nroIngreso,fechaIngreso,fechaRetiro,dniPaciente,matriculaProfesional, eliminado);
-        nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nroIngreso,);
-        existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
+        int nroIngreso = buscarUltimoNroIngreso(existencia->listaIngresos);
+        nodoIngresos*nuevoIngresoNodo = crearNodoIngreso(nroIngreso,fechaIngreso,fechaRetiro,dniPaciente,matriculaProfesional, eliminado);
+        nuevoIngresoNodo->listaDePracticas = alta_de_pxi(nroIngreso,);
+        existencia->listaIngresos = agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
     }
 }
 
@@ -76,8 +76,6 @@ nodoPaciente* existePaciente(nodoPaciente* pacientes, int dniPaciente)
     }
 }
 
-}
-
 //FUNCION CREA NODO TIPO INGRESO(done)
 nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaRetiro[],int dniPaciente,int matriculaProfesional, int eliminado)
 {
@@ -94,3 +92,80 @@ nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaReti
         printf("ERROR al crear el NODO INGRESO\n")
     }
 }
+
+//FUNCION ALTA EMPLEADOS (a chequear)
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, char nombreArchivo[])
+{
+    FILE * archi = fopen(nombreArchivo, "rb");
+    empleadosDeLaboratorio aux;
+    int existeEmpleadoOno = existeEmpleado(listaEmpleados, aux.empleado.dni);
+
+    if(archi != NULL)
+    {
+        while(fread(&aux, sizeof(nodoEmpleados), 1, archi)==1)
+        {
+            if(existeEmpleadoOno == 0)
+            {
+                listaEmpleados = agregarPpioEmpleados (listaEmpleados, crearNodoEmpleados(aux));
+            }else{
+                printf("El empleado que quiere ingresar ya existe en nuestro registro: \n");
+            }
+        }
+        fclose(archi);
+    }
+    return listaEmpleados;
+}
+
+//FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
+nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo)
+{
+    nuevo->siguiente = empleados;
+    if(lista != NULL)
+    {
+        empleados->anterior = nuevo;
+    }
+    return empleados;
+}
+
+//FUNCION SI EXISTE UN EMPLEADO
+int existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
+{
+    nodoEmpleados * actual = empleado;
+    int existeEmpleadoOno = 0;
+
+    while(actual != NULL)
+    {
+        if (actual->empleado.dni == dniEmpleado)
+        {
+            existeEmpleadoOno = 1;
+            return existeEmpleadoOno;
+        }
+        actual = actual->siguiente;
+    }
+    return existeEmpleadoOno;
+}
+
+//FUNCION DE CREAR NODO TIPO EMPLEADO
+nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
+{
+    nodoEmpleados * aux = (nodoEmpleados*)malloc(sizeof(nodoEmpleados));
+    if (aux == NULL)
+    {
+        printf("ERROR: No se pudo crear el nodo para el empleado.\n");
+    }
+    aux->empleado.DNI = dato.DNI;
+    aux->empleado.telefono = dato.telefono;
+    strcpy(aux->empleado.apellidoYnombre, dato.apellidoYnombre);
+    strcpy(aux->empleado.contrasenia, dato.contrasenia);
+    strcpy(aux->empleado.usuario, dato.usuario);
+    aux->anterior = NULL;
+    aux->siguiente = NULL;
+    return aux;
+}
+
+//INICIALIZAR LA LISTA DOBLE
+nodoEmpleados * iniclista()
+{
+    return NULL;
+}
+
