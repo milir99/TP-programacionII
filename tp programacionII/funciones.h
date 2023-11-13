@@ -75,6 +75,6 @@ nodoEmpleados * iniclista();
 nodoEmpleados * crearNodoListaDoble(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
-nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, char nombreArchivo[]);
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux);
 
 

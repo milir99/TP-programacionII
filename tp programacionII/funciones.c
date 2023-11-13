@@ -93,25 +93,18 @@ nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaReti
     }
 }
 
-//FUNCION ALTA EMPLEADOS (a chequear)
-nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, char nombreArchivo[])
+//FUNCION ALTA EMPLEADOS
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux)
 {
-    FILE * archi = fopen(nombreArchivo, "rb");
-    empleadosDeLaboratorio aux;
-    int existeEmpleadoOno = existeEmpleado(listaEmpleados, aux.empleado.dni);
-
-    if(archi != NULL)
+    nodoEmpleados * existe = existeEmpleado(listaEmpleados,aux.dni);
+    if(existe == NULL)
     {
-        while(fread(&aux, sizeof(nodoEmpleados), 1, archi)==1)
-        {
-            if(existeEmpleadoOno == 0)
-            {
-                listaEmpleados = agregarPpioEmpleados (listaEmpleados, crearNodoEmpleados(aux));
-            }else{
-                printf("El empleado que quiere ingresar ya existe en nuestro registro: \n");
-            }
-        }
-        fclose(archi);
+        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+        listaEmpleados = agregarPpioEmpleados(listaEmpleados, nuevo);
+
+        printf("El empleado fue agregado.\n");
+    }else{
+        printf("El empleado ya existe.\n");
     }
     return listaEmpleados;
 }
@@ -128,21 +121,19 @@ nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados *
 }
 
 //FUNCION SI EXISTE UN EMPLEADO
-int existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
+nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
 {
     nodoEmpleados * actual = empleado;
-    int existeEmpleadoOno = 0;
 
     while(actual != NULL)
     {
         if (actual->empleado.dni == dniEmpleado)
         {
-            existeEmpleadoOno = 1;
-            return existeEmpleadoOno;
+            return actual;
         }
         actual = actual->siguiente;
     }
-    return existeEmpleadoOno;
+    return NULL;
 }
 
 //FUNCION DE CREAR NODO TIPO EMPLEADO
