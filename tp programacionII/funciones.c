@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #include <stdio.h>
 #include <stdlib.h>
 #define "funciones.h"
@@ -94,3 +95,153 @@ nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaReti
         printf("ERROR al crear el NODO INGRESO\n")
     }
 }
+=======
+///ESTRUCTURAS
+typedef struct
+{
+    char apellidoYnombre [40];
+    int edad;
+    int dni;
+    char direccion [30];
+    char telefono [15];
+} Paciente;
+
+typedef struct nodoArbolPacientes
+{
+    Paciente dato;
+    struct nodoArbolPacientes *izq;
+    struct nodoArbolPacientes *der;
+} nodoArbolPacientes;
+
+///ARBOLES DE PACIENTES
+nodoArbolPacientes * iniciarArbol ()
+{
+    return NULL;
+}
+nodoArbolPacientes *crearNodoArbol (Paciente datoP)
+{
+    nodoArbolPacientes *aux=(nodoArbolPacientes*)malloc(sizeof(nodoArbolPacientes));
+    strcpy(aux->dato.apellidoYnombre,datoP.apellidoYnombre);
+    aux->dato.edad = aux->dato.dni;
+    aux->dato.dni = datoP.dni;
+    strcpy(aux->dato.direccion,datoP.direccion);
+    strcpy(aux->dato.telefono,datoP.telefono);
+    aux->der=NULL;
+    aux->izq=NULL;
+    return aux;
+}
+
+nodoArbolPacientes * insertarNodoArbol (nodoArbolPacientes *arbol, Paciente dato)
+{
+    if(arbol==NULL)
+    {
+        arbol = crearNodoArbol (dato);
+    }
+    else
+    {
+
+        if(strcmp(arbol->dato.apellidoYnombre,dato.apellidoYnombre)>0)
+        {
+            arbol->der = insertarNodoArbol (arbol->der,dato);
+        }
+        else
+        {
+            arbol->izq = insertarNodoArbol (arbol->izq,dato);
+        }
+    }
+    return arbol;
+}
+void mostrarArbolINORDER (nodoArbolPacientes * arbol)
+{
+    mostrarArbolINORDER (arbol->izq);
+    printf("\n------------------------------------\n");
+    printf("Apellido y nombre: %s\n",arbol->dato.apellidoYnombre);
+    printf("Edad: %i\n",arbol->dato.edad);
+    printf("DNI: %i\n",arbol->dato.dni);
+    printf("Direccion: %s\n",arbol->dato.direccion);
+    printf("Telefono: %s\n",arbol->dato.telefono);
+    printf("------------------------------------\n");
+    mostrarArbolINORDER (arbol->der);
+}
+
+///ARCHIVO DE PACIENTES
+void mostrarUnPaciente (Paciente nuevoPaciente)
+{
+    printf("\n------------------------------------\n");
+    printf("Apellido y nombre: %s\n",nuevoPaciente.apellidoYnombre);
+    printf("Edad: %i\n",nuevoPaciente.edad);
+    printf("DNI: %i\n",nuevoPaciente.dni);
+    printf("Direccion: %s\n",nuevoPaciente.direccion);
+    printf("Telefono: %s\n",nuevoPaciente.telefono);
+    printf("------------------------------------\n");
+}
+
+void mostrarArchivoPacientes (char nombreArcPacientes[])
+{
+    Paciente nuevoPaciente;
+    FILE *archi=fopen(nombreArcPacientes,"rb");
+    if(archi!=NULL)
+    {
+        while(!feof(archi))
+        {
+            fread(&nuevoPaciente,sizeof(Paciente),1,archi);
+            if(!feof(archi))
+            {
+                mostrarUnPaciente (nuevoPaciente);
+            }
+        }
+        fclose(archi);
+    }
+}
+
+
+Paciente cargarUnPaciente ()
+{
+    Paciente nuevoPaciente;
+    printf("Ingrese nombre y apellido del paciente: ");
+    fflush(stdin);
+    scanf("%s",nuevoPaciente.apellidoYnombre);
+
+    printf("Ingrese edad del paciente: ");
+    scanf("%i",&nuevoPaciente.edad);
+
+    printf("Ingrese el DNI del paciente: ");
+    scanf("%i",&nuevoPaciente.dni);
+
+    printf("Ingrese la direccion del paciente: ");
+    fflush(stdin);
+    scanf("%s",nuevoPaciente.direccion);
+
+    printf("Ingrese el telefono del paciente: ");
+    fflush(stdin);
+    scanf("%s",nuevoPaciente.telefono);
+    return nuevoPaciente;
+}
+
+void cargarArchivoPacientes (char nombreArcPacientes[])
+{
+    char respuesta[3];
+    do
+    {
+        Paciente nuevoPaciente;
+        FILE * archi = fopen(nombreArcPacientes,"ab");
+        if (archi!=NULL)
+        {
+            nuevoPaciente = cargarUnPaciente ();
+            fwrite(&nuevoPaciente,sizeof(Paciente),1,archi);
+            printf("¿Desea cargar otro paciente? ");
+            fflush(stdin);
+            scanf("%s",respuesta);
+            if(strcmp(respuesta,"si")!=0 && strcmp(respuesta,"no")!=0)
+            {
+                printf("Respuesta invalida, vuelva a ingresar!\n");
+                fflush(stdin);
+                scanf("%s",respuesta);
+            }
+            fclose(archi);
+        }
+    }while(strcmp(respuesta,"si")==0);
+
+}
+
+>>>>>>> Stashed changes
