@@ -1,5 +1,7 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
+
+///ESTRUCTURAS
 typedef struct
 {
 int nroIngreso;
@@ -36,9 +38,14 @@ struct nodoPracticasXIngreso* siguiente;
 
 typedef struct{
 int nroPractica;
-char nombreDePractica;
+char nombreDePractica[30];
 int eliminado;
 }practicasLaboratorio;
+
+typedef struct nodoPracticasLaboratorio{
+practicasLaboratorio datos;
+struct nodoPracticasLaboratorio* siguiente;
+}nodoPracticasLaboratorio;
 
 typedef struct
 {
@@ -71,11 +78,13 @@ typedef struct nodoArbolPacientes
     paciente dato;
     struct nodoIngresos * listaIngresos;
     struct nodoArbolPacientes*izq;
-    struct nodoArbolPacientes *der;
+    struct nodoArbolPacientes*der;
 } nodoArbolPacientes;
-//FUNCION GENERAL
+
+///FUNCIONES GENERALES
 void clearScreen();
-//Funciones INGRESOS
+
+//FUNCIONES DE INGRESOS
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
@@ -85,9 +94,16 @@ nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
 
 //FUNCIONES PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
-int BuscarPractica(char archivo[], int nroPractica);
+int BuscarPractica(char archivo[], char nombrePractica[]);
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso);
 nodoPracticasXIngreso* alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso);
 
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
+//FUNCIONES DE PACIENTES
+paciente cargarUnPaciente ();
+void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
+void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
+nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
+nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
 #endif // FUNCIONES_H_INCLUDED
