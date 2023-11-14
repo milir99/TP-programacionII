@@ -228,6 +228,252 @@ nodoIngresos*crearNodoIngreso(ingresos dato)
     }
     return aux;
 }
+
+//
+//
+//
+///ARBOLES DE PACIENTES
+
+    nodoArbolPacientes * iniciarArbol ()
+{
+    return NULL;
+}
+// CREAR NODO ARBOL PACIENTE
+nodoArbolPacientes *crearNodoArbol (Paciente datoP)
+{
+    nodoArbolPacientes *aux=(nodoArbolPacientes*)malloc(sizeof(nodoArbolPacientes));
+    strcpy(aux->dato.apellidoYnombre,datoP.apellidoYnombre);
+    aux->dato.edad = aux->dato.dni;
+    aux->dato.dni = datoP.dni;
+    strcpy(aux->dato.direccion,datoP.direccion);
+    strcpy(aux->dato.telefono,datoP.telefono);
+    aux->der=NULL;
+    aux->izq=NULL;
+    return aux;
+}
+
+//INSERTAR NODO ARBOL PACIENTE
+nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, Paciente dato)
+{
+    if(arbolPacientes==NULL)
+    {
+        arbolPacientes = crearNodoArbol (dato);
+    }
+    else
+    {
+
+        if(strcmp(arbolPacientes->dato.apellidoYnombre,dato.apellidoYnombre)>0)
+        {
+            arbolPacientes->der = insertarNodoArbol (arbolPacientes->der,dato);
+        }
+        else
+        {
+            arbolPacientes->izq = insertarNodoArbol (arbolPacientes->izq,dato);
+        }
+    }
+    return arbolPacientes;
+}
+
+nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
+{
+    Paciente dato;
+    char respuesta[3];
+    do
+    {
+        dato = cargarUnPaciente ();
+        nodoArbolPacientes * aux = existePaciente(arbolPacientes,dato.dni);
+        if(arbolPacientes==NULL)
+        {
+            arbolPacientes = crearNodoArbol(dato);
+            printf("Desea ingresar paciente? ");
+            fflush(stdin);
+            scanf("%c",respuesta);
+            respuesta = tolower(respuesta);
+
+            if(strcmp(strcmp(respuesta,"s")!=0) || strcmp(strcmp(respuesta,"n")!=0))
+            {
+                printf("Respuesta invalida, ingrese devuelta. ");
+                fflush(stdin);
+                scanf("%c",respuesta);
+                respuesta = tolower(respuesta);
+            }
+        }
+        else
+        {
+            printf("Este paciente ya existe, intentelo otra vez!\n");
+            dato = cargarUnPaciente ();
+        }
+
+    }while(strcmp(respuesta,"s")==0);
+}
+
+//CARGAR PACIENTE
+Paciente cargarUnPaciente ()
+{
+    Paciente nuevoPaciente;
+    printf("Ingrese nombre y apellido del paciente: ");
+    fflush(stdin);
+    scanf("%s",nuevoPaciente.apellidoYnombre);
+
+    printf("Ingrese edad del paciente: ");
+    scanf("%i",&nuevoPaciente.edad);
+
+    printf("Ingrese el DNI del paciente: ");
+    scanf("%i",&nuevoPaciente.dni);
+
+    printf("Ingrese la direccion del paciente: ");
+    fflush(stdin);
+    scanf("%s",nuevoPaciente.direccion);
+
+    printf("Ingrese el telefono del paciente: ");
+    fflush(stdin);
+    scanf("%s",nuevoPaciente.telefono);
+    return nuevoPaciente;
+}
+
+//MOSTRAR EN ORDEN EL ARBOL
+void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
+{
+    mostrarArbolINORDER (arbolPacientes->izq);
+    printf("\n------------------------------------\n");
+    printf("Apellido y nombre: %s\n",arbolPacientes->dato.apellidoYnombre);
+    printf("Edad: %i\n",arbolPacientes->dato.edad);
+    printf("DNI: %i\n",arbolPacientes->dato.dni);
+    printf("Direccion: %s\n",arbolPacientes->dato.direccion);
+    printf("Telefono: %s\n",arbolPacientes->dato.telefono);
+    printf("------------------------------------\n");
+    mostrarArbolINORDER (arbolPacientes->der);
+}
+
+///ARCHIVO DE PACIENTES
+void mostrarUnPaciente (Paciente nuevoPaciente)
+{
+    printf("\n------------------------------------\n");
+    printf("Apellido y nombre: %s\n",nuevoPaciente.apellidoYnombre);
+    printf("Edad: %i\n",nuevoPaciente.edad);
+    printf("DNI: %i\n",nuevoPaciente.dni);
+    printf("Direccion: %s\n",nuevoPaciente.direccion);
+    printf("Telefono: %s\n",nuevoPaciente.telefono);
+    printf("------------------------------------\n");
+}
+void mostrarArchivoPacientes (char nombreArcPacientes[])
+{
+    Paciente nuevoPaciente;
+    FILE *archi=fopen(nombreArcPacientes,"rb");
+    if(archi!=NULL)
+    {
+        while(!feof(archi))
+        {
+            fread(&nuevoPaciente,sizeof(Paciente),1,archi);
+            if(!feof(archi))
+            {
+                mostrarUnPaciente (nuevoPaciente);
+            }
+        }
+        fclose(archi);
+    }
+}
+
+///CARGAR DE ARBOL A ARCHIVO DE PACIENTES
+void cargarArchivoPaciente (char nombreArcPacientes,nodoArbolPacientes * arbolPacientes)
+{
+    Paciente nuevoPaciente;
+    FILE *archi=fopen(nombreArcPacientes,"wb");
+    if(archi!=NULL)
+    {
+        cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+        fclose(archi);
+    }
+    else
+    {
+        printf("Error al abrir el archivo.\n");
+    }
+}
+void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes)
+{
+    if(arbolPacientes)
+    {
+        cargarArchivoPacientesDelArbol (archi,arbolPacientes->izq);
+        fwrite(&arbolPacientes->dato,sizeof(Paciente),1,archi);
+        cargarArchivoPacientesDelArbol (archi, arbolPacientes->der);
+    }
+}
+//
+//
+//
+
+//FUNCION ALTA EMPLEADOS
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux)
+{
+    nodoEmpleados * existe = existeEmpleado(listaEmpleados,aux.dni);
+    if(existe == NULL)
+    {
+        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+        listaEmpleados = agregarPpioEmpleados(listaEmpleados, nuevo);
+
+        printf("El empleado fue agregado.\n");
+    }else{
+        printf("El empleado ya existe.\n");
+    }
+    return listaEmpleados;
+}
+
+//FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
+nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo)
+{
+    nuevo->siguiente = empleados;
+    if(empleados != NULL)
+    {
+        empleados->anterior = nuevo;
+    }
+    return empleados;
+}
+
+//FUNCION SI EXISTE UN EMPLEADO
+nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
+{
+    nodoEmpleados * actual = empleado;
+
+    while(actual != NULL)
+    {
+        if (actual->empleado.dni == dniEmpleado)
+        {
+            return actual;
+        }
+        actual = actual->siguiente;
+    }
+    return NULL;
+}
+
+//FUNCION DE CREAR NODO TIPO EMPLEADO
+nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
+{
+    nodoEmpleados * aux = (nodoEmpleados*)malloc(sizeof(nodoEmpleados));
+    if (aux == NULL)
+    {
+        printf("ERROR: No se pudo crear el nodo para el empleado.\n");
+    }
+    aux->empleado.DNI = dato.DNI;
+    aux->empleado.telefono = dato.telefono;
+    strcpy(aux->empleado.apellidoYnombre, dato.apellidoYnombre);
+    strcpy(aux->empleado.contrasenia, dato.contrasenia);
+    strcpy(aux->empleado.usuario, dato.usuario);
+    aux->anterior = NULL;
+    aux->siguiente = NULL;
+    return aux;
+}
+
+//INICIALIZAR LA LISTA DOBLE EMPLEADOS
+nodoEmpleados * iniclistaEmpleados()
+{
+    return NULL;
+}
+
+//INICIALIZAR LA LISTA DOBLE PRACTICA POR INGRESO
+nodoPracticasXIngreso * iniclistaPracticaXingreso()
+{
+    return NULL;
+}
 //FUNCION PARA BORRAR LO QUE HAY EN PANTALLA
 void clearScreen() {
     #ifdef _WIN32
@@ -236,3 +482,4 @@ void clearScreen() {
         system("clear");
     #endif
 }
+
