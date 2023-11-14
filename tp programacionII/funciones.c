@@ -418,6 +418,34 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLa
     return listaEmpleados;
 }
 
+//FUNCION PASAR DE LA LISTA AL ARCHIVO (a completar)
+void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[])
+{
+    FILE * archi = fopen(nombreArchivo, "ab");
+
+
+}
+
+//FUNCION PASAR DE ARCHIVO A LISTA DOBLE EMPLEADOS
+nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados * listaEmpleados)
+{
+    FILE * archi = fopen(nombreArchivo, "rb");
+    empleadosDeLaboratorio aux;
+
+    if(archi != NULL)
+    {
+        while(fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi)==1)
+        {
+            listaEmpleados = agregarPpioEmpleados(listaEmpleados,crearNodoEmpleados(aux));
+        }
+        fclose(archi);
+    }else{
+        printf("No se pudo abrir el archivo.\n");
+    }
+    printf("Se pasaron los datos del archivo a la lista doble.\n"); //BORRAR ANTES DE LA PRESENTACION
+    return listaEmpleados;
+}
+
 //FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo)
 {
