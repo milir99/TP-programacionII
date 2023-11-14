@@ -80,6 +80,9 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
+nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso);
+nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
+
 //FUNCIONES PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
 int BuscarPractica(char archivo[], int nroPractica);

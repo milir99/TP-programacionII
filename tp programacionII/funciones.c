@@ -3,8 +3,198 @@
 #include "funciones.h"
 #include <ctype.h>
 #include <string.h>
+//FUNCION ALTA DE PRACTICAS
+void alta_de_practica(practica dato)
+{
+    //VER SI SE PUEDE MANEJAR DIRECTAMENTE DESDE EL ARCHIVO
 
-// FUNCION DE ALTAS POR INGRESO
+}
+//FUNCIONES DE INGRESO///
+//FUNCION  DE MODIFICACION DE INGRESOS
+// solo pueden modificarse las fechas y matricula del solicitante
+nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
+{  //en el main tenemos que buscar el nodo arbol paciente con el dni de la persona
+    int eleccion;
+    char cambiarchar[40];
+    int cambiarint;
+    nodoIngresos*existe= buscarIngreso(lista,nroIngreso);
+    if(existe!=NULL)
+    {
+        do
+        {
+            printf("Elija numero de lo que desea modificar del ingreso\n");
+            printf("1.Fecha de ingreso\n");
+            printf("2.Fecha de retiro\n");
+            printf("3.Matricula de profesional\n");
+            printf("4. Salir ");
+            fflush(stdin);
+            scanf("%i",&eleccion);
+            switch(eleccion)
+            {
+            case 1:
+                printf("Ingrese la nueva fecha de ingreso: \n");
+                fflush(stdin);
+                scanf("%s",cambiarchar);
+                strcpy(existe->dato.fechaIngreso,cambiarchar);
+                break;
+            case 2:
+                printf("Ingrese la nueva fecha de retiro: \n");
+                fflush(stdin);
+                scanf("%s",cambiarchar);
+                strcpy(existe->dato.fechaRetiro,cambiarchar);
+                break;
+            case 3:
+                printf("Ingrese la nueva fecha de ingreso: \n");
+                fflush(stdin);
+                scanf("%i",&cambiarint);
+                existe->dato.matriculaProfesional=cambiarint;
+                break;
+            default:
+                if(eleccion!=4)
+                {
+                    printf("La opcion ingresada no existe.");
+                }
+
+            }
+        }
+        while(eleccion==4);
+        }
+    else
+    {
+        printf("El numero de ingreso NO existe.");
+    }
+    return existe;
+}
+//FUNCION BUSCAR INGRESO
+nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso)
+{
+    if(lista!= NULL)
+    {
+
+        if (lista->dato.nroIngreso == nroIngreso)
+        {
+            return lista;
+        }
+        return buscarIngreso(lista->siguiente,nroIngreso);
+
+    }
+    return NULL;
+}
+
+//FUNCION DE ALTA DE INGRESO (A COMPLETAR)
+nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,ingresos dato)
+{
+
+    nodoArbolPacientes * existencia = existePaciente(paciente,dato.dniPaciente);
+
+
+    if(existencia==NULL)
+    {
+        printf("El Paciente NO existe.\n");
+        printf("Debe darle de alta en el sistema ante de generar un ingreso.\n");
+        return NULL;
+
+    }
+    else
+    {
+        int nroIngreso = buscarUltimoNroIngreso(existencia->listaIngresos);
+       printf("numero de ingreso %i\n",nroIngreso);
+
+        nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(dato);
+
+
+        nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nuevoIngresoNodo->listaDePracticas ,nroIngreso);
+
+        if(nuevoIngresoNodo->listaDePracticas== NULL)
+        {
+           printf("Error al agregar las practicas.\n");
+            return NULL;
+        }
+        else
+        {
+          existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
+        }
+    }
+    printf("Ingreso cargado Exitosamente\n");
+    return existencia;
+}
+
+//FUNCION QUE DEVUELVE EL ULTIMO NUMERO DE INGRESO
+int buscarUltimoNroIngreso(nodoIngresos* lista)
+{
+    int nroIngreso = 0;
+
+    if (lista != NULL)
+    {
+        nodoIngresos* seg = lista;
+
+        while (seg->siguiente != NULL)
+        {
+            nroIngreso = seg->dato.nroIngreso;
+            seg = seg->siguiente;
+        }
+    }
+   printf("dentro numero de ingreso %i",nroIngreso);
+    return nroIngreso;
+}
+//FUNCION DE AGREGAR  INGRESO AL PRINCIPIO DE LA LISTA(DONE)
+nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
+{
+    if(lista==NULL)
+    {
+        lista=nuevoIngreso;
+    }
+    else
+    {
+        nuevoIngreso->siguiente=lista;
+        lista=nuevoIngreso;
+    }
+    return lista;
+
+}
+//FUNCION DE EXISTENCIA DE PACIENTE(DONE)//PODRIA CAMBIARLE EL NOMBRE A BUSCAR
+nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente)
+{
+    if (pacientes == NULL)
+    {
+        return NULL;
+    }
+
+    if (dniPaciente == pacientes->dato.dni)
+    {
+        return pacientes;
+
+    }
+    else if (dniPaciente < pacientes->dato.dni)
+    {
+        return existePaciente(pacientes->izq, dniPaciente);
+    }
+    else
+    {
+        return existePaciente(pacientes->der,dniPaciente);
+    }
+}
+//FUNCION CREA NODO TIPO INGRESO(done)
+nodoIngresos*crearNodoIngreso(ingresos dato)
+{
+    nodoIngresos* aux= (nodoIngresos*) malloc(sizeof(nodoIngresos));
+    aux->dato.nroIngreso=dato.nroIngreso;
+    strcpy(aux->dato.fechaIngreso,dato.fechaIngreso);
+    strcpy(aux->dato.fechaRetiro,dato.fechaRetiro);
+    aux->dato.dniPaciente=dato.dniPaciente;
+    aux->dato.matriculaProfesional=dato.matriculaProfesional;
+    aux->dato.eliminado=0;
+    aux->siguiente=NULL;
+    if(aux==NULL)
+    {
+        printf("ERROR al crear el NODO INGRESO\n");
+    }
+    return aux;
+}
+
+
+//FUNCIONES DE PRACTICAS X INGRESO///
+// FUNCION DE ALTA DE PREACTICAS POR INGRESO
 nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso)
 {
     char eleccion;
@@ -118,116 +308,6 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
 
 }
 
-//FUNCION DE ALTA DE INGRESO (A COMPLETAR)
-nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,ingresos dato)
-{
-
-    nodoArbolPacientes * existencia = existePaciente(paciente,dato.dniPaciente);
-
-
-    if(existencia==NULL)
-    {
-        printf("El Paciente NO existe.\n");
-        printf("Debe darle de alta en el sistema ante de generar un ingreso.\n");
-        return NULL;
-
-    }
-    else
-    {
-        int nroIngreso = buscarUltimoNroIngreso(existencia->listaIngresos);
-       printf("numero de ingreso %i\n",nroIngreso);
-
-        nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(dato);
-
-
-        nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nuevoIngresoNodo->listaDePracticas ,nroIngreso);
-
-        if(nuevoIngresoNodo->listaDePracticas== NULL)
-        {
-           printf("Error al agregar las practicas.\n");
-            return NULL;
-        }
-        else
-        {
-          existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
-        }
-    }
-    printf("Ingreso cargado Exitosamente\n");
-    return existencia;
-}
-
-//FUNCION QUE DEVUELVE EL ULTIMO NUMERO DE INGRESO
-int buscarUltimoNroIngreso(nodoIngresos* lista)
-{
-    int nroIngreso = 0;
-
-    if (lista != NULL)
-    {
-        nodoIngresos* seg = lista;
-
-        while (seg->siguiente != NULL)
-        {
-            nroIngreso = seg->dato.nroIngreso;
-            seg = seg->siguiente;
-        }
-    }
-   printf("dentro numero de ingreso %i",nroIngreso);
-    return nroIngreso;
-}
-//FUNCION DE AGREGAR  INGRESO AL PRINCIPIO DE LA LISTA(DONE)
-nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
-{
-    if(lista==NULL)
-    {
-        lista=nuevoIngreso;
-    }
-    else
-    {
-        nuevoIngreso->siguiente=lista;
-        lista=nuevoIngreso;
-    }
-    return lista;
-
-}
-//FUNCION DE EXISTENCIA DE PACIENTE(DONE)
-nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente)
-{
-    if (pacientes == NULL)
-    {
-        return NULL;
-    }
-
-    if (dniPaciente == pacientes->dato.dni)
-    {
-        return pacientes;
-
-    }
-    else if (dniPaciente < pacientes->dato.dni)
-    {
-        return existePaciente(pacientes->izq, dniPaciente);
-    }
-    else
-    {
-        return existePaciente(pacientes->der,dniPaciente);
-    }
-}
-//FUNCION CREA NODO TIPO INGRESO(done)
-nodoIngresos*crearNodoIngreso(ingresos dato)
-{
-    nodoIngresos* aux= (nodoIngresos*) malloc(sizeof(nodoIngresos));
-    aux->dato.nroIngreso=dato.nroIngreso;
-    strcpy(aux->dato.fechaIngreso,dato.fechaIngreso);
-    strcpy(aux->dato.fechaRetiro,dato.fechaRetiro);
-    aux->dato.dniPaciente=dato.dniPaciente;
-    aux->dato.matriculaProfesional=dato.matriculaProfesional;
-    aux->dato.eliminado=0;
-    aux->siguiente=NULL;
-    if(aux==NULL)
-    {
-        printf("ERROR al crear el NODO INGRESO\n");
-    }
-    return aux;
-}
 //FUNCION PARA BORRAR LO QUE HAY EN PANTALLA
 void clearScreen() {
     #ifdef _WIN32
