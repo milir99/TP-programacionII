@@ -239,7 +239,7 @@ nodoIngresos*crearNodoIngreso(ingresos dato)
     return NULL;
 }
 // CREAR NODO ARBOL PACIENTE
-nodoArbolPacientes *crearNodoArbol (Paciente datoP)
+nodoArbolPacientes *crearNodoArbol (paciente datoP)
 {
     nodoArbolPacientes *aux=(nodoArbolPacientes*)malloc(sizeof(nodoArbolPacientes));
     strcpy(aux->dato.apellidoYnombre,datoP.apellidoYnombre);
@@ -253,7 +253,7 @@ nodoArbolPacientes *crearNodoArbol (Paciente datoP)
 }
 
 //INSERTAR NODO ARBOL PACIENTE
-nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, Paciente dato)
+nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, paciente dato)
 {
     if(arbolPacientes==NULL)
     {
@@ -263,12 +263,11 @@ nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacient
     {
 
         if(strcmp(arbolPacientes->dato.apellidoYnombre,dato.apellidoYnombre)>0)
-        {
-            arbolPacientes->der = insertarNodoArbol (arbolPacientes->der,dato);
+        {   arbolPacientes->der= insertarNodoArbolPaciente(arbolPacientes->der,dato);
         }
         else
         {
-            arbolPacientes->izq = insertarNodoArbol (arbolPacientes->izq,dato);
+            arbolPacientes->izq= insertarNodoArbolPaciente(arbolPacientes->izq,dato);
         }
     }
     return arbolPacientes;
@@ -276,26 +275,26 @@ nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacient
 
 nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
 {
-    Paciente dato;
+    paciente dato;
     char respuesta[3];
     do
     {
         dato = cargarUnPaciente ();
         nodoArbolPacientes * aux = existePaciente(arbolPacientes,dato.dni);
-        if(arbolPacientes==NULL)
+        if(aux==NULL)
         {
             arbolPacientes = crearNodoArbol(dato);
             printf("Desea ingresar paciente? ");
             fflush(stdin);
             scanf("%c",respuesta);
-            respuesta = tolower(respuesta);
+            //respuesta = tolower(respuesta);CHEQUEAR PORQUE ME PIDE INT
 
-            if(strcmp(strcmp(respuesta,"s")!=0) || strcmp(strcmp(respuesta,"n")!=0))
+            if(strcmp(respuesta,"s")!=0 && strcmp(respuesta,"n")!=0)
             {
                 printf("Respuesta invalida, ingrese devuelta. ");
                 fflush(stdin);
                 scanf("%c",respuesta);
-                respuesta = tolower(respuesta);
+                //respuesta = tolower(respuesta);
             }
         }
         else
@@ -305,12 +304,13 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
         }
 
     }while(strcmp(respuesta,"s")==0);
+    return arbolPacientes;
 }
 
 //CARGAR PACIENTE
-Paciente cargarUnPaciente ()
+paciente cargarUnPaciente ()
 {
-    Paciente nuevoPaciente;
+    paciente nuevoPaciente;
     printf("Ingrese nombre y apellido del paciente: ");
     fflush(stdin);
     scanf("%s",nuevoPaciente.apellidoYnombre);
@@ -334,7 +334,7 @@ Paciente cargarUnPaciente ()
 //MOSTRAR EN ORDEN EL ARBOL
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
 {
-    mostrarArbolINORDER (arbolPacientes->izq);
+    mostrarArbolINORDERPaciente(arbolPacientes->izq);
     printf("\n------------------------------------\n");
     printf("Apellido y nombre: %s\n",arbolPacientes->dato.apellidoYnombre);
     printf("Edad: %i\n",arbolPacientes->dato.edad);
@@ -342,11 +342,11 @@ void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
     printf("Direccion: %s\n",arbolPacientes->dato.direccion);
     printf("Telefono: %s\n",arbolPacientes->dato.telefono);
     printf("------------------------------------\n");
-    mostrarArbolINORDER (arbolPacientes->der);
+    mostrarArbolINORDERPaciente (arbolPacientes->der);
 }
 
 ///ARCHIVO DE PACIENTES
-void mostrarUnPaciente (Paciente nuevoPaciente)
+void mostrarUnPaciente (paciente nuevoPaciente)
 {
     printf("\n------------------------------------\n");
     printf("Apellido y nombre: %s\n",nuevoPaciente.apellidoYnombre);
@@ -358,13 +358,13 @@ void mostrarUnPaciente (Paciente nuevoPaciente)
 }
 void mostrarArchivoPacientes (char nombreArcPacientes[])
 {
-    Paciente nuevoPaciente;
+    paciente nuevoPaciente;
     FILE *archi=fopen(nombreArcPacientes,"rb");
     if(archi!=NULL)
     {
         while(!feof(archi))
         {
-            fread(&nuevoPaciente,sizeof(Paciente),1,archi);
+            fread(&nuevoPaciente,sizeof(paciente),1,archi);
             if(!feof(archi))
             {
                 mostrarUnPaciente (nuevoPaciente);
@@ -375,13 +375,13 @@ void mostrarArchivoPacientes (char nombreArcPacientes[])
 }
 
 ///CARGAR DE ARBOL A ARCHIVO DE PACIENTES
-void cargarArchivoPaciente (char nombreArcPacientes,nodoArbolPacientes * arbolPacientes)
+void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes)
 {
-    Paciente nuevoPaciente;
+
     FILE *archi=fopen(nombreArcPacientes,"wb");
     if(archi!=NULL)
     {
-        cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+        cargarArchivoPacientesDelArbol (archi, arbolPacientes);
         fclose(archi);
     }
     else
@@ -394,7 +394,7 @@ void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPac
     if(arbolPacientes)
     {
         cargarArchivoPacientesDelArbol (archi,arbolPacientes->izq);
-        fwrite(&arbolPacientes->dato,sizeof(Paciente),1,archi);
+        fwrite(&arbolPacientes->dato,sizeof(paciente),1,archi);
         cargarArchivoPacientesDelArbol (archi, arbolPacientes->der);
     }
 }
@@ -453,10 +453,10 @@ nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
     {
         printf("ERROR: No se pudo crear el nodo para el empleado.\n");
     }
-    aux->empleado.DNI = dato.DNI;
+    aux->empleado.dni = dato.dni;
     aux->empleado.telefono = dato.telefono;
-    strcpy(aux->empleado.apellidoYnombre, dato.apellidoYnombre);
-    strcpy(aux->empleado.contrasenia, dato.contrasenia);
+    strcpy(aux->empleado.apellidoYNombre, dato.apellidoYNombre);
+    strcpy(aux->empleado.clave, dato.clave);
     strcpy(aux->empleado.usuario, dato.usuario);
     aux->anterior = NULL;
     aux->siguiente = NULL;
