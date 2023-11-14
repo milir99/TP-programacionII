@@ -1,5 +1,7 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
+
+///ESTRUCTURAS
 typedef struct
 {
 int nroIngreso;
@@ -71,20 +73,29 @@ typedef struct nodoArbolPacientes
     paciente dato;
     struct nodoIngresos * listaIngresos;
     struct nodoArbolPacientes*izq;
-    struct nodoArbolPacientes *der;
+    struct nodoArbolPacientes*der;
 } nodoArbolPacientes;
-//FUNCION GENERAL
+
+///FUNCIONES GENERALES
 void clearScreen();
-//Funciones INGRESOS
+
+//FUNCIONES DE INGRESOS
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
-//FUNCIONES PRACTICAS X INGRESO
+//FUNCIONES DE PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
 int BuscarPractica(char archivo[], int nroPractica);
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso);
 nodoPracticasXIngreso* alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso);
 
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
+//FUNCIONES DE PACIENTES
+paciente cargarUnPaciente ();
+void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
+void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
+nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
+nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
 #endif // FUNCIONES_H_INCLUDED
