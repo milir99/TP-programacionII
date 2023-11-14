@@ -1,29 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define "funciones.h"
-// FUNCION DE ALTAS POR INGRESO
-nodoPracticasXIngreso alta_de_pxi(int nroDeIngreso)
-{
-    //Pedir datos de la practica
-    //Buscar si existe la practica
-    nodoPracticasXIngreso*nuevaPXI=crearNodoPXI(nroDeIngreso,nroPractica)
-    //SI EXISTE LA PRACTICA AGREGAR AL PRINCIPIO SI NO EXISTE IMPRIMIR CARTEL DE ERROR Y PEDIR QUE INGRESE LA PRACTICA NUEVAMENTE(HACER DO WHILE TAL VEZ PARA ESOY DEJAR QUE AGREGUE LA CANTIDAAD DE PRACTICAS QUE QUIERA),
+#include <string.h>
 
-}
-//FUNCION CREAR NODO PRACTICAS X INGRESO
-nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
-{
-    nodoPracticasXIngreso*aux=(nodoPracticasXIngreso*) malloc(sizeof(nodoPracticasXIngreso));
-    if(aux==NULL)
-    {
-        printf("Error al crear Nodo Practica x Ingreso");
-    }
-    aux.nroIngreso= nroIngreso;
-    aux.nroPractica= nroPractica;
-    aux.resultado=NULL;
-    aux.siguiente=NULL;
-
-}
+//// FUNCION DE ALTAS POR INGRESO
+//nodoPracticasXIngreso alta_de_pxi(int nroDeIngreso)
+//{
+//    //Pedir datos de la practica
+//    //Buscar si existe la practica
+//    nodoPracticasXIngreso*nuevaPXI=crearNodoPXI(nroDeIngreso,nroPractica)
+//    //SI EXISTE LA PRACTICA AGREGAR AL PRINCIPIO SI NO EXISTE IMPRIMIR CARTEL DE ERROR Y PEDIR QUE INGRESE LA PRACTICA NUEVAMENTE(HACER DO WHILE TAL VEZ PARA ESOY DEJAR QUE AGREGUE LA CANTIDAAD DE PRACTICAS QUE QUIERA),
+//
+//}
+////FUNCION CREAR NODO PRACTICAS X INGRESO
+//nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
+//{
+//    nodoPracticasXIngreso*aux=(nodoPracticasXIngreso*) malloc(sizeof(nodoPracticasXIngreso));
+//    if(aux==NULL)
+//    {
+//        printf("Error al crear Nodo Practica x Ingreso");
+//    }
+//    aux.nroIngreso= nroIngreso;
+//    aux.nroPractica= nroPractica;
+//    aux.resultado=NULL;
+//    aux.siguiente=NULL;
+//
+//}
 
 //FUNCION DE ALTA DE PACIENTE(A COMPLETAR)
 nodoPaciente* alta_de_ingreso(nodoPaciente *paciente,char fechaIngreso[] ,char fechaRetiro[],int dniPaciente,int matriculaProfesional, int eliminado)
@@ -83,7 +85,7 @@ nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaReti
     aux.nroIngreso=nroIngreso;
     aux.fechaIngreso=fechaIngreso;
     aux.fechaRetiro=fechaRetiro;
-    aux.dniPaciente;
+    aux.dniPaciente = dniPaciente;
     aux.matriculaProfesional=matriculaProfesional;
     aux.eliminado=0;
     aux.siguiente=NULL;
@@ -91,6 +93,65 @@ nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaReti
     {
         printf("ERROR al crear el NODO INGRESO\n")
     }
+}
+
+//FUNCION ALTA PRACTICA POR INGRESO
+nodoPracticasXIngreso * alta_de_practica_por_ingreso (nodoPracticasXIngreso * listaPracticaXingreso, char resultado[], int nroIngreso, int nroPractica)
+{
+    nodoPracticasXIngreso * existePxI = existePracticaXingreso (nroIngreso,listaPracticaXingreso);
+    if (existePxI == NULL)
+    {
+        nodoPracticasXIngreso * nuevo = crearNodoPracticaXingreso(nroIngreso,nroPractica,resultado);
+        listaPracticaXingreso = agregarPpioPracticaXingreso (listaPracticaXingreso,nuevo);
+        printf("La practica fue agregada.\n");
+    }else{
+        printf("La practica ya existe.\n");
+    }
+    return listaPracticaXingreso;
+}
+
+//FUNCION AGREGAR AL PRINCIPIO PRACTICA POR INGRESO
+nodoPracticasXIngreso * agregarPpioPracticaXingreso (nodoPracticasXIngreso * listaPracticaXingreso, nodoPracticasXIngreso * nuevo)
+{
+    nuevo->siguiente = listaPracticaXingreso;
+    if(listaPracticaXingreso != NULL)
+    {
+        listaPracticaXingreso->anterior = nuevo;
+    }
+    return listaPracticaXingreso;
+}
+
+//FUNCION SI EXISTE PRACTICA POR INGRESO
+nodoPracticasXIngreso * existePracticaXingreso (int nroIngreso, nodoPracticasXIngreso * listaDePracticaXingreso)
+{
+    nodoPracticasXIngreso * actual = listaDePracticaXingreso;
+
+    while(actual != NULL)
+    {
+        if(actual->nroIngreso == nroIngreso)
+        {
+            return actual;
+        }
+        actual = actual->siguiente;
+    }
+    return NULL;
+}
+
+//FUNCION CREAR NODO PRACTICAS X INGRESO
+nodoPracticasXIngreso * crearNodoPracticaXingreso(int nroIngreso, int nroPractica, char resultado[])
+{
+    nodoPracticasXIngreso * aux = (nodoPracticasXIngreso*)malloc(nodoPracticasXIngreso);
+    if(aux == NULL)
+    {
+        printf("Error al crear el nodo de practicas por ingreso.\n");
+    }
+    aux->nroIngreso = nroIngreso;
+    aux->nroPractica = nroPractica;
+    strcpy(aux->resultado, resultado);
+    aux->siguiente = NULL;
+    aux->anterior = NULL;
+
+    return aux;
 }
 
 //FUNCION ALTA EMPLEADOS
@@ -113,7 +174,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLa
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo)
 {
     nuevo->siguiente = empleados;
-    if(lista != NULL)
+    if(empleados != NULL)
     {
         empleados->anterior = nuevo;
     }
@@ -154,8 +215,14 @@ nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
     return aux;
 }
 
-//INICIALIZAR LA LISTA DOBLE
-nodoEmpleados * iniclista()
+//INICIALIZAR LA LISTA DOBLE EMPLEADOS
+nodoEmpleados * iniclistaEmpleados()
+{
+    return NULL;
+}
+
+//INICIALIZAR LA LISTA DOBLE PRACTICA POR INGRESO
+nodoPracticasXIngreso * iniclistaPracticaXingreso()
 {
     return NULL;
 }

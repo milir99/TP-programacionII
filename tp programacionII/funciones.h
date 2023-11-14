@@ -24,7 +24,8 @@ typedef struct nodoPracticasXIngreso{
  int nroIngreso;
  int nroPractica;
  char resultado[40];
-struct nodoPracticasXIngreso* siguiente;
+struct nodoPracticasXIngreso * siguiente;
+struct nodoPracticasXIngreso * anterior;
 }nodoPracticasXIngreso;
 
 typedef struct{
@@ -71,10 +72,16 @@ nodoIngresos*crearNodoIngreso(int nroIngreso,char fechaIngreso[] ,char fechaReti
 #endif // FUNCIONES_H_INCLUDED
 
 //Funciones EMPLEADOS
-nodoEmpleados * iniclista();
+nodoEmpleados * iniclistaEmpleados();
 nodoEmpleados * crearNodoListaDoble(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
 nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux);
 
+//Funciones PRACTICAS POR INGRESO
+nodoPracticasXIngreso * iniclistaPracticaXingreso();
+nodoPracticasXIngreso * crearNodoPracticaXingreso(int nroIngreso, int nroPractica, char resultado[]);
+nodoPracticasXIngreso * existePracticaXingreso (int nroIngreso, nodoPracticasXIngreso * listaDePracticaXingreso);
+nodoPracticasXIngreso * agregarPpioPracticaXingreso (nodoPracticasXIngreso * listaPracticaXingreso, nodoPracticasXIngreso * nuevo);
+nodoPracticasXIngreso * alta_de_practica_por_ingreso (nodoPracticasXIngreso * listaPracticaXingreso, char resultado[], int nroIngreso, int nroPractica);
 
