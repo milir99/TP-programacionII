@@ -398,6 +398,82 @@ void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPac
         cargarArchivoPacientesDelArbol (archi, arbolPacientes->der);
     }
 }
+//
+//
+//
+
+//FUNCION ALTA EMPLEADOS
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux)
+{
+    nodoEmpleados * existe = existeEmpleado(listaEmpleados,aux.dni);
+    if(existe == NULL)
+    {
+        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+        listaEmpleados = agregarPpioEmpleados(listaEmpleados, nuevo);
+
+        printf("El empleado fue agregado.\n");
+    }else{
+        printf("El empleado ya existe.\n");
+    }
+    return listaEmpleados;
+}
+
+//FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
+nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo)
+{
+    nuevo->siguiente = empleados;
+    if(empleados != NULL)
+    {
+        empleados->anterior = nuevo;
+    }
+    return empleados;
+}
+
+//FUNCION SI EXISTE UN EMPLEADO
+nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
+{
+    nodoEmpleados * actual = empleado;
+
+    while(actual != NULL)
+    {
+        if (actual->empleado.dni == dniEmpleado)
+        {
+            return actual;
+        }
+        actual = actual->siguiente;
+    }
+    return NULL;
+}
+
+//FUNCION DE CREAR NODO TIPO EMPLEADO
+nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
+{
+    nodoEmpleados * aux = (nodoEmpleados*)malloc(sizeof(nodoEmpleados));
+    if (aux == NULL)
+    {
+        printf("ERROR: No se pudo crear el nodo para el empleado.\n");
+    }
+    aux->empleado.DNI = dato.DNI;
+    aux->empleado.telefono = dato.telefono;
+    strcpy(aux->empleado.apellidoYnombre, dato.apellidoYnombre);
+    strcpy(aux->empleado.contrasenia, dato.contrasenia);
+    strcpy(aux->empleado.usuario, dato.usuario);
+    aux->anterior = NULL;
+    aux->siguiente = NULL;
+    return aux;
+}
+
+//INICIALIZAR LA LISTA DOBLE EMPLEADOS
+nodoEmpleados * iniclistaEmpleados()
+{
+    return NULL;
+}
+
+//INICIALIZAR LA LISTA DOBLE PRACTICA POR INGRESO
+nodoPracticasXIngreso * iniclistaPracticaXingreso()
+{
+    return NULL;
+}
 //FUNCION PARA BORRAR LO QUE HAY EN PANTALLA
 void clearScreen() {
     #ifdef _WIN32
