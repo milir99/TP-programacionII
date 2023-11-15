@@ -90,13 +90,15 @@ nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
 nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso);
-nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
+nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
+nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso);
 
 //FUNCIONES PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
 int BuscarPractica(char archivo[], char nombrePractica[]);
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso);
 nodoPracticasXIngreso* alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso);
+nodoPracticasXIngreso* baja_de_PXI_EnCascada(nodoPracticasXIngreso* lista);
 
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
 //FUNCIONES DE PACIENTES

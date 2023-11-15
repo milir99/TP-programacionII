@@ -10,28 +10,28 @@ void alta_de_practica(practica dato)
     //VER SI SE PUEDE MANEJAR DIRECTAMENTE DESDE EL ARCHIVO
 
 }
+
 //FUNCIONES DE INGRESO///
 //FUNCION PARA COMPARAR FECHAS
-/*/ompara dos fechas en formato "YYYY-MM-DD". Devuelve verdadero (1) si la primera fecha
+/*/Compara dos fechas en formato "YYYY-MM-DD". Devuelve verdadero (1) si la primera fecha
  es anterior a la segunda, de lo contrario, devuelve falso (0)./*/
 int esAnterior(const char *fecha1_str, const char *fecha2_str) {
     struct tm fecha1 = {0};
     struct tm fecha2 = {0};
 
-    // Convierte las cadenas en estructuras tm
+
     if (sscanf(fecha1_str, "%d-%d-%d", &fecha1.tm_year, &fecha1.tm_mon, &fecha1.tm_mday) != 3 ||
         sscanf(fecha2_str, "%d-%d-%d", &fecha2.tm_year, &fecha2.tm_mon, &fecha2.tm_mday) != 3) {
         printf("Error al convertir las fechas.\n");
-        return 0; // Error en la conversión
+        return 0;
     }
 
-    fecha1.tm_year -= 1900; // Ajusta el año según el formato tm
-    fecha1.tm_mon -= 1;     // Ajusta el mes según el formato tm
+    fecha1.tm_year -= 1900;
+    fecha1.tm_mon -= 1;
 
     fecha2.tm_year -= 1900;
     fecha2.tm_mon -= 1;
 
-    // Compara las fechas y devuelve true si fecha1 es anterior a fecha2
     return mktime(&fecha1) < mktime(&fecha2);
 }
 //FUNCION VERIFICAR FECHA
@@ -59,9 +59,8 @@ int analizarFecha(const char *fechaIngresada) {
 
     // Considera años bisiestos
     if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
-        diasEnMes[2] = 29; // Año bisiesto, febrero tiene 29 días
+        diasEnMes[2] = 29;
     }
-
     if (dia < 1 || dia > diasEnMes[mes]) {
         printf("\nFecha no válida. Asegurate de que los valores esten ingresados como se pide.\n");
         return 0;
@@ -70,9 +69,37 @@ int analizarFecha(const char *fechaIngresada) {
     printf("Fecha valida: %s\n", fechaIngresada);
     return 1;
 }
+//FUNCION BAJA DE INGRESO
+
+nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso)
+{
+    //en el main tenemos que buscar el nodo arbol paciente con el dni de la persona
+    nodoIngresos*existe= buscarIngreso(lista,nroIngreso);
+    if(existe!=NULL)
+    {
+        existe->dato.eliminado=1;
+        existe->listaDePracticas= baja_de_PXI_EnCascada(existe->listaDePracticas);
+    }
+    else
+    {
+        printf("EL nro de ingreso no cincide con los ingresos del paciente\n");
+    }
+    return lista;
+}
+//FUNCION BAJA DE PXI
+nodoPracticasXIngreso* baja_de_PXI_EnCascada(nodoPracticasXIngreso* lista)
+{// borra y libera la lista de practicas relacionadas a un ingreso
+    if (lista!=NULL)
+    {
+        baja_de_PXI_EnCascada(lista->siguiente);
+        free(lista);
+    }
+    return NULL;
+}
 //FUNCION  DE MODIFICACION DE INGRESOS
-// solo pueden modificarse las fechas y matricula del solicitante
-nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
+/*/Busca un ingreso en una lista por número de ingreso, permite al usuario modificar fecha de ingreso, fecha de retiro o matrícula profesional,
+ validando entradas y relaciones temporales. Retorna la lista actualizada o muestra un mensaje si el ingreso no existe/*/
+nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
 {  //en el main tenemos que buscar el nodo arbol paciente con el dni de la persona
     int eleccion;
     char nuevaFecha[40];
@@ -157,12 +184,10 @@ nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
                     {
                         printf("Entrada invalida. Debes ingresar un número entero.\n");
 
-                        // Limpiar el búfer de entrada para evitar bucles infinitos
                         while (getchar() != '\n');
                     }
                     else
                     {
-                        // La entrada es un entero, salir del bucle
                         break;
                     }
                 }
@@ -181,11 +206,14 @@ nodoIngresos* modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
         }
     else
     {
-        printf("El numero de ingreso NO existe.");
+        printf("El numero de ingreso NO existe O fue eliminado.");
     }
-    return existe;
+    return lista;
+
 }
 //FUNCION BUSCAR INGRESO
+/*/recorre una lista de ingresos para encontrar y devolver el nodo
+cuyo número de ingreso coincida con el proporcionado, o devuelve NULL si no se encuentra./*/
 nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso)
 {
     if(lista!= NULL)
@@ -193,7 +221,11 @@ nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso)
 
         if (lista->dato.nroIngreso == nroIngreso)
         {
-            return lista;
+            if(lista->dato.eliminado == 0)
+            {
+              return lista;
+            }
+
         }
         return buscarIngreso(lista->siguiente,nroIngreso);
 
@@ -236,7 +268,7 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato
         }
     }
     printf("Ingreso cargado Exitosamente\n");
-    return existencia;
+    return paciente;
 }
 
 //FUNCION QUE DEVUELVE EL ULTIMO NUMERO DE INGRESO
