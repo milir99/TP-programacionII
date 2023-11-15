@@ -511,3 +511,93 @@ void clearScreen() {
     #endif
 }
 
+int usuarioYcontraseniaPrincipio(){
+    char clave[20];
+    char usuario[20];
+    int intentos=0;
+    int existe;
+
+    printf("Bienvenido!\n");
+    do{
+    printf("Ingrese su nombre de usuario: ");
+    fflush(stdin);
+    gets(usuario);
+
+    printf("Ingrese su clave: \n");
+    fflush(stdin);
+    gets(clave);
+    existe=compararUsuario();//ver que va en los parentesis
+
+    if (existe!=0)
+    {   clearScreen();
+        printf("Entrando al sistema");
+        return existe;
+    }
+
+    else{
+           printf("Usuario o contraseña ingresado incorrectamente.Intentelo otra vez.\n");
+           ingresos++,
+           if(ingresos==3){
+                printf("Demasiados intentos fallidos.");
+                printf("Comuniquese con un Administrador para generar cambio de contraseña o usuario.");
+            return 0;
+           }
+    }
+
+    }while(1);
+
+}
+
+int compararUsuario (char clave[], char usuario[], nodoEmpleados * listaEmpleados)
+{
+    int tipoPerfil=0;
+
+
+        if(strcmp(usuario, listaEmpleados->empleado.usuario)==0)
+        {
+            if(strcmp(clave, listaEmpleados->empleado.clave)==0)
+            {
+                if(strcmp('administrador', listaEmpleados->empleado.perfil)==0){
+                    tipoPerfil=1;
+                }else if(strcmp('profesional', listaEmpleados->empleado.perfil)==0){
+                    tipoPerfil=2;
+                }else if(strcmp('administrativo', listaEmpleados->empleado.perfil)==0){
+                    tipoPerfil=3;
+                }
+            }
+        }
+        intentos++;
+
+    return tipoPerfil;
+}
+
+void switchAdmin(){
+    int eleccion;
+
+    do{
+        printf("Bienvenido/a!\n");
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
+        printf("1. Administrar usuario/empleado. \n");
+        printf("2. Adminnistrar practicas.\n");
+        printf("3. Administrar paciente.\n");
+        fflush(stdin);
+        scanf("%i", &eleccion);
+
+        switch(eleccion){
+        case 1:
+            break;
+
+        case 2:
+            break;
+
+        case 3:
+            break;
+
+        default:
+            if(eleccion!=0){
+                printf("Error, la opcion que ingreso es invalida.\n");
+            }
+        }
+    }while(eleccion!=0);
+}
+
