@@ -84,7 +84,13 @@ typedef struct nodoArbolPacientes
 ///FUNCIONES GENERALES
 void clearScreen();
 
-//FUNCIONES DE INGRESOS
+//FUNCIONES DE PRATICA
+nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practica dato);
+nodoPracticasLaboratorio*agregarPpioPracticaLaboratorio(nodoPracticasLaboratorio*lista,nodoPracticasLaboratorio* nuevaPractica);
+nodoPracticasLaboratorio* alta_de_practica(practica dato , nodoPracticasLaboratorio* lista);
+nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lista);
+
+//FUNCIONES DE INGRESO
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
@@ -95,7 +101,7 @@ nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso);
 
 //FUNCIONES PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
-int BuscarPractica(char archivo[], char nombrePractica[]);
+nodoPracticasLaboratorio* BuscarPractica(nodoPracticasLaboratorio*lista, char nombrePractica[]);
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso);
 nodoPracticasXIngreso* alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso);
 nodoPracticasXIngreso* baja_de_PXI_EnCascada(nodoPracticasXIngreso* lista);
@@ -105,7 +111,10 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
 paciente cargarUnPaciente ();
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+//FUNCIONES DE EMPLEADOS
 nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
+
+nodoPracticasLaboratorio * listaPracticas;
 #endif // FUNCIONES_H_INCLUDED
