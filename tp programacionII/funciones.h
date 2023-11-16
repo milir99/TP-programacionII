@@ -18,6 +18,7 @@ ingresos dato;
 struct nodoPracticasXIngreso*listaDePracticas;
 struct nodoIngresos*siguiente;
 }nodoIngresos;
+
 typedef struct
 {
      int nroPractica;
