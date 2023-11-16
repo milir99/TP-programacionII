@@ -197,10 +197,9 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
         return NULL;
     }
 
-    if (dniPaciente == pacientes->dato.dni && paciente.eliminado == 0)
+    if ((dniPaciente == pacientes->dato.dni) && (pacientes->dato.eliminado == 0))
     {
         return pacientes;
-
     }
     else if (dniPaciente < pacientes->dato.dni)
     {
@@ -314,9 +313,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
             switch (eleccionModificar)
             {
             case 1:
-
-
-                if(dniAbuscar != NULL)
+                if(dniAbuscar != 0)
                 {
                     do
                     {
@@ -327,7 +324,6 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
                             while(getchar() != '\n');
                             printf("La respuesta no es válida. Por favor, ingrese el nombre y apellido del paciente.\n");
                         }
-
                     }
                     while(getchar() != '\n');
                 }
@@ -360,7 +356,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
                 do
                 {
                     printf("Ingrese la nueva direccion: ");
-                    if(scanf("%i",&existeDNIpaciente->dato.direccion)!=1);
+                    if(scanf("%s",existeDNIpaciente->dato.direccion)!=1);
                     {
                         while(getchar() != '\n');
                         printf("La respuesta no es válida. Por favor, ingrese la direccion del paciente.\n");
@@ -372,7 +368,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
                 do
                 {
                     printf("Ingrese el nuevo telefono: ");
-                    if(scanf("%i",&existeDNIpaciente->dato.telefono)!=1);
+                    if(scanf("%s",existeDNIpaciente->dato.telefono)!=1);
                     {
                         while(getchar() != '\n');
                         printf("La respuesta no es válida. Por favor, ingrese el telefono del paciente.\n");
