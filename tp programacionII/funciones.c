@@ -4,7 +4,48 @@
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
-
+//FUNCIONES DE PRACTICAS
+//FUNCION DE LISTA PRACTICA A ARCHIVO
+//escribe los datos de una lista enlazada de prácticas de laboratorio en un archivo binario.
+void listaPracticaAArchivo(char archivoPraticas[],nodoPracticasLaboratorio* lista)
+{
+    FILE *arch;
+    arch=fopen(archivoPraticas,"wb");
+    if(arch!=NULL)
+    {
+        while(lista!=NULL)
+        {
+            fwrite(&lista->datos,sizeof(practicasLaboratorio),1,arch);
+            lista = lista->siguiente;
+        }
+        fclose(arch);
+    }
+    else
+    {
+        printf("Error al abrir el archivo de practicas\n");
+    }
+}
+// FUNCION DE ARCHIVO A LISTA DE PRACTICAS
+//lee datos de un archivo binario de prácticas de laboratorio y construye una lista enlazada a partir de ellos.
+nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPracticasLaboratorio* lista)
+{
+    FILE *arch;
+    practicasLaboratorio aux;
+    arch=fopen(archivoPraticas,"rb");
+    if(arch!=NULL)
+    {
+        while(fread(&aux,sizeof(practicasLaboratorio),1,arch)==1)
+        {
+            lista= agregarPpioPracticaLaboratorio(lista,CrearNodoPracticaLaboratorio(aux));
+        }
+        fclose(arch);
+    }
+    else
+    {
+        printf("Error al abrir el archivo de practicas");
+    }
+    return lista;
+}
 //FUNCION ALTA DE PRACTICAS
 /*/ solicita el nombre de una práctica a modificar. Luego, busca la práctica en una lista enlazada.
 Si encuentra la práctica, solicita el nuevo nombre y realiza la modificación.
@@ -67,10 +108,10 @@ nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lis
 //FUNCION DE ALTA DE PRACTICAS
 // agrega una nueva práctica al principio de la lista enlazada de prácticas de laboratorio si no existe previamente, verificando por nombre
 
-nodoPracticasLaboratorio* alta_de_practica(practica dato, nodoPracticasLaboratorio* lista)
+nodoPracticasLaboratorio* alta_de_practica(practicasLaboratorio dato, nodoPracticasLaboratorio* lista)
 {
     //Preguntar en main si el nro de practica no existe
-    nodoPracticasLaboratorio* nodoPractica= BuscarPractica(lista,dato.nombrePractica);
+    nodoPracticasLaboratorio* nodoPractica= BuscarPractica(lista,dato.nombreDePractica);
     if(nodoPractica!=NULL)
     {
         lista=agregarPpioPracticaLaboratorio(lista,CrearNodoPracticaLaboratorio(dato));
@@ -103,20 +144,65 @@ nodoPracticasLaboratorio*agregarPpioPracticaLaboratorio(nodoPracticasLaboratorio
 }
 //FUNCION CREAR NODO PRACTICA LABORATORIO
 //crea un nodo de practicas de laboratorio
-nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practica dato)
+nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practicasLaboratorio dato)
 {
     nodoPracticasLaboratorio*aux=(nodoPracticasLaboratorio*)malloc(sizeof(nodoPracticasLaboratorio));
     if(aux==NULL)
     {
         printf("Error al crear Nodo Practica x Ingreso");
     }
-    strcpy(aux->datos.nombreDePractica,dato.nombrePractica );
+    strcpy(aux->datos.nombreDePractica,dato.nombreDePractica );
     aux->datos.nroPractica=dato.nroPractica ;
     aux->datos.eliminado=0;
     aux->siguiente=NULL;
     return aux;
 
 }
+
+
+
+//FUNCION PASAR DE LA LISTA DE INGRESOS A ARCHIVO DE INGRESOS
+//crea un archivo binario y escribe la información de los ingresos de un árbol binario de pacientes en él.
+void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
+{
+    FILE* arch;
+    arch= fopen(archivoIngresos,"wb");
+    if(arch!=NULL)
+    {
+        escribirIngresosEnArchivo(arbol,arch);
+        fclose(arch);
+    }
+    else
+    {
+        printf("Error al abrir el archivo de practicas\n");
+
+    }
+}
+//FUNCION RECURSIVA DE ESCRIBIR LOS INGRESOS EN EL ARCHIVO
+/*/ recorre un árbol binario de pacientes, escribiendo la información de los ingresos en un archivo mediante un recorrido in-order.
+La función utiliza una estructura recursiva para acceder a la lista de ingresos de cada paciente y escribir sus datos correspondientes en el archivo./*/
+
+void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
+{
+    if (arbol)
+    {
+        // Recorrer el subárbol izquierdo
+        escribirIngresosEnArchivo(arbol->izq, archivo);
+
+        nodoIngresos* aux = arbol->listaIngresos;
+        while (aux)
+        {
+            fwrite(&aux->dato, sizeof(ingresos), 1, archivo);
+            aux = aux->siguiente;
+        }
+
+        escribirIngresosEnArchivo(arbol->der, archivo);
+    }
+}
+
+
+
+
 
 //FUNCIONES DE INGRESO///
 //FUNCION PARA COMPARAR FECHAS
@@ -482,7 +568,49 @@ nodoIngresos*crearNodoIngreso(ingresos dato)
 
 
 //FUNCIONES DE PRACTICAS X INGRESO///
+// FUNCION PASAR DE LISTA DE PRACTICAS POR INGRESO A ARCHIVO DE PXI
+//crea un archivo binario y escribe la información de las prácticas por ingreso de un árbol binario de pacientes en él.
+void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
+{
+    FILE* arch;
+    arch= fopen(archivoIngresos,"wb");
+    if(arch!=NULL)
+    {
+        escribirPXIEnArchivo(arbol,arch);
+        fclose(arch);
+    }
+    else
+    {
+        printf("Error al abrir el archivo de practicas\n");
 
+    }
+}
+
+// FUNCION ESCRIBIR  LAS PRACTICAS POR INGRESO EN EL  ARCHIVO DE PXI
+//recorre un árbol binario de pacientes y escribe la información de las prácticas por ingreso en un archivo mediante un recorrido in-order.
+void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
+{
+    if (arbol)
+    {
+        // Recorrer el subárbol izquierdo
+        escribirPXIEnArchivo(arbol->izq, archivo);
+
+        nodoIngresos* aux = arbol->listaIngresos;
+        while (aux)
+        {
+            nodoPracticasXIngreso* auxPXI= aux->listaDePracticas;
+            while(auxPXI)
+            {
+             fwrite(&auxPXI->dato, sizeof(practicasXIngreso), 1, archivo);
+             auxPXI=auxPXI->siguiente;
+            }
+
+            aux = aux->siguiente;
+        }
+
+        escribirPXIEnArchivo(arbol->der, archivo);
+    }
+}
 // FUNCION DE ALTA DE PRACTICAS POR INGRESO
 /*/agrega prácticas a un ingreso, solicitando códigos de prácticas, verificando su existencia, y creando nodos en una lista enlazada. Retorna la lista actualizada/*/
 
