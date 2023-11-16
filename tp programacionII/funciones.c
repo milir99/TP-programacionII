@@ -56,7 +56,7 @@ nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso)
     }
     else
     {
-     printf("Lista de practicas X ingreso cargada Exitosamente\n");
+        printf("Lista de practicas X ingreso cargada Exitosamente\n");
     }
 
     return lista;
@@ -89,7 +89,7 @@ int BuscarPractica(char archivo[], int nroPractica)
             if (aux.nroPractica == nroPractica)
             {
                 fclose(arch);
-               return 1;
+                return 1;
             }
         }
 
@@ -115,7 +115,6 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
     strcpy(aux->dato.resultado," ");
     aux->siguiente=NULL;
     return aux;
-
 }
 
 //FUNCION DE ALTA DE INGRESO (A COMPLETAR)
@@ -135,21 +134,21 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,ingresos dato)
     else
     {
         int nroIngreso = buscarUltimoNroIngreso(existencia->listaIngresos);
-       printf("numero de ingreso %i\n",nroIngreso);
+        printf("numero de ingreso %i\n",nroIngreso);
 
         nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(dato);
 
 
-        nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nuevoIngresoNodo->listaDePracticas ,nroIngreso);
+        nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nuevoIngresoNodo->listaDePracticas,nroIngreso);
 
         if(nuevoIngresoNodo->listaDePracticas== NULL)
         {
-           printf("Error al agregar las practicas.\n");
+            printf("Error al agregar las practicas.\n");
             return NULL;
         }
         else
         {
-          existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
+            existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
         }
     }
     printf("Ingreso cargado Exitosamente\n");
@@ -171,7 +170,7 @@ int buscarUltimoNroIngreso(nodoIngresos* lista)
             seg = seg->siguiente;
         }
     }
-   printf("dentro numero de ingreso %i",nroIngreso);
+    printf("dentro numero de ingreso %i",nroIngreso);
     return nroIngreso;
 }
 //FUNCION DE AGREGAR  INGRESO AL PRINCIPIO DE LA LISTA(DONE)
@@ -190,6 +189,7 @@ nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
 
 }
 //FUNCION DE EXISTENCIA DE PACIENTE(DONE)
+///CAMBIAR LUGAR A ARBOLES PACIENTE
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente)
 {
     if (pacientes == NULL)
@@ -197,7 +197,7 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
         return NULL;
     }
 
-    if (dniPaciente == pacientes->dato.dni)
+    if (dniPaciente == pacientes->dato.dni && paciente.eliminado == 0)
     {
         return pacientes;
 
@@ -211,18 +211,19 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
         return existePaciente(pacientes->der,dniPaciente);
     }
 }
+
 //FUNCION CREA NODO TIPO INGRESO(done)
 nodoIngresos*crearNodoIngreso(ingresos dato)
 {
-    nodoIngresos* aux= (nodoIngresos*) malloc(sizeof(nodoIngresos));
-    aux->dato.nroIngreso=dato.nroIngreso;
+    nodoIngresos* aux = (nodoIngresos*) malloc(sizeof(nodoIngresos));
+    aux->dato.nroIngreso = dato.nroIngreso;
     strcpy(aux->dato.fechaIngreso,dato.fechaIngreso);
     strcpy(aux->dato.fechaRetiro,dato.fechaRetiro);
-    aux->dato.dniPaciente=dato.dniPaciente;
-    aux->dato.matriculaProfesional=dato.matriculaProfesional;
-    aux->dato.eliminado=0;
-    aux->siguiente=NULL;
-    if(aux==NULL)
+    aux->dato.dniPaciente = dato.dniPaciente;
+    aux->dato.matriculaProfesional = dato.matriculaProfesional;
+    aux->dato.eliminado = 0;
+    aux->siguiente = NULL;
+    if(aux == NULL)
     {
         printf("ERROR al crear el NODO INGRESO\n");
     }
@@ -234,12 +235,13 @@ nodoIngresos*crearNodoIngreso(ingresos dato)
 //
 ///ARBOLES DE PACIENTES
 
-    nodoArbolPacientes * iniciarArbol ()
+nodoArbolPacientes * iniciarArbol ()
 {
     return NULL;
 }
+
 // CREAR NODO ARBOL PACIENTE
-nodoArbolPacientes *crearNodoArbol (paciente datoP)
+nodoArbolPacientes * crearNodoArbol (paciente datoP)
 {
     nodoArbolPacientes *aux=(nodoArbolPacientes*)malloc(sizeof(nodoArbolPacientes));
     strcpy(aux->dato.apellidoYnombre,datoP.apellidoYnombre);
@@ -249,13 +251,14 @@ nodoArbolPacientes *crearNodoArbol (paciente datoP)
     strcpy(aux->dato.telefono,datoP.telefono);
     aux->der=NULL;
     aux->izq=NULL;
+    aux->dato.eliminado = 0;
     return aux;
 }
 
 //INSERTAR NODO ARBOL PACIENTE
 nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, paciente dato)
 {
-    if(arbolPacientes==NULL)
+    if(arbolPacientes == NULL)
     {
         arbolPacientes = crearNodoArbol (dato);
     }
@@ -263,20 +266,141 @@ nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacient
     {
 
         if(strcmp(arbolPacientes->dato.apellidoYnombre,dato.apellidoYnombre)>0)
-        {   arbolPacientes->der= insertarNodoArbolPaciente(arbolPacientes->der,dato);
+        {
+            arbolPacientes->der = insertarNodoArbolPaciente(arbolPacientes->der,dato);
         }
         else
         {
-            arbolPacientes->izq= insertarNodoArbolPaciente(arbolPacientes->izq,dato);
+            arbolPacientes->izq = insertarNodoArbolPaciente(arbolPacientes->izq,dato);
         }
     }
+    printf("Se insertaron los datos del archivo al arbol.\n");
     return arbolPacientes;
 }
 
+
+//MODIFICACION DEL PACIENTE EN EL ARBOL
+/*Antes de usar esta funcion, se debe chequear que el arbol no este vacio, y que lo que devuelva no sea NULL*/
+nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente)
+{
+    int eleccionModificar;
+    int dniAbuscar;
+    do
+    {
+        printf("Ingrese el DNI del paciente que quiere modificar: ");
+        if (scanf("%i",&dniAbuscar)!=1)
+        {
+            while(getchar() != '\n');
+            printf("La respuesta no es válida. Por favor, ingrese el DNI del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
+
+    nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
+
+    if(existeDNIpaciente!=NULL)
+    {
+        do
+        {
+            printf("Ingrese lo que desee modificar o 0 para finalzar.\n");
+            printf("1. Nombre y apellido.\n");
+            printf("2. Edad.\n");
+            printf("3. DNI.\n");
+            printf("4. Direccion.\n");
+            printf("5. Telefono.\n");
+            fflush(stdin);
+            scanf("%i",&eleccionModificar);
+
+            switch (eleccionModificar)
+            {
+            case 1:
+
+
+                if(dniAbuscar != NULL)
+                {
+                    do
+                    {
+                        printf("Ingrese el nuevo nombre y apellido:");
+                        fflush(stdin);
+                        if(scanf("%s",existeDNIpaciente->dato.apellidoYnombre)!=1)
+                        {
+                            while(getchar() != '\n');
+                            printf("La respuesta no es válida. Por favor, ingrese el nombre y apellido del paciente.\n");
+                        }
+
+                    }
+                    while(getchar() != '\n');
+                }
+                break;
+            case 2:
+                do
+                {
+                    printf("Ingrese la nueva edad: ");
+                    if(scanf("%i",&existeDNIpaciente->dato.edad)!=1);
+                    {
+                        while(getchar() != '\n');
+                        printf("La respuesta no es válida. Por favor, ingrese la edad del paciente.\n");
+                    }
+                }
+                while(getchar() != '\n');
+                break;
+            case 3:
+                do
+                {
+                    printf("Ingrese el nuevo DNI: ");
+                    if(scanf("%i",&existeDNIpaciente->dato.dni)!=1);
+                    {
+                        while(getchar() != '\n');
+                        printf("La respuesta no es válida. Por favor, ingrese el DNI del paciente.\n");
+                    }
+                }
+                while(getchar() != '\n');
+                break;
+            case 4:
+                do
+                {
+                    printf("Ingrese la nueva direccion: ");
+                    if(scanf("%i",&existeDNIpaciente->dato.direccion)!=1);
+                    {
+                        while(getchar() != '\n');
+                        printf("La respuesta no es válida. Por favor, ingrese la direccion del paciente.\n");
+                    }
+                }
+                while(getchar() != '\n');
+                break;
+            case 5:
+                do
+                {
+                    printf("Ingrese el nuevo telefono: ");
+                    if(scanf("%i",&existeDNIpaciente->dato.telefono)!=1);
+                    {
+                        while(getchar() != '\n');
+                        printf("La respuesta no es válida. Por favor, ingrese el telefono del paciente.\n");
+                    }
+                }
+                while(getchar() != '\n');
+                break;
+            default:
+                if(eleccionModificar!=0)
+                {
+                    printf("Error, la opcion que ingreso es invalida.\n");
+                }
+            }
+        }
+        while(eleccionModificar!=0);
+    }
+    else
+    {
+        printf("El DNI ingresado es incorrecto, no se pueden hacer modificaciones.\n");
+    }
+    return existeDNIpaciente;
+}
+
+//ALTA PACIENTE EN EL ARBOL
 nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
 {
     paciente dato;
-    char respuesta[3];
+    char respuesta;
     do
     {
         dato = cargarUnPaciente ();
@@ -286,15 +410,15 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
             arbolPacientes = crearNodoArbol(dato);
             printf("Desea ingresar paciente? ");
             fflush(stdin);
-            scanf("%c",respuesta);
-            //respuesta = tolower(respuesta);CHEQUEAR PORQUE ME PIDE INT
+            scanf("%c",&respuesta);
+            respuesta = tolower(respuesta);
 
-            if(strcmp(respuesta,"s")!=0 && strcmp(respuesta,"n")!=0)
+            if(respuesta != 's'&& respuesta!= 'n')
             {
                 printf("Respuesta invalida, ingrese devuelta. ");
                 fflush(stdin);
-                scanf("%c",respuesta);
-                //respuesta = tolower(respuesta);
+                scanf("%c",&respuesta);
+                respuesta = tolower(respuesta);
             }
         }
         else
@@ -302,32 +426,99 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
             printf("Este paciente ya existe, intentelo otra vez!\n");
             dato = cargarUnPaciente ();
         }
-
-    }while(strcmp(respuesta,"s")==0);
+    }
+    while(respuesta =='s');
     return arbolPacientes;
 }
+
+//DAR DE BAJA PACIENTE
+nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
+{
+    int dniAbuscar;
+    do
+    {
+        printf("Ingrese el DNI del paciente que quiere modificar: ");
+        if (scanf("%i",&dniAbuscar)!=1)
+        {
+            while(getchar() != '\n');
+            printf("La respuesta no es válida. Por favor, ingrese el DNI del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
+
+    nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
+
+    if (existeDNIpaciente!=NULL)
+    {
+        existeDNIpaciente->dato.eliminado=1;
+    }
+    return existeDNIpaciente;
+}
+
+
 
 //CARGAR PACIENTE
 paciente cargarUnPaciente ()
 {
     paciente nuevoPaciente;
-    printf("Ingrese nombre y apellido del paciente: ");
-    fflush(stdin);
-    scanf("%s",nuevoPaciente.apellidoYnombre);
+    do
+    {
+        printf("Ingrese nombre y apellido del paciente: ");
+        fflush(stdin);
+        if(scanf("%s",nuevoPaciente.apellidoYnombre)!=1)
+        {
+            while(getchar() != '\n');
+            printf("Entrada no válida. Por favor, ingrese un nombre y apellido del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
 
-    printf("Ingrese edad del paciente: ");
-    scanf("%i",&nuevoPaciente.edad);
+    do
+    {
+        printf("Ingrese edad del paciente: ");
+        if((scanf("%i",&nuevoPaciente.edad)!=1))
+        {
+            while(getchar() != '\n');
+            printf("Entrada no válida. Por favor, ingrese la edad del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
 
-    printf("Ingrese el DNI del paciente: ");
-    scanf("%i",&nuevoPaciente.dni);
+    do
+    {
+        printf("Ingrese el DNI del paciente: ");
+        if (scanf("%i",&nuevoPaciente.dni)!=1)
+        {
+            while(getchar() != '\n');
+            printf("Entrada no válida. Por favor, ingrese el DNI del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
 
-    printf("Ingrese la direccion del paciente: ");
-    fflush(stdin);
-    scanf("%s",nuevoPaciente.direccion);
+    do
+    {
+        printf("Ingrese la direccion del paciente: ");
+        fflush(stdin);
+        if ((scanf("%s",nuevoPaciente.direccion)!=1))
+        {
+            while(getchar() != '\n');
+            printf("Entrada no válida. Por favor, ingrese la direccion del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
 
-    printf("Ingrese el telefono del paciente: ");
-    fflush(stdin);
-    scanf("%s",nuevoPaciente.telefono);
+    do
+    {
+        printf("Ingrese el telefono del paciente: ");
+        fflush(stdin);
+        if ((scanf("%s",nuevoPaciente.telefono)!=1))
+        {
+            while(getchar() != '\n');
+            printf("Entrada no válida. Por favor, ingrese el telefono del paciente.\n");
+        }
+    }
+    while(getchar() != '\n');
+
     return nuevoPaciente;
 }
 
@@ -377,7 +568,6 @@ void mostrarArchivoPacientes (char nombreArcPacientes[])
 ///CARGAR DE ARBOL A ARCHIVO DE PACIENTES
 void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes)
 {
-
     FILE *archi=fopen(nombreArcPacientes,"wb");
     if(archi!=NULL)
     {
@@ -388,6 +578,7 @@ void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbol
     {
         printf("Error al abrir el archivo.\n");
     }
+    printf("Se cargaron los datos del arbol al archivo.\n");
 }
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes)
 {
@@ -398,10 +589,10 @@ void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPac
         cargarArchivoPacientesDelArbol (archi, arbolPacientes->der);
     }
 }
-//
-//
-//
 
+//
+//
+//
 //FUNCION ALTA EMPLEADOS
 nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux)
 {
@@ -412,7 +603,9 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLa
         listaEmpleados = agregarPpioEmpleados(listaEmpleados, nuevo);
 
         printf("El empleado fue agregado.\n");
-    }else{
+    }
+    else
+    {
         printf("El empleado ya existe.\n");
     }
     return listaEmpleados;
@@ -475,11 +668,12 @@ nodoPracticasXIngreso * iniclistaPracticaXingreso()
     return NULL;
 }
 //FUNCION PARA BORRAR LO QUE HAY EN PANTALLA
-void clearScreen() {
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
+void clearScreen()
+{
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
 
