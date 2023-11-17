@@ -6,19 +6,30 @@
 
 1699736843 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.h
 
-1699922213 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\main.c
+1700090757 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+
+1700105691 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
+
+1700105691 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+
+1699979191 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 	<ctype.h>
 	<string.h>
 
-1699919002 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
-
-1699922018 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
-	<stdio.h>
-	<stdlib.h>
-	"funciones.h"
-	<ctype.h>
-	<string.h>
+1699980734 c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.h
 
