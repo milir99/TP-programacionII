@@ -33,16 +33,20 @@
 		</Compiler>
 		<Unit filename="funciones.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="funciones.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="pacientes.dat" />
 		<Unit filename="switch.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="switch.h" />
-		<Extensions />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -116,16 +116,19 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
 //FUNCIONES DE PACIENTES
 nodoArbolPacientes * iniciarArbol ();
 nodoArbolPacientes *crearNodoArbol (paciente datoP);
-nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, paciente dato);
+nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, nodoArbolPacientes* dato);
 nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes);
 paciente cargarUnPaciente ();
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes);
-void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+
 nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente);
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente);
 void mostrarArchivoPacientes (char nombreArcPacientes[]);
+nodoArbolPacientes* archivoAArbolPacientes(char archivo[],nodoArbolPacientes* arbol);
+nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int dni);
+nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol, nodoArbolPacientes *nodoAReubicar);
 
 
 //FUNCIONES EMPLEADOS

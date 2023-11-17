@@ -7,30 +7,34 @@
 #include <unistd.h>
 
 int main()
-{   char seguir;
+{
+    char seguir;
     nodoArbolPacientes* arbol= NULL;
-    do
-                    {
-                        arbol=altaArbolPacientes(arbol);
-                        printf("Desea dar de alta a otro Paciente? (s/n)\n");
-                        fflush(stdin);
-                        scanf("%c",&seguir);
-                        seguir = tolower(seguir);
-                        while(seguir!='s'&& seguir!='n')
-                        {
-                            printf("Eleccion incorrecta, intentelo otra vez\n");
-                            printf("Desea dar de alta a otro Paciente? (s/n)\n");
-                            fflush(stdin);
-                            scanf("%c",&seguir);
-                            seguir = tolower(seguir);
-                        }
 
-                    }
-                    while(seguir=='s');
-    arbol=modificacionPacientesArbol(arbol);
+    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
+    do
+    {
+        mostrarArbolINORDERPaciente(arbol);
+        arbol= modificacionPacientesArbol(arbol);
+        printf("Desea dar de alta a otro Paciente? (s/n)\n");
+        fflush(stdin);
+        scanf("%c",&seguir);
+        seguir = tolower(seguir);
+        while(seguir!='s'&& seguir!='n')
+        {
+            printf("Eleccion incorrecta, intentelo otra vez\n");
+            printf("Desea dar de alta a otro Paciente? (s/n)\n");
+            fflush(stdin);
+            scanf("%c",&seguir);
+            seguir = tolower(seguir);
+        }
+
+    }
+    while(seguir=='s');
     mostrarArbolINORDERPaciente(arbol);
-    cargarArchivoPaciente("paciente.dat",arbol);
-    mostrarArchivoPacientes("paciente.dat");
+
+    cargarArchivoPaciente("pacientes.dat",arbol);
+    mostrarArchivoPacientes("pacientes.dat");
 
     system("color 5");
     /*/para cuando ingrese fechas
