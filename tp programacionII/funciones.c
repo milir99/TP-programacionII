@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h"
+#include "switch.h"
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
@@ -1080,6 +1081,43 @@ void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPac
         cargarArchivoPacientesDelArbol (archi, arbolPacientes->der);
     }
 }
+//
+//
+//
+//FUNCION PASAR DE LA LISTA DOBLE AL ARCHIVO
+void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[])
+{
+    FILE * archi = fopen(nombreArchivo, "wb");
+
+    if(archi != NULL)
+    {
+        if(lista != NULL)
+        {
+            fwrite(&listaEmpleados->empleado, sizeof(empleadosDeLaboratorio), 1, archi);
+        }
+    }
+    fclose(archi);
+}
+
+//FUNCION PASAR DE ARCHIVO A LISTA DOBLE EMPLEADOS
+nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados * listaEmpleados)
+{
+    FILE * archi = fopen(nombreArchivo, "rb");
+    empleadosDeLaboratorio aux;
+
+    if(archi != NULL)
+    {
+        while(fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi)==1)
+        {
+            listaEmpleados = agregarPpioEmpleados(listaEmpleados,crearNodoEmpleados(aux));
+        }
+        fclose(archi);
+    }else{
+        printf("No se pudo abrir el archivo.\n");
+    }
+    printf("Se pasaron los datos del archivo a la lista doble.\n"); //BORRAR ANTES DE LA PRESENTACION
+    return listaEmpleados;
+}
 
 //
 //
@@ -1167,4 +1205,5 @@ void clearScreen()
     system("clear");
 #endif
 }
+
 
