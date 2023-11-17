@@ -125,10 +125,7 @@ void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbol
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
 nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente);
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente);
-nodoArbolPacientes * borrarNodoPaciente(nodoArbolPacientes* arbolPaciente, char nombreYapellido[]);
-nodoArbolPacientes * NMD(nodoArbolPacientes * arbolPaciente);
-nodoArbolPacientes* NMI(nodoArbolPacientes* arbolPaciente);
-
+void mostrarArchivoPacientes (char nombreArcPacientes[]);
 
 
 //FUNCIONES EMPLEADOS
