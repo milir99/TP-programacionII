@@ -532,6 +532,7 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
 {if (pacientes == NULL) {
 
         return NULL;
+}
 
     if (dniPaciente == pacientes->dato.dni) {
 
@@ -550,7 +551,8 @@ nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPacient
 
     printf("\n.%i no encontrado. \n", pacientes->dato.dni);
     return NULL;
-}
+
+
 }
 
 //FUNCION CREA NODO TIPO INGRESO(done)
@@ -800,10 +802,8 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
     }
     while(correcto==1);
 
-    printf("buscado %i\n",dniAbuscar);
-    mostrarArbolINORDERPaciente(arbolPaciente);
    nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
-    printf("%s",existeDNIpaciente->dato.apellidoYnombre);
+
 
     if(existeDNIpaciente!=NULL)
     {
@@ -837,7 +837,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
 
                     }
                     while (correcto == 1);
-
+                 arbolPaciente= reubicarNodoEnArbol(arbolPaciente,existeDNIpaciente);
                  puts("----------------------------------------\n");
                 printf("Nombre y Apellido  cambiado exitosamente.\n");
                 puts("\n----------------------------------------\n");
@@ -935,7 +935,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
 nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacientes *nodoAReubicar)
 {
 
-    arbol = removerNodoPacienteDelArbol(arbol, nodoAReubicar->dato.dni);
+    arbol = removerNodoPacienteDelArbolPorNombre(arbol, nodoAReubicar->dato.apellidoYnombre);
 
     arbol = insertarNodoArbolPaciente(arbol, nodoAReubicar);
 
@@ -944,25 +944,26 @@ nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacie
 
 // FUNCION REMOVER NODO DE UN ARBOL
 /* desvincula un nodo con un DNI específico del árbol binario de pacientes, preservando la estructura del árbol sin liberar la memoria del nodo.*/
-nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int dni)
+nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arbol,  char nombre[])
 {
     if (arbol == NULL)
     {
-
         return arbol;
     }
 
-    if (dni < arbol->dato.dni)
+    int comparacion = strcmp(nombre, arbol->dato.apellidoYnombre);
+
+    if (comparacion < 0)
     {
-        arbol->izq = removerNodoPacienteDelArbol(arbol->izq, dni);
+        arbol->izq = removerNodoPacienteDelArbolPorNombre(arbol->izq, nombre);
     }
-    else if (dni > arbol->dato.dni)
+    else if (comparacion > 0)
     {
-        arbol->der = removerNodoPacienteDelArbol(arbol->der, dni);
+        arbol->der = removerNodoPacienteDelArbolPorNombre(arbol->der, nombre);
     }
     else
     {
-       nodoArbolPacientes *nodoEliminado = arbol;
+        nodoArbolPacientes *nodoEliminado = arbol;
 
         if (arbol->izq == NULL)
         {
@@ -974,7 +975,7 @@ nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int d
         }
         else
         {
-           nodoArbolPacientes *aux = arbol->der;
+            nodoArbolPacientes *aux = arbol->der;
             while (aux->izq != NULL)
             {
                 aux = aux->izq;
@@ -982,10 +983,12 @@ nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int d
 
             arbol->dato = aux->dato;
 
-            arbol->der = removerNodoPacienteDelArbol(arbol->der, aux->dato.dni);
+            arbol->der = removerNodoPacienteDelArbolPorNombre(arbol->der, aux->dato.apellidoYnombre);
         }
 
         nodoEliminado->izq = nodoEliminado->der = NULL;
+
+        // No liberar la memoria del nodo eliminado
 
         return arbol;
     }

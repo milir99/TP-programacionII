@@ -127,7 +127,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente);
 void mostrarArchivoPacientes (char nombreArcPacientes[]);
 nodoArbolPacientes* archivoAArbolPacientes(char archivo[],nodoArbolPacientes* arbol);
-nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int dni);
+nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arbol,  char nombre[]);
 nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol, nodoArbolPacientes *nodoAReubicar);
 
 

@@ -31,7 +31,6 @@ int main()
 
     }
     while(seguir=='s');
-    mostrarArbolINORDERPaciente(arbol);
 
     cargarArchivoPaciente("pacientes.dat",arbol);
     mostrarArchivoPacientes("pacientes.dat");
