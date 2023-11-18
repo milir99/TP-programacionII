@@ -452,7 +452,7 @@ En caso de error, muestra un mensaje apropiado y retorna NULL. /*/
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato)
 {
 
-    nodoArbolPacientes * existencia = existePaciente(paciente,dato.dniPaciente);
+   nodoArbolPacientes * existencia = existePaciente(paciente,dato.dniPaciente);
 
 
     if(existencia==NULL)
@@ -529,28 +529,28 @@ nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
 /*/busca un paciente por su numero de DNI en un arbol binario de busqueda.
 Retorna el nodo del paciente si existe, de lo contrario, devuelve NULL/*/
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente)
-{
-    if (pacientes == NULL)
-    {
-        printf(".%i. dnifinal\n",dniPaciente);
-        return NULL;
-    }
+{if (pacientes == NULL) {
 
-    if (dniPaciente == pacientes->dato.dni)
-    {
-        printf("\n.%i igual. \n",pacientes->dato.dni);
+        return NULL;
+
+    if (dniPaciente == pacientes->dato.dni) {
+
         return pacientes;
     }
-    else if (dniPaciente < pacientes->dato.dni)
-    {
-        printf("\n.%imayor. \n",pacientes->dato.dni);
-        return existePaciente(pacientes->izq, dniPaciente);
+
+   nodoArbolPacientes* resultadoIzquierdo = existePaciente(pacientes->izq, dniPaciente);
+    if (resultadoIzquierdo != NULL) {
+        return resultadoIzquierdo;
     }
-    else
-    {
-        printf("\n.%i. \n",pacientes->dato.dni);
-        return existePaciente(pacientes->der, dniPaciente);
+
+   nodoArbolPacientes* resultadoDerecho = existePaciente(pacientes->der, dniPaciente);
+    if (resultadoDerecho != NULL) {
+        return resultadoDerecho;
     }
+
+    printf("\n.%i no encontrado. \n", pacientes->dato.dni);
+    return NULL;
+}
 }
 
 //FUNCION CREA NODO TIPO INGRESO(done)
@@ -743,7 +743,7 @@ nodoArbolPacientes * iniciarArbol ()
 // CREAR NODO ARBOL PACIENTE(chequeada)
 nodoArbolPacientes * crearNodoArbol (paciente datoP)
 {
-    nodoArbolPacientes *aux=(nodoArbolPacientes*)malloc(sizeof(nodoArbolPacientes));
+   nodoArbolPacientes *aux=(nodoArbolPacientes*)malloc(sizeof(nodoArbolPacientes));
     strcpy(aux->dato.apellidoYnombre,datoP.apellidoYnombre);
     aux->dato.edad = datoP.edad;
     aux->dato.dni = datoP.dni;
@@ -756,7 +756,7 @@ nodoArbolPacientes * crearNodoArbol (paciente datoP)
 }
 
 //INSERTAR NODO ARBOL PACIENTE(chequeada)
-nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, nodoArbolPacientes* nuevoNodo)
+nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes,nodoArbolPacientes* nuevoNodo)
 {
     if(arbolPacientes == NULL)
     {
@@ -802,7 +802,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
 
     printf("buscado %i\n",dniAbuscar);
     mostrarArbolINORDERPaciente(arbolPaciente);
-    nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
+   nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
     printf("%s",existeDNIpaciente->dato.apellidoYnombre);
 
     if(existeDNIpaciente!=NULL)
@@ -932,7 +932,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
 }
 //FUNCION PARA REUBICAR NODO QUE CAMBIA DE NOMBRE
 //desvincula el nodo con el DNI especificado del árbol, luego lo inserta nuevamente, manteniendo la estructura del árbol binario de búsqueda.
-nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol, nodoArbolPacientes *nodoAReubicar)
+nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacientes *nodoAReubicar)
 {
 
     arbol = removerNodoPacienteDelArbol(arbol, nodoAReubicar->dato.dni);
@@ -962,7 +962,7 @@ nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int d
     }
     else
     {
-        nodoArbolPacientes *nodoEliminado = arbol;
+       nodoArbolPacientes *nodoEliminado = arbol;
 
         if (arbol->izq == NULL)
         {
@@ -974,7 +974,7 @@ nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int d
         }
         else
         {
-            nodoArbolPacientes *aux = arbol->der;
+           nodoArbolPacientes *aux = arbol->der;
             while (aux->izq != NULL)
             {
                 aux = aux->izq;
@@ -1002,7 +1002,7 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
 
     dato = cargarUnPaciente ();
 
-    nodoArbolPacientes * aux = existePaciente(arbolPacientes,dato.dni);
+   nodoArbolPacientes * aux = existePaciente(arbolPacientes,dato.dni);
     if(aux==NULL)
     {
         arbolPacientes = insertarNodoArbolPaciente( arbolPacientes,crearNodoArbol(dato));
@@ -1057,7 +1057,7 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
     }
     while(getchar() != '\n');
 
-    nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
+   nodoArbolPacientes * existeDNIpaciente = existePaciente(arbolPaciente,dniAbuscar);
 
     if (existeDNIpaciente!=NULL)
     {
@@ -1190,7 +1190,7 @@ void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbol
     }
     printf("Se cargaron los datos del arbol al archivo.\n");
 }
-void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes)
+void cargarArchivoPacientesDelArbol (FILE * archi,nodoArbolPacientes * arbolPacientes)
 {
     if(arbolPacientes)
     {
