@@ -54,3 +54,14 @@
 	<string.h>
 	"switch.h"
 
+1700264263 source:c:\users\usuario\desktop\github\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<unistd.h>
+
+1700282971 c:\users\usuario\desktop\github\tp programacionii\funciones.h
+

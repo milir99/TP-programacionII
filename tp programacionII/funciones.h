@@ -79,7 +79,7 @@ typedef struct nodoArbolPacientes
 ///FUNCIONES GENERALES
 void clearScreen();
 
-//FUNCIONES DE PRATICA
+//FUNCIONES DE PRACTICA
 nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practicasLaboratorio dato);
 nodoPracticasLaboratorio*agregarPpioPracticaLaboratorio(nodoPracticasLaboratorio*lista,nodoPracticasLaboratorio* nuevaPractica);
 nodoPracticasLaboratorio* alta_de_practica(practicasLaboratorio dato , nodoPracticasLaboratorio* lista);
@@ -98,8 +98,6 @@ nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso);
 nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
 nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso);
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
-
-
 
 //FUNCIONES PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
@@ -122,16 +120,25 @@ paciente cargarUnPaciente ();
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes);
-void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
+void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes); //repetida
 nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente);
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente);
 void mostrarArchivoPacientes (char nombreArcPacientes[]);
 
 
 //FUNCIONES EMPLEADOS
+nodoEmpleados * iniclistaEmpleados();
 nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux);
+nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados * listaEmpleados);
+void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[]);
+void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoPerfil);
+void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil);
+nodoEmpleados * modificarEmpleado (nodoEmpleados * listaEmpleados);
+
+
 
 nodoPracticasLaboratorio * listaPracticas;
 #endif // FUNCIONES_H_INCLUDED

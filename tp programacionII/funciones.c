@@ -1108,6 +1108,237 @@ void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPac
 //
 //
 //
+//FUNCION MODIFICAR EMPLEADO (como Mili)
+nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
+{
+    int eleccionModificar;
+    int dniAbuscar;
+    do
+    {
+        printf("Ingrese el DNI del paciente que quiere modificar: ");
+        if (scanf("%i",&dniAbuscar)!=1)
+        {
+            while(getchar() != '\n');
+            printf("La respuesta no es valida. Por favor, ingrese el DNI del empleado.\n");
+        }
+    }
+    while(getchar() != '\n');
+
+    nodoEmpleados * existeDNIempleado = existeEmpleado(listaEmpleados,dniAbuscar);
+    int correcto;
+    if(existeDNIempleado!=NULL)
+    {
+        do
+        {
+            printf("Ingrese lo que desee modificar o 0 para finalzar.\n");
+            printf("1. Nombre y apellido.\n");
+            printf("2. Usuario.\n");
+            printf("3. DNI.\n");
+            printf("4. Clave.\n");
+            printf("5. Telefono.\n");
+            printf("6. Perfil.\n");
+            fflush(stdin);
+            scanf("%i",&eleccionModificar);
+
+            switch (eleccionModificar)
+            {
+            case 1:
+                if(dniAbuscar != 0)
+                {
+                    do
+                    {
+                        correcto = 0;
+                        printf("Ingrese nombre y apellido del empleado: ");
+                        fflush(stdin);
+                        if (fgets(existeDNIempleado->dato.apellidoYnombre, sizeof(existeDNIempleado->dato.apellidoYnombre), stdin) == NULL)
+                        {
+                            printf("Entrada no valida. Por favor, ingrese un nombre y apellido del empleado.\n");
+                            correcto = 1;
+                        }
+                        // funcion para acomodar el nodo bien en el arbol.
+                    }
+                    while (correcto == 1);
+
+                }
+                break;
+            case 2:
+                do
+                {
+                    correcto = 0;
+                    printf("Ingrese el nuevo usuario: ");
+                    if(scanf("%i",&existeDNIempleado->empleado.usuario)!=1);
+                    {
+                        correcto = 1;
+                        printf("La respuesta no es valida. Por favor, ingrese el usuario del empleado.\n");
+                    }
+                }
+                 while (correcto == 1);
+                break;
+            case 3:
+                do
+                {   correcto=0;
+                    printf("Ingrese el nuevo DNI: ");
+                    if(scanf("%i",&existeDNIempleado->dato.dni)!=1);
+                    {
+                        correcto =1;
+                        printf("La respuesta no es valida. Por favor, ingrese el DNI del empleado.\n");
+                    }
+                }
+                while (correcto == 1);
+                break;
+            case 4:
+                do
+                {   correcto=0;
+                    printf("Ingrese la nueva clave: ");
+                    if (fgets(existeDNIempleado->empleado.clave, sizeof(existeDNIempleado->empleado.clave), stdin) == NULL)
+                    {
+                        correcto=1;
+                        printf("La respuesta no es valida. Por favor, ingrese la clave del empleado.\n");
+                    }
+                }
+                while (correcto == 1);
+                break;
+            case 5:
+                do
+                {   correcto=0;
+                    printf("Ingrese el nuevo telefono: ");
+                    if (fgets(existeDNIempleado->dato.telefono, sizeof(existeDNIempleado->dato.telefono), stdin) == NULL)
+                    {
+                        correcto=1;
+                        printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
+                    }
+                }
+                while (correcto == 1);
+                break;
+            case 6:
+                do
+                {   correcto=0;
+                    printf("Ingrese el nuevo perfil: ");
+                    if (fgets(existeDNIempleado->empleado.perfil, sizeof(existeDNIempleado->empleado.perfil), stdin) == NULL)
+                    {
+                        correcto=1;
+                        printf("La respuesta no es valida. Por favor, ingrese el perfil del empleado.\n");
+                    }
+                }
+                while (correcto == 1);
+                break;
+
+
+            default:
+                if(eleccionModificar!=0)
+                {
+                    printf("Error, la opcion que ingreso es invalida.\n");
+                }
+            }
+        }
+        while(eleccionModificar!=0);
+    }
+    else
+    {
+        printf("El DNI ingresado es incorrecto, no se pueden hacer modificaciones.\n");
+    }
+    return existeDNIempleado;
+}
+////FUNCION MODIFICAR EMPLEADO (mal hecha y sin temrinar :(.)
+//nodoEmpleados * modificarEmpleado (nodoEmpleados * listaEmpleados)
+//{
+//    int dniAbuscar;
+//    int eleccion;
+//    int correcto;
+//    nodoEmpleados * seg = listaEmpleados;
+//    do{
+//        printf("Ingrese el DNI del empleado que quiera modificar: ");
+//        fflush(stdin);
+//        scanf("%i", &dniAbuscar);
+//        if(seg != NULL)
+//        {
+//            if(dniAbuscar == seg->empleado.dni)
+//            {
+//                do
+//                {
+//                    printf("Ingrese la opcion que desee modificar o 0 para finalizar: \n");
+//                    printf("1. DNI.\n");
+//                    printf("2. Telefono.\n");
+//                    printf("3. Apellido y nombre.\n");
+//                    printf("4. Usuario.\n");
+//                    printf("5. Clave.\n");
+//                    printf("6. Perfil.\n");
+//                    fflush(stdin);
+//                    scanf("%i", &eleccion);
+//
+//                    switch(eleccion)
+//                    {
+//                    case 1:
+//                        do{
+//                            if(dniAbuscar != seg->empleado.dni)
+//                            {
+//                                correcto=0;
+//                                printf("La respuesta no es valida. Vuelva a intentarlo.\n");
+//                            }else{
+//                                correcto=1;
+//                                printf("Ingrese el nuevo DNI: ");
+//                                fflush(stdin);
+//                                scanf("%i", &seg->empleado.dni);
+//                            }
+//
+//                        }while(correcto==1);
+//                        break;
+//
+//                    case 2:
+//                        do{
+//                            if(dniAbuscar != seg->empleado.dni)
+//                            {
+//                                correcto=0;
+//
+//
+//                            }
+//                        }while(correcto==1);
+//                        break;
+//
+//                    case 3:
+//                        break;
+//
+//                    case 4:
+//                        break;
+//
+//                    case 5:
+//                        break;
+//                    }
+//                }while(eleccion != 0);
+//                seg = seg->siguiente;
+//            }else{
+//                printf("El DNI ingresado no existe o es invalido.\n");
+//            }
+//        }
+//    }
+//}
+
+//FUNCION MOSTRAR LISTA DOBLE EMPLEADOS
+void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil)
+{
+    if(listaEmpleados != NULL)
+    {
+        mostrarUnaPersona(listaEmpleados->empleado,tipoPerfil);
+        listaEmpleados = listaEmpleados->siguiente;
+    }
+}
+
+void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoPerfil)
+{
+    printf("\n-------------------\n");
+    printf("DNI: %i\n", aux.dni);
+    printf("Telefono: %i\n", aux.telefono);
+    printf("Apellido y nombre: %s\n", aux.apellidoYNombre);
+    printf("Usuario: %s\n", aux.usuario);
+    if(tipoPerfil == 1)
+    {
+        printf("Clave: %s\n", aux.clave);
+    }else{
+        printf("******\n");
+    }
+    printf("Perfil: %s\n", aux.perfil);
+}
+
 //FUNCION PASAR DE LA LISTA DOBLE AL ARCHIVO
 void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[])
 {
@@ -1133,7 +1364,10 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
     {
         while(fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi)==1)
         {
-            listaEmpleados = agregarPpioEmpleados(listaEmpleados,crearNodoEmpleados(aux));
+            if(strcmp(listaEmpleados->empleado.apellidoYNombre, aux.apellidoYNombre)>0){
+                listaEmpleados = agregarPpioEmpleados(listaEmpleados,crearNodoEmpleados(aux));
+            }
+
         }
         fclose(archi);
     }else{
