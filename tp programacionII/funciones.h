@@ -44,7 +44,7 @@ struct nodoPracticasLaboratorio* siguiente;
 typedef struct
 {
     int dni;
-    int telefono;
+    char telefono [15];
     char apellidoYNombre[40];
     char usuario[20];
     char clave[20];
@@ -140,7 +140,7 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[]);
 void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoPerfil);
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil);
-nodoEmpleados * modificarEmpleado (nodoEmpleados * listaEmpleados);
+nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
 
 
 
