@@ -731,7 +731,10 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
     return aux;
 }
 
-
+//
+//
+//
+//
 //
 //
 //
@@ -930,7 +933,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
     }
     return arbolPaciente;
 }
-//FUNCION PARA REUBICAR NODO QUE CAMBIA DE NOMBRE
+//FUNCION PARA REUBICAR NODO QUE CAMBIA DE NOMBRE (chequeada)
 //desvincula el nodo con el DNI especificado del árbol, luego lo inserta nuevamente, manteniendo la estructura del árbol binario de búsqueda.
 nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacientes *nodoAReubicar)
 {
@@ -942,7 +945,7 @@ nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacie
     return arbol;
 }
 
-// FUNCION REMOVER NODO DE UN ARBOL
+// FUNCION REMOVER NODO DE UN ARBOL(chequeada)
 /* desvincula un nodo con un DNI específico del árbol binario de pacientes, preservando la estructura del árbol sin liberar la memoria del nodo.*/
 nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arbol,  char nombre[])
 {
@@ -1045,7 +1048,7 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
     return arbolPacientes;
 }
 
-//DAR DE BAJA PACIENTE
+//DAR DE BAJA PACIENTEchequeada)
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
 {
     int dniAbuscar;
@@ -1068,7 +1071,6 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
     }
     return existeDNIpaciente;
 }
-
 //CARGAR PACIENTE(chequeada)
 paciente cargarUnPaciente() {
     paciente nuevoPaciente;
@@ -1134,7 +1136,7 @@ paciente cargarUnPaciente() {
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
 {  if(arbolPacientes!= NULL)
     {
-
+mostrarArbolINORDERPaciente(arbolPacientes->izq);
     printf("\n------------------------------------\n");
     printf("Apellido y nombre: %s\n",arbolPacientes->dato.apellidoYnombre);
     printf("Edad: %i\n",arbolPacientes->dato.edad);
@@ -1142,7 +1144,7 @@ void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
     printf("Direccion: %s\n",arbolPacientes->dato.direccion);
     printf("Telefono: %s\n",arbolPacientes->dato.telefono);
     printf("------------------------------------\n");
-    mostrarArbolINORDERPaciente(arbolPacientes->izq);
+
     mostrarArbolINORDERPaciente (arbolPacientes->der);
     }
 }
@@ -1193,6 +1195,7 @@ void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbol
     }
     printf("Se cargaron los datos del arbol al archivo.\n");
 }
+//FUNCION ESCRIBIR EN EL ARCHIVO LO DEL ARBOL (chequeada)
 void cargarArchivoPacientesDelArbol (FILE * archi,nodoArbolPacientes * arbolPacientes)
 {
     if(arbolPacientes)
@@ -1223,6 +1226,7 @@ nodoArbolPacientes* archivoAArbolPacientes  ( char archivo[],nodoArbolPacientes*
     printf("Se cargaron los datos del Archivo al arbol.\n");
  return arbol;
 }
+//
 //
 //
 //
