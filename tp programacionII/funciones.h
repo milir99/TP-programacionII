@@ -4,30 +4,30 @@
 ///ESTRUCTURAS
 typedef struct
 {
-int nroIngreso;
-char fechaIngreso[10];
-char fechaRetiro[10];
-int dniPaciente;
-int matriculaProfesional;
-int eliminado;
+    int nroIngreso;
+    char fechaIngreso[10];
+    char fechaRetiro[10];
+    int dniPaciente;
+    int matriculaProfesional;
+    int eliminado;
 }ingresos;
 
 typedef struct nodoIngresos
 {
-ingresos dato;
-struct nodoPracticasXIngreso*listaDePracticas;
-struct nodoIngresos*siguiente;
+    ingresos dato;
+    struct nodoPracticasXIngreso*listaDePracticas;
+    struct nodoIngresos*siguiente;
 }nodoIngresos;
 
 typedef struct {
- int nroIngreso;
- int nroPractica;
- char resultado[40];
+    int nroIngreso;
+    int nroPractica;
+    char resultado[40];
 }practicasXIngreso;
 
 typedef struct nodoPracticasXIngreso{
- practicasXIngreso dato;
-struct nodoPracticasXIngreso* siguiente;
+    practicasXIngreso dato;
+    struct nodoPracticasXIngreso* siguiente;
 }nodoPracticasXIngreso;
 
 typedef struct{
@@ -65,6 +65,7 @@ typedef struct
     int dni;
     char direccion [30];
     char telefono [15];
+    int eliminado;
 } paciente;
 
 typedef struct nodoArbolPacientes
@@ -111,11 +112,26 @@ void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
 
 
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
+
 //FUNCIONES DE PACIENTES
+nodoArbolPacientes * iniciarArbol ();
+nodoArbolPacientes *crearNodoArbol (paciente datoP);
+nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, nodoArbolPacientes* dato);
+nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes);
 paciente cargarUnPaciente ();
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
-//FUNCIONES DE EMPLEADOS
+void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes);
+
+nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente);
+nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente);
+void mostrarArchivoPacientes (char nombreArcPacientes[]);
+nodoArbolPacientes* archivoAArbolPacientes(char archivo[],nodoArbolPacientes* arbol);
+nodoArbolPacientes *removerNodoPacienteDelArbol(nodoArbolPacientes *arbol, int dni);
+nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol, nodoArbolPacientes *nodoAReubicar);
+
+
+//FUNCIONES EMPLEADOS
 nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
