@@ -320,6 +320,7 @@ void switchAdmin()
     int eleccion1;
     int eleccion2;
     int eleccion3;
+    nodoEmpleados * listaEmpleados = iniclistaEmpleados();
 
     do
     {
@@ -349,6 +350,7 @@ void switchAdmin()
                 switch(eleccion2)
                 {
                 case 1:
+
                     break;
 
                 case 2:

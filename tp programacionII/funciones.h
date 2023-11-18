@@ -141,6 +141,10 @@ void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArch
 void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoPerfil);
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil);
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
+void darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
+nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
+
+
 
 
 
