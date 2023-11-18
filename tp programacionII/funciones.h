@@ -5,8 +5,8 @@
 typedef struct
 {
     int nroIngreso;
-    char fechaIngreso[10];
-    char fechaRetiro[10];
+    char fechaIngreso[11];
+    char fechaRetiro[11];
     int dniPaciente;
     int matriculaProfesional;
     int eliminado;
@@ -98,6 +98,7 @@ nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso);
 nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
 nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso);
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
+int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * nuevoIngreso);
 
 
 

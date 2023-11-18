@@ -210,14 +210,13 @@ void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
 //FUNCION PARA COMPARAR FECHAS
 /*/Compara dos fechas en formato "YYYY-MM-DD". Devuelve verdadero (1) si la primera fecha
  es anterior a la segunda, de lo contrario, devuelve falso (0)./*/
-int esAnterior(const char *fecha1_str, const char *fecha2_str)
+int esAnterior(const char *fecha_ingreso, const char *fecha_retiro)
 {
     struct tm fecha1 = {0};
     struct tm fecha2 = {0};
 
-
-    if (sscanf(fecha1_str, "%d-%d-%d", &fecha1.tm_year, &fecha1.tm_mon, &fecha1.tm_mday) != 3 ||
-            sscanf(fecha2_str, "%d-%d-%d", &fecha2.tm_year, &fecha2.tm_mon, &fecha2.tm_mday) != 3)
+    if (sscanf(fecha_ingreso, "%d-%d-%d", &fecha1.tm_year, &fecha1.tm_mon, &fecha1.tm_mday) != 3 ||
+            sscanf(fecha_retiro, "%d-%d-%d", &fecha2.tm_year, &fecha2.tm_mon, &fecha2.tm_mday) != 3)
     {
         printf("Error al convertir las fechas.\n");
         return 0;
@@ -229,12 +228,14 @@ int esAnterior(const char *fecha1_str, const char *fecha2_str)
     fecha2.tm_year -= 1900;
     fecha2.tm_mon -= 1;
 
+
     return mktime(&fecha1) < mktime(&fecha2);
 }
+
 //FUNCION VERIFICAR FECHA
 /*/verifica la validez de una fecha ingresada en formato "YYYY-MM-DD". Si es valida,devuelve 1;
  de lo contrario devulve 0 pero antes imprime fecha no valida./*/
-int analizarFecha(const char *fechaIngresada)
+int analizarFecha(char *fechaIngresada)
 {
     int anio, mes, dia;
     int elementos_asignados = sscanf(fechaIngresada, "%d-%d-%d", &anio, &mes, &dia);
@@ -268,8 +269,6 @@ int analizarFecha(const char *fechaIngresada)
         printf("\nFecha no valida. Asegurate de que los valores esten ingresados como se pide.\n");
         return 0;
     }
-
-    printf("Fecha valida: %s\n", fechaIngresada);
     return 1;
 }
 //FUNCION BAJA DE INGRESO
@@ -451,8 +450,9 @@ Verifica la existencia del paciente, obtiene el numero del ultimo ingreso,
 En caso de error, muestra un mensaje apropiado y retorna NULL. /*/
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato)
 {
-
+   printf("in %i \n",dato.dniPaciente);
    nodoArbolPacientes * existencia = existePaciente(paciente,dato.dniPaciente);
+   printf("out %i \n",existencia->dato.edad);
 
 
     if(existencia==NULL)
@@ -464,13 +464,14 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato
     }
     else
     {
+
         int nroIngreso = buscarUltimoNroIngreso(existencia->listaIngresos);
-        printf("numero de ingreso %i\n",nroIngreso);
+        printf("\npaso %i\n",nroIngreso);
 
         nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(dato);
 
 
-        nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nuevoIngresoNodo->listaDePracticas,nroIngreso);
+       nuevoIngresoNodo->listaDePracticas=alta_de_pxi(nuevoIngresoNodo->listaDePracticas,nroIngreso);
 
         if(nuevoIngresoNodo->listaDePracticas== NULL)
         {
@@ -479,13 +480,144 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato
         }
         else
         {
-            existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos, nuevoIngresoNodo);
+            existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos,nuevoIngresoNodo);
         }
     }
     printf("Ingreso cargado Exitosamente\n");
     return paciente;
 }
+// FUNCION CARGAR UN INGRESO
+/**/
+int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * datosIngreso)
+{
+    ingresos nuevoIngreso;
+    int correcto;
+    char eleccion;
 
+    do
+    {
+        correcto = 0;
+        printf("\nIngrese el DNI del paciente: ");
+        fflush(stdin);
+        if (scanf("%i",&nuevoIngreso.dniPaciente) != 1)
+        {
+            printf("Entrada no valida. Por favor, ingrese el DNI del paciente.\n");
+            correcto = 1;
+        }
+        else if(existePaciente(arbol,nuevoIngreso.dniPaciente)==NULL)
+        {
+            printf("No existe un paciente con ese DNI\n");
+            printf("Si desea ingresar el DNI  nuevamente ingrese 's' de lo contrario ingrese 'n' y se volvera al menu anterior \n");
+            fflush(stdin);
+            scanf("%c",&eleccion);
+            eleccion = tolower(eleccion);
+
+            while(eleccion!='s'&& eleccion!='n')
+            {
+                printf("Eleccion incorrecta, intentelo otra vez\n");
+                printf("Si desea ingresar el DNI  nuevamente ingrese 's' de lo contrario ingrese 'n' y se volvera al menu anterior.\n");
+                fflush(stdin);
+                scanf("%c",&eleccion);
+                eleccion= tolower(eleccion);
+            }
+            if (eleccion=='n')
+            {
+                return 0;
+            }
+            else
+            {
+                correcto=1;
+            }
+        }
+    }
+    while (correcto == 1);
+clearScreen();
+ puts("---------------------------");
+    printf("DNI: %i\n",nuevoIngreso.dniPaciente);
+    puts("---------------------------\n");
+    do
+    {
+        correcto = 0;
+        printf("Ingrese fecha de ingreso (AAAA-MM-DD): ");
+        fflush(stdin);
+        if (fgets(nuevoIngreso.fechaIngreso, sizeof(nuevoIngreso.fechaIngreso), stdin) == NULL)
+        {
+            correcto = 1;
+        }
+        else if(analizarFecha(nuevoIngreso.fechaIngreso)!=1)
+        {
+            correcto = 1;
+        }
+    }
+    while (correcto == 1);
+    clearScreen();
+    puts("---------------------------");
+    printf("DNI: %i\n",nuevoIngreso.dniPaciente);
+    puts("---------------------------\n");
+    printf("Fecha De Ingreso: %s\n",nuevoIngreso.fechaIngreso);
+    puts("---------------------------\n");
+
+
+
+    do
+    {
+        correcto=0;
+        printf("Ingrese fecha de retiro (AAAA-MM-DD): ");
+        fflush(stdin);
+        if (fgets(nuevoIngreso.fechaRetiro, sizeof(nuevoIngreso.fechaRetiro), stdin) == NULL)
+        {
+            correcto = 1;
+        }
+        else if(analizarFecha(nuevoIngreso.fechaRetiro)!=1)
+        {
+
+            correcto = 1;
+        }
+        else if( esAnterior(nuevoIngreso.fechaIngreso,nuevoIngreso.fechaRetiro)!=1)
+        {
+            correcto = 1;
+            printf("\n--La fecha de retiro debe ser posterior a la de ingreso.--\n\n");
+        }
+
+    }
+    while (correcto == 1);
+     clearScreen();
+     puts("---------------------------");
+    printf("DNI: %i\n",nuevoIngreso.dniPaciente);
+    puts("---------------------------\n");
+    printf("Fecha De Ingreso: %s\n",nuevoIngreso.fechaIngreso);
+    puts("---------------------------\n");
+    printf("Fecha de Retiro: %s\n", nuevoIngreso.fechaRetiro);
+    puts("---------------------------\n");
+
+
+
+    do
+    {
+        correcto = 0;
+        printf("\nIngrese la matricula del profesional: ");
+        fflush(stdin);
+        if (scanf("%i", &nuevoIngreso.matriculaProfesional) != 1)
+        {
+            printf("Entrada no valida. Por favor, ingrese la matricula del profesional.\n");
+            correcto = 1;
+        }
+    }
+    while (correcto == 1);
+clearScreen();
+    puts("---------------------------");
+    printf("DNI: %i\n",nuevoIngreso.dniPaciente);
+    puts("---------------------------\n");
+    printf("Fecha De Ingreso: %s\n",nuevoIngreso.fechaIngreso);
+    puts("---------------------------\n");
+    printf("Fecha de Retiro: %s\n", nuevoIngreso.fechaRetiro);
+    puts("---------------------------\n");
+    printf("Matricula profesional: %i\n",nuevoIngreso.matriculaProfesional);
+    puts("---------------------------\n");
+    *datosIngreso= nuevoIngreso;
+
+    return 1;
+}
 //FUNCION QUE DEVUELVE EL ULTIMO NUMERO DE INGRESO
 /*/busca y retorna el numero del ultimo ingreso en una lista enlazada de ingresos.
  Recorre la lista hasta el final, actualizando el numero de ingreso a medida que avanza.
@@ -496,18 +628,18 @@ int buscarUltimoNroIngreso(nodoIngresos* lista)
     int nroIngreso = 0;
 
     if (lista != NULL)
-    {
+    {;
         nodoIngresos* seg = lista;
 
-        while (seg->siguiente != NULL)
+        while (seg != NULL)
         {
             nroIngreso = seg->dato.nroIngreso;
             seg = seg->siguiente;
         }
     }
-    printf("dentro numero de ingreso %i",nroIngreso);
     return nroIngreso;
 }
+
 //FUNCION DE AGREGAR  INGRESO AL PRINCIPIO DE LA LISTA(DONE)
 /*/añade un nodo al principio de una lista enlazada de ingresos. Si la lista esta vacia, asigna el nuevo ingreso como el primer nodo;
 de lo contrario, enlaza el nuevo ingreso al principio y actualiza la cabeza de la lista. Retorna la lista actualizada/*/
@@ -754,6 +886,7 @@ nodoArbolPacientes * crearNodoArbol (paciente datoP)
     aux->dato.dni = datoP.dni;
     strcpy(aux->dato.direccion,datoP.direccion);
     strcpy(aux->dato.telefono,datoP.telefono);
+    aux->listaIngresos=NULL;
     aux->der=NULL;
     aux->izq=NULL;
     aux->dato.eliminado = 0;
