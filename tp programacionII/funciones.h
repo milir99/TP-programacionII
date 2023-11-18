@@ -90,7 +90,7 @@ nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPrac
 
 
 //FUNCIONES DE INGRESO
-nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato);
+nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato,nodoPracticasLaboratorio* listaPracticas);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
@@ -104,7 +104,7 @@ int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * nuevoIngreso);
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
 nodoPracticasLaboratorio* BuscarPractica(nodoPracticasLaboratorio*lista, char nombrePractica[]);
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso);
-nodoPracticasXIngreso* alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso);
+nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso,nodoPracticasLaboratorio* listaPracticas);
 nodoPracticasXIngreso* baja_de_PXI_EnCascada(nodoPracticasXIngreso* lista);
 void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[]);
 void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
@@ -145,5 +145,5 @@ nodoEmpleados * modificarEmpleado (nodoEmpleados * listaEmpleados);
 
 
 
-nodoPracticasLaboratorio * listaPracticas;
+
 #endif // FUNCIONES_H_INCLUDED

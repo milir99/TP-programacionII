@@ -6,13 +6,43 @@
 #include <time.h>
 #include <unistd.h>
 
+void mostrarDatosArchivo(const char *nombreArchivo) {
+    FILE *archivo;
+    practicasLaboratorio practica;
+
+    // Abre el archivo en modo lectura binaria
+    archivo = fopen(nombreArchivo, "rb");
+
+    // Verifica si el archivo se abrió correctamente
+    if (archivo == NULL) {
+        perror("Error al abrir el archivo");
+        return;
+    }
+
+    // Lee y muestra los datos del archivo
+    while (fread(&practica, sizeof(practicasLaboratorio), 1, archivo) == 1) {
+        // Muestra los datos solo si no han sido marcados como eliminados
+        if (!practica.eliminado) {
+            printf("Número de Práctica: %d\n", practica.nroPractica);
+            printf("Nombre de Práctica: %s\n", practica.nombreDePractica);
+            printf("Eliminado: %d\n", practica.eliminado);
+            printf("--------------------------\n");
+        }
+    }
+
+    // Cierra el archivo
+    fclose(archivo);
+}
 int main()
 {
     char seguir;
     int ingreso;
     ingresos dato;
+    nodoPracticasLaboratorio * listaPracticas=NULL;
     nodoArbolPacientes* arbol= NULL;
+    mostrarDatosArchivo("lasPracticas.bin");
 
+    listaPracticas= ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
     arbol=archivoAArbolPacientes("pacientes.dat",arbol);
     do
     {
@@ -22,7 +52,8 @@ int main()
         printf("dni %i",dato.dniPaciente);
         if(ingreso==1){
                 printf("dni %i",dato.dniPaciente);
-        arbol = alta_de_ingreso (arbol,dato);
+        arbol = alta_de_ingreso (arbol,dato,listaPracticas);
+
         printf("Desea dar de alta a otro ingreso (s/n)\n");
         fflush(stdin);
         scanf("%c",&seguir);
