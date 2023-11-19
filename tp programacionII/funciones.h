@@ -81,12 +81,16 @@ void clearScreen();
 
 //FUNCIONES DE PRACTICA
 nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practicasLaboratorio dato);
-nodoPracticasLaboratorio*agregarPpioPracticaLaboratorio(nodoPracticasLaboratorio*lista,nodoPracticasLaboratorio* nuevaPractica);
-nodoPracticasLaboratorio* alta_de_practica(practicasLaboratorio dato , nodoPracticasLaboratorio* lista);
+nodoPracticasLaboratorio* agregarFinPracticaLaboratorio(nodoPracticasLaboratorio* listaPractica, nodoPracticasLaboratorio* nuevaPractica);
+nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracticas);
 nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lista);
 nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPracticasLaboratorio* lista);
 void listaPracticaAArchivo(char archivoPraticas[],nodoPracticasLaboratorio* lista);
-nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPracticasLaboratorio* lista);
+int proximoNumeroPractica (nodoPracticasLaboratorio* listaPracticas);
+void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * existencia);
+nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*listaPracticas,nodoArbolPacientes* arbolPacientes);
+int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
+void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica);
 
 
 //FUNCIONES DE INGRESO
@@ -121,8 +125,6 @@ paciente cargarUnPaciente ();
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes);
-
-void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes); //repetida
 nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente);
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente);
 void mostrarArchivoPacientes (char nombreArcPacientes[]);
