@@ -44,7 +44,7 @@ int main()
     mostrarArchivoPacientes("pacientes.dat");
 
     listaPracticas= ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
-    listaPracticas=baja_de_practicasLaboratorio(listaPracticas,arbol);
+    listaPracticas=modificacion_de_practica(listaPracticas);
     system("pause");
     mostrarListaPracticas(listaPracticas);
     system("pause");
