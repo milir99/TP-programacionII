@@ -1470,6 +1470,31 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
     return existeDNI;
 }
 
+//FUNCION BUSCAR Y MOSTRAR EMPLEADO MEDIANTE UN DNI
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoPerfil)
+{
+    int correcto;
+    printf("Ingrese el DNI del empleado que quiera buscar: ");
+    do
+    {
+        correcto=0;
+        printf("Ingrese el DNI del paciente que quiere modificar: ");
+        if (scanf("%i",&dniAbuscar)!=1)
+        {
+            correcto=1;
+            printf("La respuesta no es valida. Por favor, ingrese el DNI del empleado.\n");
+        }
+    }
+    while(correcto==1);
+    nodoEmpleados * existeDni = existeEmpleado(listaEmpleados, dniAbuscar);
+    if(existeDni != NULL)
+    {
+        mostrarUnEmpleado(listaEmpleados->empleado,tipoPerfil);
+    }else{
+        printf("No se encontro el empleado con el DNI solicitado.\n");
+    }
+}
+
 //FUNCION MOSTRAR LISTA DOBLE EMPLEADOS
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil)
 {

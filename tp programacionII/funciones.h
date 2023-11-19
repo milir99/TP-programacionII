@@ -143,6 +143,7 @@ void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil);
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
 void darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoPerfil);
 
 
 
