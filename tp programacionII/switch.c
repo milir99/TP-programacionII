@@ -12,16 +12,30 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
     int intentos=0;
     int existe;
 
-    printf("Bienvenido!\n");
+    printf(" _ ____  _                           _     _         __    _ \n");
+    printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
+    printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
+    printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
+    printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
     do
     {
+
         printf("Ingrese su nombre de usuario: ");
         fflush(stdin);
-        gets(usuario);
+        fgets(usuario,sizeof(usuario),stdin);
+         size_t longitud = strlen(usuario);
+        if (usuario[longitud - 1] == '\n')
+            {
+            usuario[longitud - 1] = '\0';}
 
-        printf("Ingrese su clave: \n");
+        printf("Ingrese su clave: ");
         fflush(stdin);
-        gets(clave);
+        fgets(clave,sizeof(clave),stdin);
+         longitud = strlen(clave);
+        if (clave[longitud - 1] == '\n')
+            {
+            clave[longitud - 1] = '\0';}
+
         existe=compararUsuario(clave,usuario,listaEmpleados);//ver que va en los parentesis
 
         if (existe!=0)
@@ -46,32 +60,29 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
     while(1);
 }
 
-int compararUsuario (char clave[], char usuario[], nodoEmpleados * listaEmpleados)
-{
-    int tipoPerfil=0;
+int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados) {
+    int tipoperfil = 0;
 
+    while (listaEmpleados != NULL) {
+        printf("usuario %s   lista %s \n", usuario, listaEmpleados->empleado.usuario);
 
-    if(strcmp(usuario, listaEmpleados->empleado.usuario)==0)
-    {
-        if(strcmp(clave, listaEmpleados->empleado.clave)==0)
-        {
-            if(strcmp("administrador", listaEmpleados->empleado.perfil)==0)
-            {
-                tipoPerfil=1;
+        if (strcmp(usuario, listaEmpleados->empleado.usuario) == 0 && strcmp(clave, listaEmpleados->empleado.clave) == 0) {
+                printf("%s",listaEmpleados->empleado.perfil);
+            if (strcmpi("administrador", listaEmpleados->empleado.perfil) == 0) {
+                tipoperfil = 1; // Administrator
+            } else if (strcmpi("profesional", listaEmpleados->empleado.perfil) == 0) {
+                tipoperfil = 2; // Professional
+            } else if (strcmpi("administrativo", listaEmpleados->empleado.perfil) == 0) {
+                tipoperfil = 3; // Administrative
             }
-            else if(strcmp("profesional", listaEmpleados->empleado.perfil)==0)
-            {
-                tipoPerfil=2;
-            }
-            else if(strcmp("administrativo", listaEmpleados->empleado.perfil)==0)
-            {
-                tipoPerfil=3;
-            }
+            // Exit the loop early if a match is found
+            break;
         }
+
+        listaEmpleados = listaEmpleados->siguiente;
     }
 
-
-    return tipoPerfil;
+    return tipoperfil;
 }
 
 //SWITCH PARA PROFESIONALES DE LABORATORIO
