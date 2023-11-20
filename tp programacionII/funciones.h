@@ -10,36 +10,40 @@ typedef struct
     int dniPaciente;
     int matriculaProfesional;
     int eliminado;
-}ingresos;
+} ingresos;
 
 typedef struct nodoIngresos
 {
     ingresos dato;
     struct nodoPracticasXIngreso*listaDePracticas;
     struct nodoIngresos*siguiente;
-}nodoIngresos;
+} nodoIngresos;
 
-typedef struct {
+typedef struct
+{
     int nroIngreso;
     int nroPractica;
     char resultado[40];
-}practicasXIngreso;
+} practicasXIngreso;
 
-typedef struct nodoPracticasXIngreso{
+typedef struct nodoPracticasXIngreso
+{
     practicasXIngreso dato;
     struct nodoPracticasXIngreso* siguiente;
-}nodoPracticasXIngreso;
+} nodoPracticasXIngreso;
 
-typedef struct{
-int nroPractica;
-char nombreDePractica[30];
-int eliminado;
-}practicasLaboratorio;
+typedef struct
+{
+    int nroPractica;
+    char nombreDePractica[30];
+    int eliminado;
+} practicasLaboratorio;
 
-typedef struct nodoPracticasLaboratorio{
-practicasLaboratorio datos;
-struct nodoPracticasLaboratorio* siguiente;
-}nodoPracticasLaboratorio;
+typedef struct nodoPracticasLaboratorio
+{
+    practicasLaboratorio datos;
+    struct nodoPracticasLaboratorio* siguiente;
+} nodoPracticasLaboratorio;
 
 typedef struct
 {
@@ -49,14 +53,14 @@ typedef struct
     char usuario[20];
     char clave[20];
     char perfil[20];
-}empleadosDeLaboratorio;
+} empleadosDeLaboratorio;
 
 typedef struct nodoEmpleados
 {
     empleadosDeLaboratorio empleado;
     struct nodoEmpleados *siguiente;
     struct nodoEmpleados *anterior;
-}nodoEmpleados;
+} nodoEmpleados;
 
 typedef struct
 {
@@ -91,18 +95,26 @@ void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * 
 nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*listaPracticas,nodoArbolPacientes* arbolPacientes);
 int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
 void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica);
-
+int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas);
 
 //FUNCIONES DE INGRESO
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato,nodoPracticasLaboratorio* listaPracticas);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
-nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso);
-nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso);
-nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso);
+nodoIngresos* buscarIngreso(nodoArbolPacientes* arbol, int nroIngreso);
+nodoIngresos*modificacion_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
+nodoIngresos* baja_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
 int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * nuevoIngreso);
+void mostrarIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesde[], char fechaHasta[]);
+void mostrarUnIngreso(ingresos dato);
+void mostrarIngresosConFiltro(nodoArbolPacientes*arbol);
+int analizarFecha(char *fechaIngresada);
+int esAnterior(const char *fecha_ingreso, const char *fecha_retiro);
+nodoArbolPacientes* mostrarPacienteDeDNI(nodoArbolPacientes* arbol);
+
+
 
 //FUNCIONES PRACTICAS X INGRESO
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
@@ -112,6 +124,8 @@ nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso,
 nodoPracticasXIngreso* baja_de_PXI_EnCascada(nodoPracticasXIngreso* lista);
 void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[]);
 void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
+void mostrarUnaPXI(practicasXIngreso dato);
+void mostrarListaPXI(nodoPracticasXIngreso* listaPXI);
 
 
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
@@ -131,6 +145,9 @@ void mostrarArchivoPacientes (char nombreArcPacientes[]);
 nodoArbolPacientes* archivoAArbolPacientes(char archivo[],nodoArbolPacientes* arbol);
 nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arbol,  char nombre[]);
 nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol, nodoArbolPacientes *nodoAReubicar);
+void mostrarUnPaciente (paciente nuevoPaciente);
+void mostrarListaIngresos(nodoIngresos* listaIngresos);
+void mostrarPacienteEIngresos( nodoArbolPacientes*arbol);
 
 
 //FUNCIONES EMPLEADOS

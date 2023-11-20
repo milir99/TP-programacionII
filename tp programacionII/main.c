@@ -38,10 +38,23 @@ int main()
     char seguir;
     int ingreso;
     ingresos dato;
-    nodoPracticasLaboratorio * listaPracticas=NULL;
+  nodoPracticasLaboratorio * listaPracticas=NULL;
+//     listaPracticas=ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
+//
+//    int existe = mostrarPracticasQueComienzanCon(listaPracticas);
+//    if (existe==0)
+//    {
+//        printf("No se encontro una practica con ese comienzo\n");
+//    }
+//
+//     system("pause");
     nodoArbolPacientes* arbol= NULL;
     mostrarDatosArchivo("lasPracticas.bin");
     mostrarArchivoPacientes("pacientes.dat");
+    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
+    mostrarArbolINORDERPaciente(arbol);
+    mostrarPacienteDeDNI(arbol);
+    system("pause");
 
     listaPracticas= ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
     listaPracticas=modificacion_de_practica(listaPracticas);

@@ -7,6 +7,105 @@
 #include <time.h>
 
 //FUNCIONES DE PRACTICAS
+//FUNCION MOSTRAR PRACTICAS DE LABORATORIO ORGANIZADAS POR NOMBRE
+//FUNCION mostrar las practicas que comiencen con
+int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas)
+{
+    int correcto;
+    char comienzo[40];
+    int existe=0;
+
+    do
+    {
+        correcto = 0;
+
+        printf("Ingrese las iniciales de la practica: \n");
+        fflush(stdin);
+
+        if (fgets(comienzo, sizeof(comienzo), stdin) == NULL)
+        {
+            printf("Entrada no valida. Por favor, reintentelo.\n");
+            correcto = 1;
+        }
+        else
+        {
+
+            comienzo[strcspn(comienzo, "\n")] = '\0';
+        }
+
+    } while (correcto == 1);
+
+    for (int i = 0; i < strlen(comienzo); i++)
+    {
+        comienzo[i] = toupper(comienzo[i]);
+    }
+
+    while (listaPracticas != NULL)
+    {
+        if (strstr(listaPracticas->datos.nombreDePractica, comienzo) == listaPracticas->datos.nombreDePractica)
+        {
+            if (listaPracticas->datos.eliminado == 0)
+            {
+                puts("----------------------------------------");
+                printf("Numero de Practica: %d\n", listaPracticas->datos.nroPractica);
+                printf("Nombre de Practica: %s\n", listaPracticas->datos.nombreDePractica);
+                puts("----------------------------------------");
+                existe=1;
+            }
+        }
+
+        listaPracticas = listaPracticas->siguiente;
+    }
+    return existe;
+}
+
+// Función para ordenar la lista por nombre de práctica (usando el algoritmo de selección)
+void ordenarListaPorNombre(nodoPracticasLaboratorio *listaPracticas)
+{
+    if (listaPracticas == NULL)
+    {
+        return;
+    }
+    nodoPracticasLaboratorio *aux1, *aux2, *menor;
+
+    for (aux1 = listaPracticas; aux1->siguiente != NULL; aux1 = aux1->siguiente)
+    {
+        menor = aux1;
+
+        for (aux2 = aux1->siguiente; aux2 != NULL; aux2 = aux2->siguiente)
+        {
+            if (strcmp(aux2->datos.nombreDePractica, menor->datos.nombreDePractica) < 0)
+            {
+                menor = aux2;
+            }
+        }
+
+        practicasLaboratorio temp = aux1->datos;
+        aux1->datos = menor->datos;
+        menor->datos = temp;
+    }
+}
+
+// Función para mostrar la lista de prácticas
+void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas)
+{
+    while (listaPracticas != NULL)
+    {
+        if(listaPracticas->datos.eliminado==0)
+        {
+            puts("----------------------------------------");
+            printf("Número de Práctica: %d\n", listaPracticas->datos.nroPractica);
+            printf("Nombre de Práctica: %s\n", listaPracticas->datos.nombreDePractica);
+            puts("----------------------------------------");
+
+        }
+
+
+        listaPracticas = listaPracticas->siguiente;
+    }
+}
+
+
 ///FUNCION DE LISTA PRACTICA A ARCHIVO(chequeada)
 //escribe los datos de una lista enlazada de practicas de laboratorio en un archivo binario.
 void listaPracticaAArchivo(char archivoPraticas[],nodoPracticasLaboratorio* lista)
@@ -335,13 +434,122 @@ void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
     }
 }
 
-
-
+//
+//
+//
+//
+//
+//
+//
+//
 //FUNCIONES DE INGRESO///
+//FUNCION FILTRAR INGRESO POR FECHA
+void mostrarIngresosConFiltro(nodoArbolPacientes*arbol)
+{
+    char desde[11];
+    char hasta[11];
+    int volverIngresar;
+
+    do
+    {
+        volverIngresar = 0;
+        printf("Ingrese fecha de ingreso (AAAA-MM-DD): ");
+        fflush(stdin);
+                    if (fgets(desde, sizeof(desde), stdin) == NULL)
+                    { printf("Entrada invalida\n.\n");
+                        volverIngresar = 1;
+                    }
+                    else if(!analizarFecha(desde))
+                    {
+                        printf("La fecha ingresada es invalida\n");
+                        volverIngresar=1;
+                    }
+
+                    else
+                    {
+                        volverIngresar=0;
+                }
+
+                }while (volverIngresar == 1);
+                size_t longitud = strlen(desde);
+                if (desde[longitud - 1] == '\n')
+                {
+                    desde[longitud - 1] = '\0';
+                }
+    do
+    {
+        volverIngresar = 0;
+        printf("Ingrese fecha de ingreso (AAAA-MM-DD): ");
+        fflush(stdin);
+                    if (fgets(hasta, sizeof(hasta), stdin) == NULL)
+                    { printf("Entrada invalida\n.\n");
+                        volverIngresar = 1;
+                    }
+                    else if(!analizarFecha(hasta))
+                    {
+                        printf("La fecha ingresada es invalida\n");
+                        volverIngresar=1;
+                    }
+
+                    else if(!esAnterior(desde,hasta))
+                    {
+                        printf("La fecha fin tiene que ser posterior a la de Comienzo\n");
+                        volverIngresar=1;
+                    }
+                    else
+                    {
+                        volverIngresar=0;
+                    }
+
+
+                }while (volverIngresar == 1);
+                 longitud = strlen(hasta);
+                if (hasta[longitud - 1] == '\n')
+                {
+                    hasta[longitud - 1] = '\0';
+                }
+               mostrarIngresosConFiltroRecursivo(arbol,desde,hasta);
+}
+
+
+void mostrarIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesde[], char fechaHasta[])
+{
+    if (arbol != NULL)
+    {
+        nodoIngresos* listaIngreso= arbol->listaIngresos;
+        while (listaIngreso != NULL)
+    {
+
+        if (listaIngreso->dato.eliminado == 0 &&
+            strcmp(listaIngreso->dato.fechaIngreso, fechaDesde) >= 0 &&
+            strcmp(listaIngreso->dato.fechaRetiro, fechaHasta) <= 0)
+        {
+
+       mostrarUnIngreso(listaIngreso->dato);
+        }
+
+
+        listaIngreso = listaIngreso->siguiente;
+    }
+
+
+        mostrarIngresosConFiltroRecursivo(arbol->izq, fechaDesde, fechaHasta);
+        mostrarIngresosConFiltroRecursivo(arbol->der, fechaDesde, fechaHasta);
+    }
+}
+//funcion mostrar un ingreso
+void mostrarUnIngreso(ingresos dato)
+{
+         printf("Número de Ingreso: %d\n", dato.nroIngreso);
+            printf("Fecha de Ingreso: %s\n", dato.fechaIngreso);
+            printf("Fecha de Retiro: %s\n", dato.fechaRetiro);
+            printf("DNI del Paciente: %d\n", dato.dniPaciente);
+            printf("Matrícula Profesional: %d\n", dato.matriculaProfesional);
+            printf("----------------------------------------\n");
+}
 //FUNCION RECURSIVA DE ESCRIBIR LOS INGRESOS EN EL ARCHIVO
 /*/ recorre un �rbol binario de pacientes, escribiendo la informaci�n de los ingresos en un archivo mediante un recorrido in-order.
 La funci�n utiliza una estructura recursiva para acceder a la lista de ingresos de cada paciente y escribir sus datos correspondientes en el archivo./*/
-
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
 {
     if (arbol)
@@ -370,7 +578,7 @@ nodoArbolPacientes* archivoAListaIngresos(char archivo[],nodoArbolPacientes* arb
 
           while(fread(&aux,sizeof(ingresos),1,arch)==1)
           {
-              nodoArbolPacientes= existePaciente(arbol,aux.dniPaciente);
+             // nodoArbolPacientes= existePaciente(arbol,aux.dniPaciente);
               arbol->listaIngresos= agregarPpioIngreso(arbol->listaIngresos,crearNodoIngreso(aux));
           }
           fclose(arch);
@@ -453,10 +661,10 @@ int analizarFecha(char *fechaIngresada)
 Primero busca el ingreso en la lista y, si lo encuentra, establece el indicador "eliminado" en 1 y procede a eliminar la lista de practicas en cascada.
  Retorna la lista de ingresos actualizada. Si el numero de ingreso no coincide, muestra un mensaje de error./*/
 
-nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso)
+nodoIngresos* baja_de_ingreso(nodoArbolPacientes*arbol, int nroIngreso)
 {
     //en el main tenemos que buscar el nodo arbol paciente con el dni de la persona
-    nodoIngresos*existe= buscarIngreso(lista,nroIngreso);
+    nodoIngresos*existe= buscarIngreso(arbol,nroIngreso);
     if(existe!=NULL)
     {
         existe->dato.eliminado=1;
@@ -466,7 +674,7 @@ nodoIngresos* baja_de_ingreso(nodoIngresos* lista, int nroIngreso)
     {
         printf("EL nro de ingreso no coincide con los ingresos del paciente\n");
     }
-    return lista;
+    return arbol->listaIngresos;
 }
 ///FUNCION BAJA DE PXI en cascada. (chequeada)
 /*/ elimina y libera en cascada la lista de nodos de practicas por ingreso.
@@ -481,17 +689,18 @@ nodoPracticasXIngreso* baja_de_PXI_EnCascada(nodoPracticasXIngreso* lista)
     }
     return NULL;
 }
-///FUNCION  DE MODIFICACION DE INGRESOS (chequeada)
+///FUNCION  DE MODIFICACION DE INGRESOS
 /*/Busca un ingreso en una lista por numerode ingreso, permite al usuario modificar fecha de ingreso, fecha de retiro o matricula profesional,
  validando entradas y relaciones temporales. Retorna la lista actualizada o muestra un mensaje si el ingreso no existe/*/
-nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
+nodoIngresos*modificacion_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso)
 {
     //en el main tenemos que buscar el nodo arbol paciente con el dni de la persona
     int eleccion;
     char nuevaFecha[40];
     int nuevaMatricula;
     int volverIngresar;
-    nodoIngresos*existe= buscarIngreso(lista,nroIngreso);
+    nodoIngresos* lista= arbol->listaIngresos;
+    nodoIngresos*existe= buscarIngreso(arbol,nroIngreso);
     if(existe!=NULL)
     {
         do
@@ -506,14 +715,15 @@ nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
             switch(eleccion)
             {
             case 1:
+
                 do
                 {
-
-                    printf("Ingresa una fecha nueva de ingreso (YYYY-MM-DD): ");
-                    if (scanf("%19s", nuevaFecha) != 1)
-                    {
-                        printf("Entrada invalida\n.\n");
-                        volverIngresar=1;
+                    volverIngresar = 0;
+                    printf("Ingrese fecha de ingreso (AAAA-MM-DD): ");
+                    fflush(stdin);
+                    if (fgets(nuevaFecha, sizeof(nuevaFecha), stdin) == NULL)
+                    { printf("Entrada invalida\n.\n");
+                        volverIngresar = 1;
                     }
                     else if(!analizarFecha(nuevaFecha))
                     {
@@ -528,18 +738,23 @@ nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
                     else
                     {
                         volverIngresar=0;
-                    }
-
                 }
-                while (volverIngresar==1);
+                }while (volverIngresar == 1);
+                size_t longitud = strlen(nuevaFecha);
+                if (nuevaFecha[longitud - 1] == '\n')
+                {
+                    nuevaFecha[longitud - 1] = '\0';
+                }
+
                 strcpy(existe->dato.fechaIngreso,nuevaFecha);
                 break;
             case 2:
                 do
                 {
+                    volverIngresar=0;
 
                     printf("Ingresa una fecha nueva de retiro (YYYY-MM-DD): ");
-                    if (scanf("%19s", nuevaFecha) != 1)
+                   if (fgets(nuevaFecha, sizeof(nuevaFecha), stdin) == NULL)
                     {
                         printf("Entrada invalida\n.\n");
                         volverIngresar=1;
@@ -560,35 +775,39 @@ nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
                     }
                 }
                 while (volverIngresar==1);
+                longitud = strlen(nuevaFecha);
+                if (nuevaFecha[longitud - 1] == '\n')
+                {
+                    nuevaFecha[longitud - 1] = '\0';
+                }
                 strcpy(existe->dato.fechaRetiro,nuevaFecha);
                 break;
             case 3:
                 do
                 {
+                    volverIngresar=0;
                     printf("Ingrese la nueva Matricula del profesional: \n");
                     if (scanf("%d", &nuevaMatricula) != 1)
                     {
-                        printf("Entrada invalida. Debes ingresar un numeroentero.\n");
+                        printf("Entrada invalida. Debes ingresar un numero entero.\n");
 
-                        while (getchar() != '\n');
+                        volverIngresar=1;
                     }
-                    else
-                    {
-                        break;
-                    }
+
                 }
-                while (1);
+                while (volverIngresar==1);
                 existe->dato.matriculaProfesional=nuevaMatricula;
                 break;
             default:
                 if(eleccion!=4)
                 {
-                    printf("La opcion ingresada no existe.");
+                    printf("La opcion ingresada no existe.\n");
                 }
 
             }
-        }
-        while(eleccion==4);
+
+
+    }while(eleccion==4);
     }
     else
     {
@@ -597,24 +816,28 @@ nodoIngresos*modificacion_de_ingreso(nodoIngresos* lista, int nroIngreso)
     return lista;
 
 }
-///FUNCION BUSCAR INGRESO (chequeada)
+///FUNCION BUSCAR INGRESO
 /*/recorre una lista de ingresos para encontrar y devolver el nodo
 cuyo numerode ingreso coincida con el proporcionado, o devuelve NULL si no se encuentra./*/
-nodoIngresos* buscarIngreso(nodoIngresos* lista, int nroIngreso)
+nodoIngresos* buscarIngreso(nodoArbolPacientes* arbol, int nroIngreso)
 {
-    if(lista!= NULL)
+    if (arbol!=NULL)
+    {
+        buscarIngreso(arbol->izq, nroIngreso);
+    while(arbol->listaIngresos!= NULL)
     {
 
-        if (lista->dato.nroIngreso == nroIngreso)
+        if (arbol->listaIngresos->dato.nroIngreso == nroIngreso)
         {
-            if(lista->dato.eliminado == 0)
+            if(arbol->listaIngresos->dato.eliminado == 0)
             {
-                return lista;
+                return arbol->listaIngresos;
             }
 
         }
-        return buscarIngreso(lista->siguiente,nroIngreso);
 
+    }
+    buscarIngreso(arbol->der, nroIngreso);
     }
     return NULL;
 }
@@ -884,9 +1107,167 @@ nodoIngresos*crearNodoIngreso(ingresos dato)
     }
     return aux;
 }
+void mostrarListaIngresos(nodoIngresos* listaIngresos)
+{
+    while(listaIngresos!=NULL)
+    {
+        if(listaIngresos->dato.eliminado==0)
+        {
+         mostrarUnIngreso(listaIngresos->dato);
+        listaIngresos=listaIngresos->siguiente;
+        }
+
+    }
+
+}
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 //FUNCIONES DE PRACTICAS X INGRESO///
+
+//FUNCION MODIFICAR PXI(corregir)
+nodoPracticasXIngreso* modificar_PXI( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas)
+{
+    nodoPracticasXIngreso* existe=BuscarPXIparaModificar(arbol,listaPracticas);
+     int nuevoNro;
+     char nuevoResultado[40];
+        do
+        {
+            printf("Elija numero de lo que desea modificar del ingreso\n");
+            printf("1.Numero de practica\n");
+            printf("2.Resultado\n");
+            printf("0. Salir ");
+            fflush(stdin);
+            scanf("%i",&eleccion);
+            switch(eleccion)
+            {
+            case 1:
+
+                do
+                {
+                    volverIngresar = 0;
+                    printf("Ingrese nuevo Nro de practica: ");
+                    fflush(stdin);
+                    if (scanf("%i",&nuevoNro)!=1)
+                    { printf("Entrada invalida\n.\n");
+                        volverIngresar = 1;
+                    }
+
+                }
+                }while (volverIngresar == 1);
+
+                strcpy(->dato.fechaIngreso,nuevaFecha);
+                break;
+            case 2:
+                do
+                {
+                    volverIngresar=0;
+
+                    printf("Ingresa una fecha nueva de retiro (YYYY-MM-DD): ");
+                   if (fgets(nuevaFecha, sizeof(nuevaFecha), stdin) == NULL)
+                    {
+                        printf("Entrada invalida\n.\n");
+                        volverIngresar=1;
+                    }
+                    else if(!analizarFecha(nuevaFecha))
+                    {
+                        printf("La fecha ingresada es invalida\n");
+                        volverIngresar=1;
+                    }
+                    else if(!esAnterior(existe->dato.fechaIngreso,nuevaFecha))
+                    {
+                        printf("La fecha de ingreso tiene que ser posterior a la de ingreso\n");
+                        volverIngresar=1;
+                    }
+                    else
+                    {
+                        volverIngresar=0;
+                    }
+                }
+                while (volverIngresar==1);
+                longitud = strlen(nuevaFecha);
+                if (nuevaFecha[longitud - 1] == '\n')
+                {
+                    nuevaFecha[longitud - 1] = '\0';
+                }
+                strcpy(existe->dato.fechaRetiro,nuevaFecha);
+                break;
+
+            default:
+                if(eleccion!=0)
+                {
+                    printf("La opcion ingresada no existe.\n");
+                }
+
+            }
+
+
+    }while(eleccion==0);
+    }
+    else
+    {
+        printf("El numero de ingreso NO existe O fue eliminado.");
+    }
+
+}
+//FUNCION buscar practica x ingreso que se desea modificar (corregir)
+nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas)
+{  int nroIngreso;
+  int char nombrePractica[30];
+
+        do
+    {
+        correcto = 0;
+
+        printf("Ingrese el nro de ingreso:\n");
+        fflush(stdin);
+        if (scanf("%i",&nroIngreso)!=1)
+        {
+            printf("Entrada no valida. Por favor, reintentelo.\n");
+            correcto = 1;
+        }
+    }while(correcto==1);
+
+    nodoIngresos* existeIngreso= buscarIngreso(arbol,nroIngreso);
+
+        do
+    {
+        correcto = 0;
+
+        printf("Ingrese nombre de la practica:\n");
+        fflush(stdin);
+        if (fgets(nombrePractica, sizeof(practicasLaboratorio),stdin)==NULL)
+        {
+            printf("Entrada no valida. Por favor, reintentelo.\n");
+            correcto = 1;
+        }
+    }while(correcto==1);
+    size_t longitud = strlen(nombrePractica);
+        if (nombrePractica[longitud - 1] == '\n')
+            {
+            nombrePractica[longitud - 1] = '\0';}
+         nodoPracticasLaboratorio*practica= BuscarPractica(listaPracticas,nombrePractica);
+         nodoPracticasXIngreso *seg=existeIngreso->listaDePracticas;
+    while(seg!=NULL)
+    {
+        if(seg->dato.nroPractica==practica->datos.nroPractica)
+        {
+            break;
+        }
+        seg=seg->siguiente;
+    }
+
+    return seg;
+
+}
 // FUNCION PASAR DE LISTA DE PRACTICAS POR INGRESO A ARCHIVO DE PXI
 //crea un archivo binario y escribe la informacion de las practicas por ingreso de un arbol binario de pacientes en el.
 void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
@@ -915,10 +1296,10 @@ void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
         escribirPXIEnArchivo(arbol->izq, archivo);
 
         nodoIngresos* aux = arbol->listaIngresos;
-        while (aux)
+        while (aux!=NULL)
         {
             nodoPracticasXIngreso* auxPXI= aux->listaDePracticas;
-            while(auxPXI)
+            while(auxPXI!=NULL)
             {
              fwrite(&auxPXI->dato, sizeof(practicasXIngreso), 1, archivo);
              auxPXI=auxPXI->siguiente;
@@ -941,10 +1322,19 @@ nodoArbolPacientes* archivoAListaPXI (char archivo[],nodoArbolPacientes*arbol)
         while(fread(&aux,sizeof(practicasXIngreso),1,arch)==1)
         {
 
-            nodoIngresos= buscarIngreso(arbol->listaIngresos,aux.nroIngreso);
+            nodoIngresos* ingreso= buscarIngreso(arbol,aux.nroIngreso);
+            ingreso->listaDePracticas=agregarPpioPXI(ingreso->listaDePracticas,crearNodoPXI(aux.nroIngreso,aux.nroPractica));
         }
+        fclose(arch);
+        printf("PXI cargadas a los ingresos");
 
     }
+    else
+    {
+        printf("Error al abrir el archivo de practicas\n");
+
+    }
+    return arbol;
 }
 /// FUNCION DE ALTA DE PRACTICAS POR INGRESO (chequeada)
 /*/agrega practicas a un ingreso, solicitando codigos de practicas, verificando su existencia, y creando nodos en una lista enlazada. Retorna la lista actualizada/*/
@@ -1077,7 +1467,23 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
     aux->siguiente=NULL;
     return aux;
 }
+void mostrarListaPXI(nodoPracticasXIngreso* listaPXI)
+{
+    while(listaPXI!=NULL)
+    {
+        mostrarUnaPXI(listaPXI->dato);
+        listaPXI=listaPXI->siguiente;
+    }
+}
+void mostrarUnaPXI(practicasXIngreso dato)
+{
+            printf("Número de Ingreso: %d\n", dato.nroIngreso);
+            printf("Número de practica: %d\n", dato.nroPractica);
+            printf("Resultado: %s\n", dato.resultado);
 
+            printf("----------------------------------------\n");
+}
+//
 //
 //
 //
@@ -1086,7 +1492,46 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
 //
 //
 ///ARBOLES DE PACIENTES(chequeada)
+void mostrarPacienteEIngresos( nodoArbolPacientes*arbol)
+{
+    while(arbol)
+    {
+        mostrarPacienteEIngresos(arbol->izq);
+        mostrarListaIngresos(arbol->listaIngresos);
+        mostrarPacienteEIngresos(arbol->der);
+    }
+}
+nodoArbolPacientes* mostrarPacienteDeDNI(nodoArbolPacientes* arbol)
+{
+    int dniAbuscar;
+    int correcto;
+    do
+    {  correcto = 0;
+        printf("Ingrese el DNI del paciente que desea buscar: ");
+        fflush(stdin);
+        if (scanf("%d",&dniAbuscar)!=1)
+        {
+            correcto=1;
+            printf("La respuesta no es valida. Por favor, ingrese el DNI del paciente.\n");
+        }
+    }
+    while(correcto==1);
 
+   nodoArbolPacientes * existeDNIpaciente = existePaciente(arbol,dniAbuscar);
+   if(existeDNIpaciente!=NULL )
+   {
+       mostrarUnPaciente (existeDNIpaciente->dato);
+       mostrarListaIngresos(existeDNIpaciente->listaIngresos);
+       mostrarListaPXI(existeDNIpaciente->listaIngresos->listaDePracticas);
+
+
+   }
+   else
+   {  clearScreen();
+       printf("El DNI ingresado no pertenece a un paciente.");
+   }
+
+}
 nodoArbolPacientes * iniciarArbol ()
 {
     return NULL;
@@ -1346,6 +1791,7 @@ nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arb
 
     return arbol;
 }
+
 
 ///ALTA PACIENTE EN EL ARBOL(chequeada)
 nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
