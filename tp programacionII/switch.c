@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <string.h>
 #include "switch.h"
+#include <windows.h>
 
  char archivoEmpleado []="empleados.bin";
  char archivoPracticas[]="lasPracticas.bin";
@@ -19,32 +20,46 @@ void InicioDelPrograma()
     nodoEmpleados* listaEmpleados= iniclistaEmpleados();
 
     listaEmpleados = pasarArchivoAlistaEmpleados("empleados.bin",listaEmpleados);
+//
+//   listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+//
+//   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+//
+//    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
+//
+//    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
 
-   listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
 
-   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+    gotoxy(35,12);printf("INGRES USUARIO");
+    int perfil = usuarioYclavePrincipio(listaEmpleados);
 
-    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
-
-    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
-
-    mostrarListaEmpleados(listaEmpleados,1);
-
-    //int perfil=usuarioYclavePrincipio(listaEmpleados);
+    if(perfil==1)
+    {
+        switchAdmin(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
+    }
+    else if(perfil==2)
+    {
+        switchEmpleados(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
+    }
+    else if(perfil==3)
+    {
+        switchAdmin(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
+    }
+    else
 
     FinDelPrograma(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
 
 
 }
 void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
-{    listaPracticaAArchivo(archivoPracticas,listaPracticas);
-   pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
-    listaPXIsAArchivo(arbolPaciente,archivoPXI);
-    listaIngresosAArchivo(arbolPaciente,archivoIngresos);
-    cargarArchivoPaciente(archivoPacientes,arbolPaciente);
-    free(arbolPaciente);
+{  //  listaPracticaAArchivo(archivoPracticas,listaPracticas);
+  pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
+//    listaPXIsAArchivo(arbolPaciente,archivoPXI);
+//    listaIngresosAArchivo(arbolPaciente,archivoIngresos);
+//    cargarArchivoPaciente(archivoPacientes,arbolPaciente);
+//    free(arbolPaciente);
     free(listaEmpleados);
-    free(listaPracticas);
+//    free(listaPracticas);
 
 }
 int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
@@ -53,12 +68,9 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
     char usuario[20];
     int intentos=0;
     int existe;
+    empleadosDeLaboratorio datosEmpleado;
 
-    printf(" _ ____  _                           _     _         __    _ \n");
-    printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
-    printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
-    printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
-    printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
+
     do
     {
 
@@ -78,12 +90,20 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
             {
             clave[longitud - 1] = '\0';}
 
-        existe=compararUsuario(clave,usuario,listaEmpleados);
+        existe=compararUsuario(clave,usuario,listaEmpleados,&datosEmpleado);
 
         if (existe!=0)
         {
             clearScreen();
-            printf("Entrando al sistema");
+
+    printf(" _ ____  _                           _     _         __    _ \n");
+    printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
+    printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
+    printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
+    printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
+
+            gotoxy(25,5);printf("%s\n",datosEmpleado.apellidoYnombre);
+            system("pause");
             return existe;
         }
 
@@ -101,15 +121,13 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
     }
     while(1);
 }
-int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados) {
+int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,empleadosDeLaboratorio*datoUsuario) {
     int tipoperfil = 0;
 
     while (listaEmpleados != NULL) {
-        printf("usuario %s   lista %s \n", usuario, listaEmpleados->empleado.usuario);
-
         if (strcmp(usuario, listaEmpleados->empleado.usuario) == 0 &&
             strcmp(clave, listaEmpleados->empleado.clave) == 0) {
-                printf("%s",listaEmpleados->empleado.perfil);
+                *datoUsuario=listaEmpleados->empleado;
             if (strcmpi("administrador", listaEmpleados->empleado.perfil) == 0) {
                 tipoperfil = 1; // Administrator
             } else if (strcmpi("profesional", listaEmpleados->empleado.perfil) == 0) {
@@ -128,12 +146,12 @@ int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados)
 }
 
 //SWITCH PARA PROFESIONALES DE LABORATORIO
-void switchAdministrador()
+void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
 {
     int eleccion1;
     int eleccion2;
     int eleccion3;
-
+   clearScreen();
     do
     {
         printf("Bienvenido/a!\n");
@@ -217,13 +235,13 @@ void switchAdministrador()
 }
 
 //SWITCH PARA EMPLEADOS
-void switchEmpleados(nodoArbolPacientes** arbolPacientes)
+void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
 {
     int eleccion1;
     int eleccion2;
     int eleccion3;
     char seguir;
-
+ clearScreen();
     do
     {
         printf("Bienvenido/a!\n");
@@ -254,7 +272,7 @@ void switchEmpleados(nodoArbolPacientes** arbolPacientes)
                 case 1:
                     do
                     {
-                        *arbolPacientes=altaArbolPacientes(*arbolPacientes);
+                        arbolPaciente=altaArbolPacientes(arbolPaciente);
                         puts("----------------------------------------");
                         printf("Desea dar de alta a otro Paciente? (s/n)\n");
                         fflush(stdin);
@@ -368,12 +386,12 @@ void switchEmpleados(nodoArbolPacientes** arbolPacientes)
 }
 
 //SWITCH PARA ADMINISTRADORES
-void switchAdmin()
+void switchAdmin(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
 {
     int eleccion1;
     int eleccion2;
     int eleccion3;
-
+ clearScreen();
     do
     {
         printf("Bienvenido/a!\n");
@@ -402,6 +420,7 @@ void switchAdmin()
                 switch(eleccion2)
                 {
                 case 1:
+                    listaEmpleados = alta_de_empleados(listaEmpleados);
 
                     break;
 
@@ -544,4 +563,13 @@ void mostrarArchivo(char nombreArchivo[])
     {
         printf("No se pudo abrir el archivo %s\n", nombreArchivo);
     }
+}
+// funciones de vista de datos
+void gotoxy(int x, int y){
+	HANDLE hcon;
+	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD dwPos;
+	dwPos.X = x;
+	dwPos.Y= y;
+	SetConsoleCursorPosition(hcon,dwPos);
 }

@@ -2289,7 +2289,7 @@ void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil)
     if(listaEmpleados != NULL)
     {
         mostrarUnEmpleado(listaEmpleados->empleado,tipoperfil);
-        mostrarListaEmpleados(listaEmpleados->siguiente, tipoperfil);
+       mostrarListaEmpleados(listaEmpleados->siguiente, tipoperfil);
     }
 }
 
@@ -2315,15 +2315,16 @@ void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil)
 //FUNCION PASAR DE LA LISTA DOBLE AL ARCHIVO
 void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[])
 {
-    FILE * archi = fopen(nombreArchivo, "wb");
+    FILE * archi = fopen(nombreArchivo, "b");
+
 
     if (archi != NULL)
     {
-        nodoEmpleados *actual = listaEmpleados;
-        while (actual != NULL)
+
+        while (listaEmpleados != NULL)
         {
-            fwrite(&(actual->empleado), sizeof(empleadosDeLaboratorio), 1, archi);
-            actual = actual->siguiente;
+            fwrite(&listaEmpleados->empleado, sizeof(empleadosDeLaboratorio), 1, archi);
+           listaEmpleados= listaEmpleados->siguiente;
         }
         fclose(archi);
     }
@@ -2331,6 +2332,7 @@ void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArch
     {
         printf("No se pudo abrir el archivo para escritura.\n");
     }
+    printf("se pasaro los datos de la lisat de empleados al archivo");
 }
 
 ///FUNCION PASAR DE ARCHIVO A LISTA DOBLE EMPLEADOS
@@ -2341,14 +2343,14 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 
     if(archi != NULL)
     {
-        while(fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi)==1)
+        while(fread(&aux, sizeof(empleadosDeLaboratorio),1, archi)==1)
         {
             nodoEmpleados * nuevoEmpleado = crearNodoEmpleados(aux);
-            printf("nuevo %s\n",nuevoEmpleado->empleado.apellidoYnombre);
-            listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevoEmpleado);
 
+            listaEmpleados=agregarEnOrdenEmpleados(listaEmpleados,nuevoEmpleado);
 
         }
+
         fclose(archi);
     }
     else
@@ -2477,37 +2479,42 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
 }
 
 //FUNCION AGREGAR A LA LISTA ORDENADO POS APELLIDO Y NOMBRE
-nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo)
+nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmpleados *nuevoNodo)
 {
-
-    if(listaEmpleados == NULL)
+    if (listaEmpleados == NULL)
     {
-        listaEmpleados = nuevo;
+        return nuevoNodo;
+    }
+
+    nodoEmpleados *actual = listaEmpleados;
+    while (actual != NULL && strcmp(nuevoNodo->empleado.apellidoYnombre, actual->empleado.apellidoYnombre) > 0)
+    {
+        actual = actual->siguiente;
+    }
+    if (actual == NULL)
+    {
+        nuevoNodo->anterior = actual->anterior;
+        actual->siguiente = nuevoNodo;
     }
     else
     {
-        if(strcmp(nuevo->empleado.apellidoYnombre, listaEmpleados->empleado.apellidoYnombre)<0)
+        nuevoNodo->siguiente = actual;
+        nuevoNodo->anterior = actual->anterior;
+        actual->anterior = nuevoNodo;
+
+        if (nuevoNodo->anterior != NULL)
         {
-            listaEmpleados = agregarPpioEmpleados(listaEmpleados, nuevo);
+            nuevoNodo->anterior->siguiente = nuevoNodo;
         }
         else
         {
-            nodoEmpleados * ante = listaEmpleados;
-            nodoEmpleados * seg = listaEmpleados->siguiente;
-            while((seg != NULL)&&(strcmp(nuevo->empleado.apellidoYnombre,seg->empleado.apellidoYnombre)>0))
-            {
-                ante = seg;
-                seg = seg->siguiente;
-            }
-            ante->siguiente = nuevo;
-            nuevo->anterior = ante;
-            nuevo->siguiente = seg;
-            if (seg!=NULL)
-                seg->anterior=nuevo;
+            return nuevoNodo;
         }
     }
+
     return listaEmpleados;
 }
+
 
 
 //FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
