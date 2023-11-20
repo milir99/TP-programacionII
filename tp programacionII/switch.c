@@ -320,7 +320,6 @@ void switchAdmin()
     int eleccion1;
     int eleccion2;
     int eleccion3;
-    //int eleccion4;
 
     do
     {
