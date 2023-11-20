@@ -35,6 +35,7 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
 }
 int main()
 {
+    InicioDelPrograma();
     char seguir;
     int ingreso;
     ingresos dato;

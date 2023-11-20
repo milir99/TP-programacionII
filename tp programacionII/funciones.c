@@ -1124,7 +1124,12 @@ void mostrarListaIngresos(nodoIngresos* listaIngresos)
     }
 
 }
-//
+// inicializar lista practicas
+nodoPracticasLaboratorio * inicListaPracticas()
+{
+    return NULL;
+}
+
 //
 //
 //
