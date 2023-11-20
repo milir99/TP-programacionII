@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <string.h>
 #include "switch.h"
+
  char archivoEmpleado []="empleados.bin";
  char archivoPracticas[]="lasPracticas.bin";
  char archivoPXI []="PXI.bin";
@@ -16,20 +17,20 @@ void InicioDelPrograma()
     nodoPracticasLaboratorio* listaPracticasLaboratorio = inicListaPracticas();
     nodoArbolPacientes* arbolPacientes=iniciarArbol();
     nodoEmpleados* listaEmpleados= iniclistaEmpleados();
-    FinDelPrograma(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
 
-    pasarArchivoAlistaEmpleados(archivoEmpleado,listaEmpleados);
+    listaEmpleados = pasarArchivoAlistaEmpleados("empleados.bin",listaEmpleados);
 
-    ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+   listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
 
-    archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
 
-    archivoAListaIngresos(archivoIngresos,arbolPacientes);
+    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
 
-    archivoAListaPXI(archivoPXI,arbolPacientes);
+    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
 
-    mostrarArchivo(archivoEmpleado);
-    int perfil=usuarioYclavePrincipio(listaEmpleados);
+    mostrarListaEmpleados(listaEmpleados,1);
+
+    //int perfil=usuarioYclavePrincipio(listaEmpleados);
 
     FinDelPrograma(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
 
@@ -77,7 +78,7 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
             {
             clave[longitud - 1] = '\0';}
 
-        existe=compararUsuario(clave,usuario,listaEmpleados);//ver que va en los parentesis
+        existe=compararUsuario(clave,usuario,listaEmpleados);
 
         if (existe!=0)
         {
@@ -88,26 +89,26 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
 
         else
         {
-            printf("Usuario o contrase�a ingresado incorrectamente.Intentelo otra vez.\n");
+            printf("Usuario o contraseña ingresado incorrectamente.Intentelo otra vez.\n");
             intentos++;
             if(intentos==3)
             {
                 printf("Demasiados intentos fallidos.");
-                printf("Comuniquese con un Administrador para generar cambio de contrase�a o usuario.");
+                printf("Comuniquese con un Administrador para generar cambio de contraseña o usuario.");
                 return 0;
             }
         }
     }
     while(1);
 }
-
 int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados) {
     int tipoperfil = 0;
 
     while (listaEmpleados != NULL) {
         printf("usuario %s   lista %s \n", usuario, listaEmpleados->empleado.usuario);
 
-        if (strcmp(usuario, listaEmpleados->empleado.usuario) == 0 && strcmp(clave, listaEmpleados->empleado.clave) == 0) {
+        if (strcmp(usuario, listaEmpleados->empleado.usuario) == 0 &&
+            strcmp(clave, listaEmpleados->empleado.clave) == 0) {
                 printf("%s",listaEmpleados->empleado.perfil);
             if (strcmpi("administrador", listaEmpleados->empleado.perfil) == 0) {
                 tipoperfil = 1; // Administrator
@@ -517,24 +518,30 @@ void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux)
 {
     printf("\n-----------------\n");
     printf("DNI: %i\n", aux.dni);
-    printf("Apellido y nombre: %s\n", aux.apellidoYNombre);
-    printf("Telefono: %s\n", aux.telefono);
+    printf("Apellido y nombre: %s\n",aux.apellidoYnombre);
+    printf("Telefono: %i\n", aux.telefono);
     printf("Usuario: %s\n", aux.usuario);
     printf("Clave: %s\n", aux.clave);
     printf("perfil: %s\n", aux.perfil);
     printf("-------------------\n");
 }
-void mostrarArchivo (char nombreArchivo[])
+void mostrarArchivo(char nombreArchivo[])
 {
-    FILE * archi = fopen(nombreArchivo,"rb");
+    FILE *archi = fopen(nombreArchivo, "rb");
     empleadosDeLaboratorio aux;
 
-    if(archi != NULL)
+    if (archi != NULL)
     {
-        while(fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi)==1)
+        while (fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi) == 1)
         {
+            printf("\nRegistro en el archivo:\n");
             mostrarUnaPersonaArchivo(aux);
         }
+        printf("\nFin del archivo.\n");
+        fclose(archi);
     }
-    fclose(archi);
+    else
+    {
+        printf("No se pudo abrir el archivo %s\n", nombreArchivo);
+    }
 }

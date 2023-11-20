@@ -2093,7 +2093,6 @@ void darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
         printf("No se encontró ningún empleado con el DNI proporcionado.\n");
     }
 }
-
 //FUNCION MODIFICAR EMPLEADO
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
 {
@@ -2345,8 +2344,9 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
         while(fread(&aux, sizeof(empleadosDeLaboratorio), 1, archi)==1)
         {
             nodoEmpleados * nuevoEmpleado = crearNodoEmpleados(aux);
-
+            printf("nuevo %s\n",nuevoEmpleado->empleado.apellidoYnombre);
             listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevoEmpleado);
+
 
         }
         fclose(archi);
