@@ -20,14 +20,19 @@ void InicioDelPrograma()
     nodoEmpleados* listaEmpleados= iniclistaEmpleados();
 
     listaEmpleados = pasarArchivoAlistaEmpleados("empleados.bin",listaEmpleados);
-//
-//   listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
-//
-//   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
-//
-//    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
-//
-//    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
+
+   listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+
+   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+
+    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
+
+    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
+
+    listaPracticasLaboratorio=ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+
+     listaPracticaAArchivo(archivoPracticas,listaPracticasLaboratorio);
+     mostrarListadoPracticas(listaPracticasLaboratorio);
 
 
     gotoxy(35,12);printf("INGRES USUARIO");
@@ -35,7 +40,7 @@ void InicioDelPrograma()
 
     if(perfil==1)
     {
-        switchAdmin(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
+        switchAdmin(listaEmpleados,arbolPacientes,listaPracticasLaboratorio);
     }
     else if(perfil==2)
     {
@@ -43,7 +48,7 @@ void InicioDelPrograma()
     }
     else if(perfil==3)
     {
-        switchAdmin(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
+        switchAdministrativo(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
     }
     else
 
@@ -70,7 +75,7 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
     int existe;
     empleadosDeLaboratorio datosEmpleado;
 
-
+mostrarListaEmpleados(listaEmpleados,1);
     do
     {
 
@@ -386,15 +391,21 @@ void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmple
 }
 
 //SWITCH PARA ADMINISTRADORES
-void switchAdmin(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
+void switchAdmin(nodoEmpleados * listaEmpleados, nodoArbolPacientes * arbolPacientes, nodoPracticasLaboratorio * listaPracticasDeLaboratorio)
 {
     int eleccion1;
     int eleccion2;
     int eleccion3;
- clearScreen();
+    int correcto;
+    int dniEmpleadoAbuscar;
+    int dniPacienteAbuscar;
+    int tipoPerfil=0;
+    char nombrePracticaAbuscar[30];
+    int nroPracticaAbuscar;
+
     do
     {
-        printf("Bienvenido/a!\n");
+        printf("Bienvenido/a! Usted accedio como administrador.\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar usuario/empleado. \n");
         printf("2. Adminnistrar practicas.\n");
@@ -411,7 +422,7 @@ void switchAdmin(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados
                 printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un empleado.\n");
                 printf("2. Modificar un empleado.\n");
-                printf("3. Buscar un empleado.\n");
+                printf("3. Buscar un empleado por su DNI.\n");
                 printf("4. Mostrar todos los empleados.\n");
                 printf("5. Dar de baja un empleado.\n");
                 fflush(stdin);
@@ -421,19 +432,34 @@ void switchAdmin(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados
                 {
                 case 1:
                     listaEmpleados = alta_de_empleados(listaEmpleados);
-
                     break;
 
                 case 2:
+                    listaEmpleados = modificarEmpleado(listaEmpleados);
                     break;
 
                 case 3:
+                    do
+                    {
+                        correcto=0;
+                        printf("Ingrese el DNI del empleado que desea buscar: ");
+                        fflush(stdin);
+                        if(scanf("%i", &dniEmpleadoAbuscar)!=1)
+                        {
+                            correcto = 1;
+                            printf("Respuesta invalida. Intente nuevamente: \n");
+                        }
+                    }while(correcto == 1);
+
+                    buscarUnEmpleadoXdni(listaEmpleados,dniEmpleadoAbuscar,tipoPerfil);
                     break;
 
                 case 4:
+                    mostrarListaEmpleados(listaEmpleados,tipoPerfil);
                     break;
 
                 case 5:
+
                     break;
 
                 default:
@@ -461,18 +487,44 @@ void switchAdmin(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados
                 switch(eleccion3)
                 {
                 case 1:
+                    listaPracticasDeLaboratorio =  alta_de_practica(listaPracticasDeLaboratorio);
                     break;
 
                 case 2:
+                    do
+                    {
+                        correcto=0;
+                        printf("Ingrese el nombre de la practica que desee buscar: ");
+                        fflush(stdin);
+                        if (fgets(nombrePracticaAbuscar, sizeof(nombrePracticaAbuscar), stdin) == NULL)
+                        {
+                            correcto=1;
+                            printf("La respuesta no es valida. Por favor, ingrese el perfil del empleado.\n");
+                        }
+                    }while (correcto == 1);
+                    listaPracticasDeLaboratorio = modificacion_de_practica(listaPracticasDeLaboratorio);
                     break;
 
                 case 3:
+                    do
+                    {
+                        correcto=0;
+                        printf("Ingrese el numero de la practica que desee buscar: ");
+                        fflush(stdin);
+                        if(scanf("%i", &nroPracticaAbuscar)!=1)
+                        {
+                            correcto = 1;
+                            printf("Respuesta invalida. Intente nuevamente: \n");
+                        }
+                    }while(correcto == 1);
                     break;
 
                 case 4:
+                    mostrarListaPracticas(listaPracticasDeLaboratorio);
                     break;
 
                 case 5:
+                    listaPracticasDeLaboratorio = baja_de_practicasLaboratorio(listaPracticasDeLaboratorio, arbolPacientes);
                     break;
 
                 default:
@@ -500,18 +552,34 @@ void switchAdmin(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados
                 switch(eleccion3)
                 {
                 case 1:
+                    arbolPacientes = altaArbolPacientes(arbolPacientes);
                     break;
 
                 case 2:
+                    arbolPacientes = modificacionPacientesArbol(arbolPacientes);
                     break;
 
                 case 3:
+                    do
+                    {
+                        correcto=0;
+                        printf("Ingrese el DNI del paciente que desea buscar: ");
+                        fflush(stdin);
+                        if(scanf("%i", &dniPacienteAbuscar)!=1)
+                        {
+                            correcto = 1;
+                            printf("Respuesta invalida. Intente nuevamente: \n");
+                        }
+                    }while(correcto == 1);
+                    arbolPacientes = existePaciente(arbolPacientes,dniPacienteAbuscar);
                     break;
 
                 case 4:
+                    mostrarArbolINORDERPaciente(arbolPacientes);
                     break;
 
                 case 5:
+                    arbolPacientes = darBajaPaciente(arbolPacientes);
                     break;
 
                 default:

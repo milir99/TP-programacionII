@@ -40,13 +40,15 @@ int main()
 {
     system("mode con: cols=90 lines=30");
     system("color 5");
-
     InicioDelPrograma();
+
 //    char seguir;
 //    int ingreso;
 //    ingresos dato;
 //  nodoPracticasLaboratorio * listaPracticas=NULL;
+//  mostrarListadoPracticas(listaPracticas);
 //     listaPracticas=ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
+//     listaPracticaAArchivo("lasPracticas.bin",listaPracticas);
 //
 //    int existe = mostrarPracticasQueComienzanCon(listaPracticas);
 //    if (existe==0)

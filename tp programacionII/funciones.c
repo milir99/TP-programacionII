@@ -1129,7 +1129,6 @@ nodoPracticasLaboratorio * inicListaPracticas()
 {
     return NULL;
 }
-
 //
 //
 //
@@ -1137,9 +1136,6 @@ nodoPracticasLaboratorio * inicListaPracticas()
 //
 //
 //
-
-
-
 //FUNCIONES DE PRACTICAS X INGRESO///
 
 //FUNCION MODIFICAR PXI(corregir)
@@ -2368,13 +2364,108 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 {
     empleadosDeLaboratorio aux;
-    int cargaEmpleado = cargarUnEmpleado(&aux,listaEmpleados);
-
-    if(cargaEmpleado == 1)
+    empleadosDeLaboratorio nuevoEmpleado;
+    int correcto;
+    do
     {
+        correcto=0;
+        printf("Ingrese el DNI: ");
+        fflush(stdin);
+        if(scanf("%i", &nuevoEmpleado.dni)!=1)
+        {
+            correcto = 1;
+            printf("Respuesta invalida. Intente nuevamente: \n");
+        }
+    }
+    while(correcto == 1);
+
+    nodoEmpleados * existeUnEmpleado = existeEmpleado(listaEmpleados, nuevoEmpleado.dni);
+
+    if(existeUnEmpleado==NULL)
+    {
+        do
+        {
+            correcto=0;
+            printf("Ingrese el telefono: ");
+            fflush(stdin);
+            if (scanf("%i",&nuevoEmpleado.telefono)!= 1)
+            {
+                correcto=1;
+                printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
+            }
+        }
+        while(correcto==1);
+
+        do
+        {
+            correcto=0;
+            printf("Ingrese el apellido y nombre: ");
+            fflush(stdin);
+            if (fgets(nuevoEmpleado.apellidoYnombre, sizeof(nuevoEmpleado.apellidoYnombre), stdin) == NULL)
+            {
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+                correcto=1;
+            }
+        }
+        while(correcto==1);
+        size_t longitud = strlen(nuevoEmpleado.apellidoYnombre);
+        if (nuevoEmpleado.apellidoYnombre[longitud - 1] == '\n')
+        {
+            nuevoEmpleado.apellidoYnombre[longitud - 1] = '\0';
+        }
+
+
+        do
+        {
+            correcto = 0;
+            printf("Ingrese el nuevo usuario: ");
+            fflush(stdin);
+            if(fgets(nuevoEmpleado.usuario, sizeof(nuevoEmpleado.usuario), stdin) == NULL)
+            {
+                correcto = 1;
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+            }
+        }
+        while(correcto==1);
+        longitud = strlen(nuevoEmpleado.usuario);
+        if (nuevoEmpleado.usuario[longitud - 1] == '\n')
+            {
+            nuevoEmpleado.usuario[longitud - 1] = '\0';}
+
+        do
+        {
+            correcto=0;
+            printf("Ingrese el perfil (1=administrador, 2=profesional, 3=administrativo): ");
+            fflush(stdin);
+            if (fgets(nuevoEmpleado.perfil, sizeof(nuevoEmpleado.perfil), stdin) == NULL)
+            {
+                correcto=1;
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+            }
+        }
+        while(correcto==1);
+
+        do
+        {
+            correcto=0;
+            printf("Ingrese la clave: ");
+            fflush(stdin);
+            if (fgets(nuevoEmpleado.clave, sizeof(nuevoEmpleado.clave), stdin) == NULL)
+            {
+                correcto=1;
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+            }
+        }
+        while(correcto==1);
+        longitud = strlen(nuevoEmpleado.clave);
+        if (nuevoEmpleado.clave[longitud - 1] == '\n')
+            {
+           nuevoEmpleado.clave[longitud - 1] = '\0';}
         nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+        printf("\nyes\n");
         listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
-        printf("El empleado fue agregado.\n");
+         printf("El empleado fue agregado.\n");
+
     }
     else
     {
@@ -2430,6 +2521,11 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
             }
         }
         while(correcto==1);
+        size_t longitud = strlen(nuevoEmpleado.apellidoYnombre);
+        if (nuevoEmpleado.apellidoYnombre[longitud - 1] == '\n')
+            {
+            nuevoEmpleado.apellidoYnombre[longitud - 1] = '\0';}
+
 
         do
         {
@@ -2443,6 +2539,10 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
             }
         }
         while(correcto==1);
+         longitud = strlen(nuevoEmpleado.usuario);
+        if (nuevoEmpleado.usuario[longitud - 1] == '\n')
+            {
+            nuevoEmpleado.usuario[longitud - 1] = '\0';}
 
         do
         {
@@ -2469,6 +2569,10 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
             }
         }
         while(correcto==1);
+        longitud = strlen(nuevoEmpleado.clave);
+        if (nuevoEmpleado.clave[longitud - 1] == '\n')
+            {
+           nuevoEmpleado.clave[longitud - 1] = '\0';}
 
         *datos=nuevoEmpleado;
 
@@ -2508,7 +2612,9 @@ nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmplea
         }
         else
         {
+            printf("llega 4aca\n");
             return nuevoNodo;
+
         }
     }
 

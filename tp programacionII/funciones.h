@@ -96,6 +96,7 @@ nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*
 int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
 void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica);
 int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas);
+void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
 
 //FUNCIONES DE INGRESO
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato,nodoPracticasLaboratorio* listaPracticas);
