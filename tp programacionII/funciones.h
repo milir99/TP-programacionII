@@ -48,8 +48,8 @@ typedef struct nodoPracticasLaboratorio
 typedef struct
 {
     int dni;
-    char telefono [15];
-    char apellidoYNombre[40];
+    int telefono;
+    char apellidoYnombre[40];
     char usuario[20];
     char clave[20];
     char perfil[20];
@@ -159,15 +159,16 @@ nodoEmpleados * iniclistaEmpleados();
 nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
-nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux);
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados);
 nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados * listaEmpleados);
 void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[]);
-void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoPerfil);
-void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil);
+void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil);
+void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil);
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
 void darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
-void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoPerfil);
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoperfil);
+int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
 
 
 

@@ -88,12 +88,12 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
 
         else
         {
-            printf("Usuario o contraseña ingresado incorrectamente.Intentelo otra vez.\n");
+            printf("Usuario o contraseï¿½a ingresado incorrectamente.Intentelo otra vez.\n");
             intentos++;
             if(intentos==3)
             {
                 printf("Demasiados intentos fallidos.");
-                printf("Comuniquese con un Administrador para generar cambio de contraseña o usuario.");
+                printf("Comuniquese con un Administrador para generar cambio de contraseï¿½a o usuario.");
                 return 0;
             }
         }
@@ -107,8 +107,7 @@ int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados)
     while (listaEmpleados != NULL) {
         printf("usuario %s   lista %s \n", usuario, listaEmpleados->empleado.usuario);
 
-        if (strcmp(usuario, listaEmpleados->empleado.usuario) == 0 &&
-            strcmp(clave, listaEmpleados->empleado.clave) == 0) {
+        if (strcmp(usuario, listaEmpleados->empleado.usuario) == 0 && strcmp(clave, listaEmpleados->empleado.clave) == 0) {
                 printf("%s",listaEmpleados->empleado.perfil);
             if (strcmpi("administrador", listaEmpleados->empleado.perfil) == 0) {
                 tipoperfil = 1; // Administrator
