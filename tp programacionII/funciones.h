@@ -168,7 +168,7 @@ void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil);
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil);
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
-nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
+nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo);
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil);
 int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
 
