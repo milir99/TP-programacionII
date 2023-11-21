@@ -44,7 +44,7 @@ int main()
     int existe = mostrarPracticasQueComienzanCon(listaPracticas);
     if (existe==0)
     {
-        printf("No se encontro una practica con ese comienzo\n");
+        printf("No se encontro una practica con ese comienzo.\n");
     }
 
      system("pause");

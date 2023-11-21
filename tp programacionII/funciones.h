@@ -167,6 +167,11 @@ nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEm
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoPerfil);
 
 
+//SWITCH INGRESOS
+void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[]);
+void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numeroIngreso);
+void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado);
+
 
 
 
