@@ -6,6 +6,7 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h>
+#include <conio.h>
 
 //FUNCIONES DE PRACTICAS
 //FUNCION MOSTRAR PRACTICAS DE LABORATORIO ORGANIZADAS POR NOMBRE
@@ -2365,10 +2366,11 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
     int eleccionModificar;
     int dniAbuscar;
     int correcto;
+    int perfil;
     do
     {
         correcto=0;
-        printf("Ingrese el DNI del paciente que quiere modificar: ");
+        printf("\nIngrese el DNI del paciente que quiere modificar: ");
         if (scanf("%i",&dniAbuscar)!=1)
         {
             correcto=1;
@@ -2487,22 +2489,35 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
                 puts("\n----------------------------------------\n");
                 break;
             case 6:
-                do
-                {
-                    correcto=0;
-                    printf("Ingrese el nuevo perfil: ");
-                    fflush(stdin);
-                    if (fgets(existeDNI->empleado.perfil, sizeof(existeDNI->empleado.perfil), stdin) == NULL)
-                    {
-                        correcto=1;
-                        printf("La respuesta no es valida. Por favor, ingrese el perfil del empleado.\n");
-                    }
-                }
-                while (correcto == 1);
+                 do
+        {
+            correcto=0;
+            printf("Ingrese el perfil (1=administrador, 2=profesional, 3=administrativo): ");
+            fflush(stdin);
+            if (scanf("%i",&perfil)!=1)
+            {
+                correcto=1;
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+            }
+        }
+        while(correcto==1);
+        if (perfil==1)
+        {
+            strcpy(existeDNI->empleado.perfil,"administrador");
+        }else if(perfil==2)
+        {
+           strcpy(existeDNI->empleado.perfil,"profesional");
+        }
+        else if(perfil==3)
+        {
+           strcpy(existeDNI->empleado.perfil,"administrativo");
+        }
+
+
                 puts("----------------------------------------\n");
                 printf("perfil cambiado exitosamente.\n");
                 puts("\n----------------------------------------\n");
-                break;
+            break;
 
 
             default:
@@ -2717,7 +2732,12 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         while(correcto==1);
         usuario[strcspn(usuario, "\n")] = '\0';
         strcpy(nuevoEmpleado.usuario,usuario);
-
+      if(listaEmpleados==NULL)
+      {
+          strcpy(nuevoEmpleado.perfil,"administrador");
+      }
+      else
+      {
         do
         {
             correcto=0;
@@ -2741,25 +2761,32 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         {
            strcpy(nuevoEmpleado.perfil,"administrativo");
         }
+    }
 
-        do
-        {
             correcto=0;
             printf("Ingrese la clave: ");
-            fflush(stdin);
-            if (fgets(clave, sizeof(clave), stdin) == NULL)
-            {
-                correcto=1;
-                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+             int i = 0;
+        while (1) {
+            char tecla = _getch();
+            if (tecla == 13) {
+                clave[i] = '\0';
+                break;
+            } else if (tecla == 8) {
+                if (i > 0) {
+                    i--;
+                    printf("\b \b");
+                }
+            } else {
+                clave[i] = tecla;
+                printf("*");
+                i++;
             }
         }
-        while(correcto==1);
         clave[strcspn(clave, "\n")] = '\0';
         strcpy(nuevoEmpleado.clave,clave);
 
 
         nodoEmpleados * nuevo = crearNodoEmpleados(nuevoEmpleado);
-        printf("%s datos",nuevo->empleado.apellidoYnombre);
 
         listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
 

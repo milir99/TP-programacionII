@@ -5,6 +5,7 @@
 #include <string.h>
 #include "switch.h"
 #include <windows.h>
+#include <conio.h>
 
  char archivoEmpleado []="empleados.bin";
  char archivoPracticas[]="lasPracticas.bin";
@@ -73,108 +74,130 @@ void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmplea
 
 
 }
-int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
-{
+
+
+
+
+
+int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
     char clave[20];
     char usuario[20];
-    int intentos=0;
+    int intentos = 0;
     int i;
     int existe;
     empleadosDeLaboratorio datosEmpleado;
 
-    do
-    {
+    do {
         clearScreen();
-        //gotoxy(1, 2); printf("\n   Ingrese su nombre de usuario: ");
-
-        //recuadro(10, 5, 70, 15);
         recuadro(5, 5, 80, 20);
         gotoxy(33, 8);
         printf("INICIO DE SESION");
         gotoxy(25, 10);
         printf("Usuario: ");
         fflush(stdin);
-        fgets(usuario,sizeof(usuario),stdin);
+        fgets(usuario, sizeof(usuario), stdin);
         size_t longitud = strlen(usuario);
 
-        if (usuario[longitud - 1] == '\n')
-            {
-            usuario[longitud - 1] = '\0';}
+        if (usuario[longitud - 1] == '\n') {
+            usuario[longitud - 1] = '\0';
+        }
 
         gotoxy(25, 12);
         printf("Clave: ");
-        scanf("%s", clave);
+
+         i = 0;
+        while (1) {
+            char tecla = _getch();
+            if (tecla == 13) {
+                clave[i] = '\0';
+                break;
+            } else if (tecla == 8) {
+                if (i > 0) {
+                    i--;
+                    printf("\b \b");
+                }
+            } else {
+                clave[i] = tecla;
+                printf("*");
+                i++;
+            }
+        }
         longitud = strlen(clave);
-        if (clave[longitud - 1] == '\n')
-            {
-            clave[longitud - 1] = '\0';}
+        if (clave[longitud - 1] == '\n') {
+            clave[longitud - 1] = '\0';
+        }
 
-        existe=compararUsuario(clave,usuario,listaEmpleados,&datosEmpleado);
+        existe = compararUsuario(clave, usuario, listaEmpleados, &datosEmpleado);
         ocultarCursor();
-    centrarTexto("C A R G A N D O...",21);
-    for(i = 3; i <= 76; i++)
-    {
-        gotoxy(i, 23); printf("%c",177);
-    }
+        centrarTexto("C A R G A N D O...", 21);
 
+        for (i = 3; i <= 76; i++) {
+            gotoxy(i, 23);
+            printf("%c", 177);
+        }
 
+        for (i = 3; i <= 76; i++) {
+            gotoxy(i, 23);
+            printf("%c", 219);
+            Sleep(15);
+        }
 
-    for(i = 3; i <= 76; i++)
-    {
-        gotoxy(i, 23); printf("%c",219);
-        Sleep(15);
-    }
-    gotoxy(3,21); printf("                                                                    ");
-    gotoxy(3,23); printf("                                                                    ");
+        gotoxy(3, 21);
+        printf("                                                                    ");
+        gotoxy(3, 23);
+        printf("                                                                    ");
 
-    activarCursor();
-        if (existe!=0)
-        {
+        activarCursor();
+
+        if (existe != 0) {
             ocultarCursor();
-            centrarTexto("C A R G A N D O...",21);
-            for(i = 4; i <= 76; i++)
-            {
-                gotoxy(i, 23); printf("%c",170);
-            }
-            for(i = 3; i <= 76; i++)
-            {
-                gotoxy(i, 23); printf("%c",219);
+            centrarTexto("C A R G A N D O...", 21);
 
+            for (i = 4; i <= 76; i++) {
+                gotoxy(i, 23);
+                printf("%c", 170);
             }
-            gotoxy(3,21); printf("                                                                    ");
-            gotoxy(3,23); printf("                                                                    ");
 
+            for (i = 3; i <= 76; i++) {
+                gotoxy(i, 23);
+                printf("%c", 219);
+            }
+
+            gotoxy(3, 21);
+            printf("                                                                    ");
+            gotoxy(3, 23);
+            printf("                                                                    ");
 
             activarCursor();
 
-
             clearScreen();
 
-    printf(" _ ____  _                           _     _         __    _ \n");
-    printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
-    printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
-    printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
-    printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
+            printf(" _ ____  _                           _     _         __    _ \n");
+            printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
+            printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
+            printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
+            printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
 
-            gotoxy(25,5);printf("%s\n",datosEmpleado.apellidoYnombre);
+            gotoxy(25, 5);
+            printf("%s\n", datosEmpleado.apellidoYnombre);
             system("pause");
             return existe;
-        }
-        else
-        {
-            gotoxy(10, 14);printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
+        } else {
+            gotoxy(10, 14);
+            printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
             Sleep(5000);
             intentos++;
-            if(intentos==3)
-            {
+
+            if (intentos == 3) {
                 clearScreen();
                 printf("Demasiados intentos fallidos.\n");
                 printf("Comuniquese con un Administrador para generar cambio de clave o usuario.\n");
                 return 0;
             }
         }
-    }while(1);
+    } while (1);
 }
+
 int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,empleadosDeLaboratorio*datoUsuario){
     int tipoperfil = 0;
 
