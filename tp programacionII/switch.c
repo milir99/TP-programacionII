@@ -5,6 +5,7 @@
 #include <string.h>
 #include "switch.h"
 #include <windows.h>
+#include <conio.h>
 
  char archivoEmpleado []="empleados.bin";
  char archivoPracticas[]="lasPracticas.bin";
@@ -31,139 +32,172 @@ void InicioDelPrograma()
 
     arbolPacientes = archivoAListaPXI(archivoPXI,arbolPacientes);
 
-
-    int perfil = usuarioYclavePrincipio(listaEmpleados);
-
-    if(perfil==1)
+    if(listaEmpleados==NULL)
     {
-        switchAdmin(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
-    }
-    else if(perfil==2)
-    {
-        switchEmpleados(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
-    }
-    else if(perfil==3)
-    {
-        switchAdministrativo(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
-    }
-    else
-
-    FinDelPrograma(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
-}
-
-void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
-{  //  listaPracticaAArchivo(archivoPracticas,listaPracticas);
-  pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
-//    listaPXIsAArchivo(arbolPaciente,archivoPXI);
-//    listaIngresosAArchivo(arbolPaciente,archivoIngresos);
-//    cargarArchivoPaciente(archivoPacientes,arbolPaciente);
-//    free(arbolPaciente);
-    free(listaEmpleados);
-//    free(listaPracticas);
-}
-
-int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
-{
-    char clave[20];
-    char usuario[20];
-    int intentos=0;
-    int i;
-    int existe;
-    empleadosDeLaboratorio datosEmpleado;
-
-    do
-    {
-        clearScreen();
-        //gotoxy(1, 2); printf("\n   Ingrese su nombre de usuario: ");
-
-        //recuadro(10, 5, 70, 15);
-        recuadro(10, 10, 70, 15);
-        gotoxy(33, 8);
-        printf("INICIO DE SESION");
-        gotoxy(25, 10);
-        printf("Usuario: ");
-        fflush(stdin);
-        fgets(usuario,sizeof(usuario),stdin);
-        size_t longitud = strlen(usuario);
-
-        if (usuario[longitud - 1] == '\n')
-            {
-            usuario[longitud - 1] = '\0';}
-
-        gotoxy(25, 12);
-        printf("Clave: ");
-        scanf("%s", clave);
-        longitud = strlen(clave);
-        if (clave[longitud - 1] == '\n')
-            {
-            clave[longitud - 1] = '\0';}
-
-        existe=compararUsuario(clave,usuario,listaEmpleados,&datosEmpleado);
-        ocultarCursor();
-    centrarTexto("C A R G A N D O...",21);
-    for(i = 3; i <= 76; i++)
-    {
-        gotoxy(i, 23); printf("%c",177);
-    }
-
-
-
-    for(i = 3; i <= 76; i++)
-    {
-        gotoxy(i, 23); printf("%c",219);
-        Sleep(15);
-    }
-    gotoxy(3,21); printf("                                                                    ");
-    gotoxy(3,23); printf("                                                                    ");
-
-    activarCursor();
-        if (existe!=0)
-        {
-            ocultarCursor();
-            centrarTexto("C A R G A N D O...",21);
-            for(i = 3; i <= 76; i++)
-            {
-                gotoxy(i, 23); printf("%c",177);
-            }
-            for(i = 3; i <= 76; i++)
-            {
-                gotoxy(i, 23); printf("%c",219);
-
-            }
-            gotoxy(3,21); printf("                                                                    ");
-            gotoxy(3,23); printf("                                                                    ");
-
-
-            activarCursor();
-
-
-            clearScreen();
-
-    printf(" _ ____  _                           _     _         __    _ \n");
+        printf(" _ ____  _                           _     _         __    _ \n");
     printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
     printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
     printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
     printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
 
-            gotoxy(25,5);printf("%s\n",datosEmpleado.apellidoYnombre);
+
+    printf("Acontinuacion debe ingresar sus datos para generar el primer usuario del programa.\n");
+        listaEmpleados=alta_de_empleados(listaEmpleados);
+
+    }
+    int perfil = usuarioYclavePrincipio(listaEmpleados);
+
+    if(perfil==1)
+    {
+        switchAdmin(&arbolPacientes,&listaEmpleados,&listaPracticasLaboratorio);
+    }
+    else if(perfil==2)
+    {
+        switchProfesionales(&arbolPacientes,&listaEmpleados,&listaPracticasLaboratorio);
+    }
+    else if(perfil==3)
+    {
+        switchAdministrativo(&arbolPacientes,&listaEmpleados,&listaPracticasLaboratorio);;
+    }
+
+    FinDelPrograma(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
+
+
+
+}
+void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
+{    listaPracticaAArchivo(archivoPracticas,listaPracticas);
+        pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
+    listaPXIsAArchivo(arbolPaciente,archivoPXI);
+    listaIngresosAArchivo(arbolPaciente,archivoIngresos);
+    cargarArchivoPaciente(archivoPacientes,arbolPaciente);
+
+
+}
+
+
+
+
+
+int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
+    char clave[20];
+    char usuario[20];
+    int intentos = 0;
+    int i;
+    int existe;
+    empleadosDeLaboratorio datosEmpleado;
+
+    do {
+        clearScreen();
+        recuadro(5, 5, 80, 20);
+        gotoxy(33, 8);
+        printf("INICIO DE SESION");
+        gotoxy(25, 10);
+        printf("Usuario: ");
+        fflush(stdin);
+        fgets(usuario, sizeof(usuario), stdin);
+        size_t longitud = strlen(usuario);
+
+        if (usuario[longitud - 1] == '\n') {
+            usuario[longitud - 1] = '\0';
+        }
+
+        gotoxy(25, 12);
+        printf("Clave: ");
+
+         i = 0;
+        while (1) {
+            char tecla = _getch();
+            if (tecla == 13) {
+                clave[i] = '\0';
+                break;
+            } else if (tecla == 8) {
+                if (i > 0) {
+                    i--;
+                    printf("\b \b");
+                }
+            } else {
+                clave[i] = tecla;
+                printf("*");
+                i++;
+            }
+        }
+        longitud = strlen(clave);
+        if (clave[longitud - 1] == '\n') {
+            clave[longitud - 1] = '\0';
+        }
+
+        existe = compararUsuario(clave, usuario, listaEmpleados, &datosEmpleado);
+        ocultarCursor();
+        centrarTexto("C A R G A N D O...", 21);
+
+        for (i = 3; i <= 76; i++) {
+            gotoxy(i, 23);
+            printf("%c", 177);
+        }
+
+        for (i = 3; i <= 76; i++) {
+            gotoxy(i, 23);
+            printf("%c", 219);
+            Sleep(15);
+        }
+
+        gotoxy(3, 21);
+        printf("                                                                    ");
+        gotoxy(3, 23);
+        printf("                                                                    ");
+
+        activarCursor();
+
+        if (existe != 0) {
+            ocultarCursor();
+            centrarTexto("C A R G A N D O...", 21);
+
+            for (i = 4; i <= 76; i++) {
+                gotoxy(i, 23);
+                printf("%c", 170);
+            }
+
+            for (i = 3; i <= 76; i++) {
+                gotoxy(i, 23);
+                printf("%c", 219);
+            }
+
+            gotoxy(3, 21);
+            printf("                                                                    ");
+            gotoxy(3, 23);
+            printf("                                                                    ");
+
+            activarCursor();
+
+            clearScreen();
+
+            printf(" _ ____  _                           _     _         __    _ \n");
+            printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
+            printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
+            printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
+            printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
+
+            gotoxy(25, 5);
+            printf("%s\n", datosEmpleado.apellidoYnombre);
             system("pause");
             return existe;
-        }
-        else
-        {
-            gotoxy(10, 14);printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
+        } else {
+            gotoxy(10, 14);
+            printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
             Sleep(5000);
             intentos++;
-            if(intentos == 3)
-            {
+
+            if (intentos == 3) {
                 clearScreen();
                 printf("Demasiados intentos fallidos.\n");
                 printf("Comuniquese con un Administrador para generar cambio de clave o usuario.\n");
                 return 0;
             }
         }
-    }while(1);
+    } while (1);
 }
+
 int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,empleadosDeLaboratorio*datoUsuario){
     int tipoperfil = 0;
 
@@ -178,6 +212,7 @@ int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,
             } else if (strcmpi("administrativo", listaEmpleados->empleado.perfil) == 0) {
                 tipoperfil = 3; // Administrative
             }
+
             // Exit the loop early if a match is found
             break;
         }
@@ -188,8 +223,8 @@ int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,
     return tipoperfil;
 }
 
-//SWITCH PARA administrativos
-void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
+//SWITCH PARAPROFESIONALES
+void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**listaEmpleados,nodoPracticasLaboratorio**listaPracticas)
 {
     int eleccion1;
     int eleccion2;
@@ -199,17 +234,15 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
     int correcto;
     int dniPacienteAbuscar;
     nodoArbolPacientes * existe = iniciarArbol();
-    clearScreen();
+
     do
     {
         clearScreen();
-        system("pause");
+        printf("Ingresado como Profesional");
         printf("Bienvenido/a!\n");
-        printf("Ingrese la opcion que desee realizar.\n");
-        printf("0. Para finalizar.\n");
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar practicas.\n");
-        printf("2. Ver pacientes. \n");
-
+        printf("2. Administrar pacientes. \n");
         fflush(stdin);
         scanf("%i", &eleccion1);
 
@@ -219,10 +252,10 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                clearScreen();
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Agregar una practica.\n");
-                printf("2. Modificar una practica.\n");
+                printf("2. Modificar una practica .\n");
                 printf("3. Buscar una practica.\n");
                 printf("4. Mostrar todas las practicas.\n");
                 printf("5. Dar de baja una practica.\n");
@@ -232,15 +265,15 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                 switch(eleccion2)
                 {
                 case 1:
-                    listaPracticas =  alta_de_practica(listaPracticas);
+                    *listaPracticas =  alta_de_practica(*listaPracticas);
                     break;
 
                 case 2:
-                    listaPracticas = modificacion_de_practica(listaPracticas);
+                    *listaPracticas = modificacion_de_practica(*listaPracticas);
                     break;
 
                 case 3:
-                    buscarPractica = mostrarPracticasQueComienzanCon(listaPracticas);
+                    buscarPractica = mostrarPracticasQueComienzanCon(*listaPracticas);
                     if(buscarPractica == 0)
                     {
                         printf("La practica que desea buscar no existe.\n");
@@ -248,11 +281,37 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                     break;
 
                 case 4:
-                    mostrarListadoPracticas(listaPracticas);
+                     do
+                    {
+                        printf("Mostrar las practicas organizadas por: \n");
+                        printf("1. Nombre de Practica \n");
+                        printf("2. Nro de Practica.\n");
+                        printf("0. Volver.\n");
+                        fflush(stdin);
+                        scanf("%i", &eleccion1);
+                        clearScreen();
+                        switch(eleccion1)
+                        {
+                        case 1:
+                            mostrarListaPorNombre(*listaPracticas);
+                            break;
+                        case 2:
+                            mostrarListaPracticasadmin(*listaPracticas);
+                            break;
+                        default:
+                            if(eleccion1!=0)
+                            {
+                                printf("Error, la opcion que ingreso es invalida.\n");
+                            }
+                            break;
+                        }
+
+                    }
+                    while(eleccion1!=0);
                     break;
 
                 case 5:
-                    listaPracticas = baja_de_practicasLaboratorio(listaPracticas, arbolPaciente);
+                   * listaPracticas = baja_de_practicasLaboratorio(*listaPracticas, *arbolPaciente);
                     break;
 
                 default:
@@ -261,23 +320,25 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion2 != 0);
+            }
+            while(eleccion2 != 0);
 
         case 2:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                clearScreen();
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Ver pacientes.\n");
                 printf("2. Buscar un paciente.\n");
+                printf("3. Ingresar resultados.\n");
                 fflush(stdin);
                 scanf("%i", &eleccion3);
 
                 switch(eleccion3)
                 {
                 case 1:
-                    mostrarArbolINORDERPaciente(arbolPaciente);
+                    mostrarArbolINORDERPaciente(*arbolPaciente);
                     break;
 
                 case 2:
@@ -292,9 +353,12 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                             printf("Respuesta invalida. Intente nuevamente: \n");
                         }
                     }while(correcto == 1);
-                    existe = existePaciente(arbolPaciente,dniPacienteAbuscar);
+                    existe = existePaciente(*arbolPaciente,dniPacienteAbuscar);
                     mostrarUnPaciente(existe->dato);
                     break;
+                    case 3:
+                         modificar_PXI(*arbolPaciente,*listaPracticas);
+                        break;
 
                 default:
                     if(eleccion3!=0)
@@ -302,30 +366,34 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
         }
-    }while(eleccion1!=0);
+    }
+    while(eleccion1!=0);
 }
 
-//SWITCH PARA EMPLEADOS
-void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados * listaEmpleados,nodoPracticasLaboratorio * listaPracticas)
+//SWITCH PARA ADMINISTRATIVOS
+void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** listaEmpleados,nodoPracticasLaboratorio ** listaPracticas)
 {
     int eleccion1;
     int eleccion2;
     int eleccion3;
+    int eleccion4;
     int dniPacienteAbuscar;
     int correcto;
     int buscarPractica;
     nodoArbolPacientes * existe = iniciarArbol();
+    int nroIngreso;
+     nodoIngresos* buscado;
 
     do
     {
-          clearScreen();
-        system("pause");
+        clearScreen();
+        printf("Ingresado como administrativo\n");
         printf("Bienvenido/a!\n");
-        printf("Ingrese la opcion que desee realizar.\n");
-        printf("0. Para finalizar.\n");
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar paciente.\n");
         printf("2. Ver practicas.\n");
         printf("3. Ingresos.\n");
@@ -338,8 +406,8 @@ void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados * listaEmp
             //modificar solo al paciente, agregar, dar de baja, buscar, mostrar
             do
             {
-                printf("Ingrese la opcion que desee realizar. \n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un paciente.\n");
                 printf("2. Modificar SOLO un paciente.\n");
                 printf("3. Buscar un paciente.\n");
@@ -347,15 +415,15 @@ void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados * listaEmp
                 printf("5. Dar de baja un paciente.\n");
                 fflush(stdin);
                 scanf("%i", &eleccion2);
-clearScreen();
+
                 switch(eleccion2)
                 {
                 case 1:
-                    arbolPaciente=altaArbolPacientes(arbolPaciente);
+                   * arbolPaciente=altaArbolPacientes(*arbolPaciente);
                     break;
 
                 case 2:
-                    arbolPaciente = modificacionPacientesArbol (arbolPaciente);
+                    *arbolPaciente = modificacionPacientesArbol (*arbolPaciente);
                     break;
 
                 case 3:
@@ -370,16 +438,16 @@ clearScreen();
                             printf("Respuesta invalida. Intente nuevamente: \n");
                         }
                     }while(correcto == 1);
-                    existe = existePaciente(arbolPaciente,dniPacienteAbuscar);
+                    existe = existePaciente(*arbolPaciente,dniPacienteAbuscar);
                     mostrarUnPaciente(existe->dato);
                     break;
 
                 case 4:
-                    mostrarArbolINORDERPaciente(arbolPaciente);
+                    mostrarArbolINORDERPaciente(*arbolPaciente);
                     break;
 
                 case 5:
-                    arbolPaciente = darBajaPaciente(arbolPaciente);
+                    *arbolPaciente = darBajaPaciente(*arbolPaciente);
                     break;
 
                 default:
@@ -388,27 +456,51 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion2 != 0);
+            }
+            while(eleccion2 != 0);
             break;
         case 2:
-            //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Ver practicas.\n");
                 printf("2. Buscar practica.\n");
-                fflush(stdin);
+
                 scanf("%i", &eleccion2);
 
                 switch(eleccion2)
                 {
                 case 1:
-                    mostrarListadoPracticas(listaPracticas);
+                   do
+                    {
+                        printf("Mostrar las practicas organizadas por: \n");
+                        printf("1. Nombre de Practica \n");
+                        printf("2. Nro de Practica.\n");
+                        printf("0. Volver.\n");
+                        fflush(stdin);
+                        scanf("%i", &eleccion4);
+                        clearScreen();
+                        switch(eleccion4)
+                        {
+                        case 1:
+                            mostrarListaPorNombre(*listaPracticas);
+                            break;
+                        case 2:
+                            mostrarListaPracticas(*listaPracticas);
+                            break;
+                        default:
+                            if(eleccion3!=0)
+                            {
+                                printf("Error, la opcion que ingreso es invalida.\n");
+                            }
+                            break;
+                        }
+
+                    } while(eleccion4!=0);
                     break;
 
                 case 2:
-                    buscarPractica = mostrarPracticasQueComienzanCon(listaPracticas);
+                    buscarPractica = mostrarPracticasQueComienzanCon(*listaPracticas);
                     if(buscarPractica == 0)
                     {
                         printf("La practica que desea buscar no existe.\n");
@@ -421,34 +513,71 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion2 != 0);
             break;
         case 3:
             //dar de alta, buscar, mostrar, modificar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un ingreso.\n");
                 printf("2. Modificar un ingreso.\n");
                 printf("3. Buscar un ingreso.\n");
                 printf("4. Mostrar todos los ingresos.\n");
+                printf("5. Mostrar pacientes\n");
                 fflush(stdin);
                 scanf("%i", &eleccion3);
-clearScreen();
+                ;
                 switch(eleccion3)
                 {
                 case 1:
-                    //listaIngresos = alta_de_ingreso(arbolPaciente, ingresos dato, listaPracticas);
+
+                    *arbolPaciente = alta_de_ingreso(*arbolPaciente, *listaPracticas);
                     break;
 
                 case 2:
-                    break;
+                    do
+                    {
+                        correcto = 0;
+                        printf("\nIngrese el Nro de ingreso: ");
+                        fflush(stdin);
+                        if (scanf("%i",&nroIngreso) != 1)
+                        {
+                            printf("Entrada no valida. Por favor, ingrese el DNI del paciente.\n");
+                            correcto = 1;
+                        }
+
+                    }
+                    while (correcto == 1);
+
+                    *arbolPaciente = modificacion_de_ingreso(*arbolPaciente,nroIngreso);
+                                   break;
 
                 case 3:
+                    do
+                    {
+                        correcto = 0;
+                        printf("\nIngrese el Nro de ingreso: ");
+                        fflush(stdin);
+                        if (scanf("%i",&nroIngreso) != 1)
+                        {
+                            printf("Entrada no valida. Por favor, ingrese el DNI del paciente.\n");
+                            correcto = 1;
+                        }
+
+                    }
+                    while (correcto == 1);
+                     buscado=buscarIngreso(*arbolPaciente,nroIngreso);
+                     mostrarUnIngreso(buscado->dato);
                     break;
 
                 case 4:
+                    switchXingreso(*arbolPaciente);
+                    mostrarIngresosConFiltro(*arbolPaciente);
+                    break;
+                case 5:
+                    mostrarArbolINORDERPaciente(*arbolPaciente);
                     break;
 
                 default:
@@ -457,7 +586,8 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
 
         default:
@@ -466,15 +596,18 @@ clearScreen();
                 printf("Error, la opcion que ingreso es invalida.\n");
             }
         }
-    }while(eleccion1!=0);
+    }
+    while(eleccion1!=0);
 }
 
 //SWITCH PARA ADMINISTRADORES
-void switchAdmin(nodoArbolPacientes * arbolPacientes, nodoEmpleados * listaEmpleados, nodoPracticasLaboratorio * listaPracticas)
+void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmpleados, nodoPracticasLaboratorio ** listaPracticas)
 {
     int eleccion1;
     int eleccion2;
     int eleccion3;
+    int eleccion4;
+    int eleccion5;
     int correcto;
     int dniPacienteAbuscar;
     int buscarPractica;
@@ -484,25 +617,26 @@ void switchAdmin(nodoArbolPacientes * arbolPacientes, nodoEmpleados * listaEmple
     do
     {
         clearScreen();
+        printf("Ingresado como administrador\n");
 
         printf("Bienvenido/a!\n");
-        printf("Ingrese la opcion que desee realizar.\n");
-        printf("0. Para finalizar.\n");
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar usuario/empleado. \n");
         printf("2. Adminnistrar practicas.\n");
         printf("3. Administrar paciente.\n");
+        printf("4. Ingresar al sistema con otro perfil.\n");
 
         fflush(stdin);
         scanf("%i", &eleccion1);
-
+        clearScreen();
         switch(eleccion1)
         {
         case 1:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un empleado.\n");
                 printf("2. Modificar un empleado.\n");
                 printf("3. Buscar un empleado.\n");
@@ -511,48 +645,51 @@ void switchAdmin(nodoArbolPacientes * arbolPacientes, nodoEmpleados * listaEmple
                 printf("0. Volver.\n");
                 fflush(stdin);
                 scanf("%i", &eleccion2);
-clearScreen();
+                clearScreen();
                 switch(eleccion2)
                 {
                 case 1:
-                    listaEmpleados = alta_de_empleados(listaEmpleados);
+                    *listaEmpleados = alta_de_empleados(*listaEmpleados);
                     break;
 
                 case 2:
-                    listaEmpleados = modificarEmpleado(listaEmpleados);
+                    *listaEmpleados = modificarEmpleado(*listaEmpleados);
                     break;
 
                 case 3:
-                    //tipoPerfil = compararUsuario(listaEmpleados->empleado.clave, listaEmpleados->empleado.usuario,listaEmpleados,&listaEmpleados->empleado);
+
                     printf("%i", tipoPerfil);
-                    buscarUnEmpleadoXdni(listaEmpleados,tipoPerfil);
+                    buscarUnEmpleadoXdni(*listaEmpleados,tipoPerfil);
                     break;
 
                 case 4:
-                    mostrarListaEmpleados(listaEmpleados,tipoPerfil);
+                    mostrarListaEmpleados(*listaEmpleados,tipoPerfil);
                     break;
 
                 case 5:
-                    listaEmpleados = darDeBajaEmpleado(listaEmpleados);
+                   * listaEmpleados = darDeBajaEmpleado(*listaEmpleados);
                     break;
 
                 default:
                     if(eleccion2!=0)
                     {
+
+
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion2 != 0);
+            }
+            while(eleccion2 != 0);
 
         case 2:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Agregar una practica.\n");
                 printf("2. Modificar una practica.\n");
-                printf("3. Buscar una practica.\n");
+                printf("3. Buscar una practica.(Puede ingresar iniciales)\n");
                 printf("4. Mostrar todas las practicas.\n");
                 printf("5. Dar de baja una practica.\n");
                 printf("0. Volver.\n");
@@ -562,15 +699,15 @@ clearScreen();
                 switch(eleccion3)
                 {
                 case 1:
-                    listaPracticas =  alta_de_practica(listaPracticas);
+                    *listaPracticas =  alta_de_practica(*listaPracticas);
                     break;
 
                 case 2:
-                    listaPracticas = modificacion_de_practica(listaPracticas);
+                    *listaPracticas = modificacion_de_practica(*listaPracticas);
                     break;
 
                 case 3:
-                    buscarPractica = mostrarPracticasQueComienzanCon(listaPracticas);
+                    buscarPractica = mostrarPracticasQueComienzanCon(*listaPracticas);
                     if(buscarPractica == 0)
                     {
                         printf("La practica que desea buscar no existe.\n");
@@ -578,11 +715,38 @@ clearScreen();
                     break;
 
                 case 4:
-                    mostrarListadoPracticas(listaPracticas);
+                    do
+                    {
+                        printf("Mostrar las practicas organizadas por: \n");
+                        printf("1. Nombre de Practica \n");
+                        printf("2. Nro de Practica.\n");
+                        printf("0. Volver.\n");
+                        fflush(stdin);
+                        scanf("%i", &eleccion4);
+                        clearScreen();
+                        switch(eleccion4)
+                        {
+                        case 1:
+                            mostrarListaPorNombre(*listaPracticas);
+                            break;
+                        case 2:
+                            mostrarListaPracticasadmin(*listaPracticas);
+                            break;
+                        default:
+                            if(eleccion3!=0)
+                            {
+                                printf("Error, la opcion que ingreso es invalida.\n");
+                            }
+                            break;
+                        }
+
+                    }
+                    while(eleccion4!=0);
+
                     break;
 
                 case 5:
-                    listaPracticas = baja_de_practicasLaboratorio(listaPracticas, arbolPacientes);
+                    *listaPracticas = baja_de_practicasLaboratorio(*listaPracticas, *arbolPacientes);
                     break;
 
                 default:
@@ -591,14 +755,14 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
         case 3:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un paciente.\n");
                 printf("2. Modificar un paciente.\n");
                 printf("3. Buscar un paciente.\n");
@@ -611,11 +775,11 @@ clearScreen();
                 switch(eleccion3)
                 {
                 case 1:
-                    arbolPacientes = altaArbolPacientes(arbolPacientes);
+                    * arbolPacientes = altaArbolPacientes(*arbolPacientes);
                     break;
 
                 case 2:
-                    arbolPacientes = modificacionPacientesArbol(arbolPacientes);
+                    *arbolPacientes = modificacionPacientesArbol(*arbolPacientes);
                     break;
 
                 case 3:
@@ -629,17 +793,18 @@ clearScreen();
                             correcto = 1;
                             printf("Respuesta invalida. Intente nuevamente: \n");
                         }
-                    }while(correcto == 1);
-                    existe = existePaciente(arbolPacientes,dniPacienteAbuscar);
+                    }
+                    while(correcto == 1);
+                    existe = existePaciente(*arbolPacientes,dniPacienteAbuscar);
                     mostrarUnPaciente(existe->dato);
                     break;
 
                 case 4:
-                    mostrarArbolINORDERPaciente(arbolPacientes);
+                    mostrarArbolINORDERPaciente(*arbolPacientes);
                     break;
 
                 case 5:
-                    arbolPacientes = darBajaPaciente(arbolPacientes);
+                    *arbolPacientes = darBajaPaciente(*arbolPacientes);
                     break;
 
                 default:
@@ -648,18 +813,47 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
-            break;
-
-        default:
-            if(eleccion1!=0)
-            {
-                printf("Error, la opcion que ingreso es invalida.\n");
             }
-        }
-    }while(eleccion1!=0);
-}
+            while(eleccion3 != 0);
+            break;
+        case 4:
+            do{
+            printf("Con que perfil desea entrar al sistema?\n");
+            printf("1. Profesional.\n");
+            printf("2. Administrativo.\n");
+            printf("0. Volver.\n");
+            fflush(stdin);
+            scanf("%i", &eleccion5);
 
+            switch(eleccion5)
+            {
+            case 1:
+                switchProfesionales(arbolPacientes,listaEmpleados,listaPracticas);
+                break;
+
+            case 2:
+                switchAdministrativo(arbolPacientes,listaEmpleados,listaPracticas);
+                break;
+            default:
+                if(eleccion5!=0)
+                {
+                    printf("Error, la opcion que ingreso es invalida.\n");
+                }
+                break;
+            }
+            }while(eleccion5!=0);
+
+                break;
+            default:
+                if(eleccion1!=0)
+                {
+                    printf("Error, la opcion que ingreso es invalida.\n");
+                }
+
+
+    }
+}while(eleccion1!=0);
+}
 void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux)
 {
     printf("\n-----------------\n");
