@@ -79,12 +79,8 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
         clearScreen();
         //gotoxy(1, 2); printf("\n   Ingrese su nombre de usuario: ");
 
-
-
-
-
-
-        recuadro(10, 5, 70, 15);
+        //recuadro(10, 5, 70, 15);
+        recuadro(10, 10, 70, 15);
         gotoxy(33, 8);
         printf("INICIO DE SESION");
         gotoxy(25, 10);
@@ -107,27 +103,42 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
         }
 
         existe=compararUsuario(clave,usuario,listaEmpleados,&datosEmpleado);
-        ocultarCursor();
-    centrarTexto("C A R G A N D O...",21);
-    for(i = 3; i <= 76; i++)
-    {
-        gotoxy(i, 23); printf("%c",177);
-    }
-
-
-
-    for(i = 3; i <= 76; i++)
-    {
-        gotoxy(i, 23); printf("%c",219);
-        Sleep(15);
-    }
-    gotoxy(3,21); printf("                                                                    ");
-    gotoxy(3,23); printf("                                                                    ");
-
-    activarCursor();
+//        ocultarCursor();
+//    centrarTexto("C A R G A N D O...",21);
+//    for(i = 3; i <= 76; i++)
+//    {
+//        gotoxy(i, 23); printf("%c",177);
+//    }
+//    for(i = 3; i <= 76; i++)
+//    {
+//        gotoxy(i, 23); printf("%c",219);
+//        Sleep(15);
+//    }
+//    gotoxy(3,21); printf("                                                                    ");
+//    gotoxy(3,23); printf("                                                                    ");
+//
+//    activarCursor();
 
         if (existe!=0)
         {
+            ocultarCursor();
+            centrarTexto("C A R G A N D O...",21);
+            for(i = 3; i <= 76; i++)
+            {
+                gotoxy(i, 23); printf("%c",177);
+            }
+            for(i = 3; i <= 76; i++)
+            {
+                gotoxy(i, 23); printf("%c",219);
+
+            }
+            gotoxy(3,21); printf("                                                                    ");
+            gotoxy(3,23); printf("                                                                    ");
+
+
+            activarCursor();
+
+
             clearScreen();
 
     printf(" _ ____  _                           _     _         __    _ \n");
@@ -142,7 +153,8 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
         }
         else
         {
-            printf("Usuario o contraseña ingresado incorrectamente.Intentelo otra vez.\n");
+            gotoxy(10, 14);printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
+            Sleep(5000);
             intentos++;
             if(intentos==3)
             {

@@ -2209,7 +2209,7 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
                     correcto=0;
                     printf("Ingrese el nuevo telefono: ");
                     fflush(stdin);
-                    if (scanf("%i",&existeDNI->empleado.telefono)!= 1)
+                    if (fgets(existeDNI->empleado.telefono, sizeof(existeDNI->empleado.telefono), stdin) == NULL)
                     {
                         correcto=1;
                         printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
@@ -2297,7 +2297,7 @@ void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil)
 
     printf("\n-------------------\n");
     printf("DNI: %i\n", aux.dni);
-    printf("Telefono: %i\n", aux.telefono);
+    printf("Telefono: %s\n", aux.telefono);
     printf("Apellido y nombre: %s\n", aux.apellidoYnombre);
     printf("Usuario: %s\n", aux.usuario);
     if(tipoperfil == 1)
@@ -2388,16 +2388,20 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
     {
         do
         {
-            correcto=0;
-            printf("Ingrese el telefono: ");
+            correcto = 0;
+            printf("Ingrese el nuevo telefono: ");
             fflush(stdin);
-            if (scanf("%i",&nuevoEmpleado.telefono)!= 1)
+            if(fgets(nuevoEmpleado.telefono, sizeof(nuevoEmpleado.telefono), stdin) == NULL)
             {
-                correcto=1;
-                printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
+                correcto = 1;
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
             }
         }
         while(correcto==1);
+        size_t longitud = strlen(nuevoEmpleado.telefono);
+        if (nuevoEmpleado.telefono[longitud - 1] == '\n')
+            {
+            nuevoEmpleado.telefono[longitud - 1] = '\0';}
 
         do
         {
@@ -2411,7 +2415,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
             }
         }
         while(correcto==1);
-        size_t longitud = strlen(nuevoEmpleado.apellidoYnombre);
+        longitud = strlen(nuevoEmpleado.apellidoYnombre);
         if (nuevoEmpleado.apellidoYnombre[longitud - 1] == '\n')
         {
             nuevoEmpleado.apellidoYnombre[longitud - 1] = '\0';
@@ -2674,7 +2678,7 @@ nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
         printf("ERROR: No se pudo crear el nodo para el empleado.\n");
     }
     aux->empleado.dni = dato.dni;
-    aux->empleado.telefono = dato.telefono;
+    strcpy(aux->empleado.telefono, dato.telefono);
     strcpy(aux->empleado.apellidoYnombre, dato.apellidoYnombre);
     strcpy(aux->empleado.clave, dato.clave);
     strcpy(aux->empleado.usuario, dato.usuario);

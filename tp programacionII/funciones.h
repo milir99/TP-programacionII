@@ -48,7 +48,7 @@ typedef struct nodoPracticasLaboratorio
 typedef struct
 {
     int dni;
-    int telefono;
+    char telefono[15];
     char apellidoYnombre[40];
     char usuario[20];
     char clave[20];
@@ -167,7 +167,7 @@ void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil);
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil);
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
-nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
+nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo);
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil);
 int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
 

@@ -36,10 +36,9 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
     fclose(archivo);
 }
 
-
 int main()
 {
-    system("mode con: cols=80 lines=25");
+    //system("mode con: cols=95 lines=25");
     system("color 5");
     //recuadroo (10, 3, 70, 22);
     InicioDelPrograma();
