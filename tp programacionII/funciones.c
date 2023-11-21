@@ -2632,7 +2632,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 //}
 
 //FUNCION AGREGAR A LA LISTA ORDENADO POS APELLIDO Y NOMBRE
-nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmpleados *nuevoNodo)
+nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo)
 {
     // Caso base: lista vacía o el nuevo nodo va antes del primer nodo
     if (listaEmpleados == NULL || strcmp(nuevoNodo->empleado.apellidoYnombre, listaEmpleados->empleado.apellidoYnombre) < 0)
@@ -2647,7 +2647,7 @@ nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmplea
     }
 
     // Buscar la posición adecuada en la lista
-    nodoEmpleados *actual = listaEmpleados;
+    nodoEmpleados * actual = listaEmpleados;
     while (actual->siguiente != NULL && strcmp(nuevoNodo->empleado.apellidoYnombre, actual->siguiente->empleado.apellidoYnombre) > 0)
     {
         actual = actual->siguiente;

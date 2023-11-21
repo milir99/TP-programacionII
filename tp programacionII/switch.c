@@ -79,22 +79,44 @@ mostrarListaEmpleados(listaEmpleados,1);
 
         printf("\nIngrese su nombre de usuario: ");
 
+
+
+
+
+        recuadro(10, 5, 70, 15);
+        gotoxy(33, 8);
+        printf("INICIO DE SESION");
+        gotoxy(25, 10);
+        printf("Usuario: ");
         fflush(stdin);
         fgets(usuario,sizeof(usuario),stdin);
          size_t longitud = strlen(usuario);
         if (usuario[longitud - 1] == '\n')
-            {
+        {
             usuario[longitud - 1] = '\0';}
 
-        printf("Ingrese su clave: ");
-        fflush(stdin);
-        fgets(clave,sizeof(clave),stdin);
-         longitud = strlen(clave);
+            gotoxy(25, 12);
+            printf("Clave: ");
+            scanf("%s", clave);
+            longitud = strlen(clave);
         if (clave[longitud - 1] == '\n')
-            {
-            clave[longitud - 1] = '\0';}
+        {
+            clave[longitud - 1] = '\0';
+        }
 
         existe=compararUsuario(clave,usuario,listaEmpleados,&datosEmpleado);
+
+
+
+    for(i = 3; i <= 76; i++)
+    {
+        gotoxy(i, 23); printf("%c",219);
+        Sleep(15);
+    }
+    gotoxy(3,21); printf("                                                                    ");
+    gotoxy(3,23); printf("                                                                    ");
+
+    activarCursor();
 
         if (existe!=0)
         {
