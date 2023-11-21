@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h"
+#include "switch.h"
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
@@ -14,7 +15,7 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
     // Abre el archivo en modo lectura binaria
     archivo = fopen(nombreArchivo, "rb");
 
-    // Verifica si el archivo se abrió correctamente
+    // Verifica si el archivo se abriï¿½ correctamente
     if (archivo == NULL) {
         perror("Error al abrir el archivo");
         return;
@@ -24,8 +25,8 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
     while (fread(&practica, sizeof(practicasLaboratorio), 1, archivo) == 1) {
         // Muestra los datos solo si no han sido marcados como eliminados
         if (!practica.eliminado) {
-            printf("Número de Práctica: %d\n", practica.nroPractica);
-            printf("Nombre de Práctica: %s\n", practica.nombreDePractica);
+            printf("Nï¿½mero de Prï¿½ctica: %d\n", practica.nroPractica);
+            printf("Nombre de Prï¿½ctica: %s\n", practica.nombreDePractica);
             printf("Eliminado: %d\n", practica.eliminado);
             printf("--------------------------\n");
         }
@@ -38,8 +39,9 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
 
 int main()
 {
-    system("mode con: cols=90 lines=30");
+    //system("mode con: cols=90 lines=30");
     system("color 5");
+    //recuadroo (10, 3, 70, 22);
     InicioDelPrograma();
 
 //    char seguir;

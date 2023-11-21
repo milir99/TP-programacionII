@@ -12,5 +12,5 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados);
 void mostrarArchivo (char nombreArchivo[]);
 void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux);
 void gotoxy(int x, int y);
-
+void recuadro (int xs, int ys, int xi, int yi);
 #endif // SWITCH_H_INCLUDED
