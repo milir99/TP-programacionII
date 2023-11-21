@@ -11,7 +11,6 @@
 
 int main()
 {
-
     system("color 5");
     InicioDelPrograma();
 return 0;

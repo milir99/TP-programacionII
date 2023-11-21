@@ -391,7 +391,7 @@ void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica)
     {
         if(listaPractica->datos.eliminado == 0)
         {
-            
+
             printf("Numero de Practica: %d\n", listaPractica->datos.nroPractica);
             printf("Nombre de Practica: %s\n", listaPractica->datos.nombreDePractica);
             puts("-------------------------------------");
@@ -458,7 +458,6 @@ void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
         printf("Error al abrir el archivo de practicas\n");
     }
 }
-
 //
 //
 //
@@ -540,8 +539,7 @@ void mostrarIngresosConFiltro(nodoArbolPacientes * arbol)
 }
 
 ///FUNCION MOSTRAR INGRESOS DE FORMA RECURSIVA
-/*
-Esta función realiza una búsqueda recursiva en un árbol binario de pacientes, filtrando y mostrando
+/*Esta función realiza una búsqueda recursiva en un árbol binario de pacientes, filtrando y mostrando
 los ingresos cuyas fechas de ingreso están dentro del rango especificado (fechaDesde a fechaHasta).*/
 void mostrarIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesde[], char fechaHasta[])
 {
@@ -1154,8 +1152,7 @@ void switchXingreso (nodoArbolPacientes * arbolPaciente)
 }
 
 ///SWITCH INGRESO POR FECHA
-/*
-Esta función realiza una búsqueda recursiva en un árbol binario de pacientes, mostrando todos los
+/*Esta función realiza una búsqueda recursiva en un árbol binario de pacientes, mostrando todos los
 ingresos y prácticas asociadas cuya fecha de ingreso coincida con la fecha proporcionada (fechaIngresada).*/
 void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[])
 {
@@ -1191,8 +1188,7 @@ void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numer
 }
 
 ///SWITCH INGRESO POR DNI PACIENTE
-/*
-Esta función busca un paciente en un árbol binario por su DNI (dniIngresado). Si el paciente existe, muestra
+/*Esta función busca un paciente en un árbol binario por su DNI (dniIngresado). Si el paciente existe, muestra
 detalladamente la información de su ingreso y las prácticas asociadas; de lo contrario, imprime un mensaje indicando la ausencia de registros.*/
 void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado)
 {
@@ -1280,8 +1276,6 @@ nodoPracticasLaboratorio * inicListaPracticas()
 {
     return NULL;
 }
-
-/
 //
 //
 //
@@ -1633,7 +1627,6 @@ void mostrarUnaPXI(practicasXIngreso dato)
     printf("Resultado: %s\n", dato.resultado);
     puts("-------------------------------------------");
 }
-
 //
 //
 //
@@ -1642,11 +1635,11 @@ void mostrarUnaPXI(practicasXIngreso dato)
 //
 //
 //
-
 ///FUNCIONES DE ARBOLES DE PACIENTES///
 
 ///ARBOLES DE PACIENTES(chequeada)
-/*Esta función muestra los ingresos de cada paciente en un árbol de pacientes. Recorre el árbol en orden, mostrando la lista de ingresos de cada paciente.*/
+/*Esta función muestra los ingresos de cada paciente en un árbol de pacientes. Recorre el
+árbol en orden, mostrando la lista de ingresos de cada paciente.*/
 void mostrarPacienteEIngresos(nodoArbolPacientes*arbol)
 {
     while(arbol)
@@ -1715,8 +1708,7 @@ nodoArbolPacientes * crearNodoArbol (paciente datoP)
 }
 
 ///INSERTAR NODO ARBOL PACIENTE(chequeada)
-/*
-Esta función inserta un nuevo nodo en un árbol binario de búsqueda de pacientes. Compara el
+/*Esta función inserta un nuevo nodo en un árbol binario de búsqueda de pacientes. Compara el
 apellido y nombre del nuevo nodo con el nodo actual y lo inserta en la rama izquierda o
 derecha según sea necesario, manteniendo la propiedad de orden del ABB.*/
 nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes,nodoArbolPacientes* nuevoNodo)
@@ -1892,8 +1884,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
 }
 
 ///FUNCION PARA REUBICAR NODO QUE CAMBIA DE NOMBRE (chequeada)
-/*
-Esta función reubica un nodo en el árbol de pacientes. Primero, remueve el nodo del árbol por su nombre. Luego, inserta el
+/*Esta función reubica un nodo en el árbol de pacientes. Primero, remueve el nodo del árbol por su nombre. Luego, inserta el
 mismo nodo en la posición correcta según su nuevo nombre, manteniendo la estructura ordenada del árbol.*/
 nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacientes *nodoAReubicar)
 {
@@ -2031,8 +2022,7 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
 }
 
 ///CARGAR PACIENTE(chequeada)
-/*
-Esta función solicita al usuario ingresar información sobre un
+/*Esta función solicita al usuario ingresar información sobre un
 paciente, incluyendo nombre, edad, DNI, dirección y teléfono. Realiza
 validaciones para asegurar la entrada correcta de datos y devuelve la estructura de paciente con la información ingresada.*/
 paciente cargarUnPaciente()
@@ -2178,8 +2168,7 @@ void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbol
 }
 
 ///FUNCION ESCRIBIR EN EL ARCHIVO LO DEL ARBOL (chequeada)
-/*
-Esta función realiza un recorrido inorden en un árbol de pacientes, escribiendo cada paciente
+/*Esta función realiza un recorrido inorden en un árbol de pacientes, escribiendo cada paciente
 en un archivo binario proporcionado. Se utiliza para cargar datos de pacientes desde un árbol a un archivo.*/
 void cargarArchivoPacientesDelArbol (FILE * archi,nodoArbolPacientes * arbolPacientes)
 {
@@ -2280,8 +2269,7 @@ void darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
 }
 
 ///FUNCION MODIFICAR EMPLEADO
-/*
-Esta función permite modificar información de un empleado, identificado por su DNI. Solicita
+/*Esta función permite modificar información de un empleado, identificado por su DNI. Solicita
 la opción de modificación (nombre, usuario, DNI, clave, teléfono, perfil) y realiza los cambios
 correspondientes. Si el DNI ingresado es incorrecto, muestra un mensaje de error.*/
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
@@ -2557,8 +2545,7 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 }
 
 ///FUNCION ALTA EMPLEADOS
-/*
-Esta función recibe una lista de empleados y un nuevo empleado. Verifica si ya existe un
+/*Esta función recibe una lista de empleados y un nuevo empleado. Verifica si ya existe un
 empleado con el mismo DNI en la lista. Si no existe, crea un nuevo nodo con el empleado y lo
 agrega a la lista en orden, imprimiendo un mensaje de éxito. Si ya existe, imprime un mensaje
 indicando que el empleado ya está en la lista y no realiza ninguna acción. La función devuelve la lista actualizada.*/

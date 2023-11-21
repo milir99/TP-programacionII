@@ -32,7 +32,6 @@ void InicioDelPrograma()
     arbolPacientes = archivoAListaPXI(archivoPXI,arbolPacientes);
 
 
-
     int perfil = usuarioYclavePrincipio(listaEmpleados);
 
     if(perfil==1)
@@ -50,9 +49,8 @@ void InicioDelPrograma()
     else
 
     FinDelPrograma(arbolPacientes,listaEmpleados,listaPracticasLaboratorio);
-
-
 }
+
 void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
 {  //  listaPracticaAArchivo(archivoPracticas,listaPracticas);
   pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
@@ -62,8 +60,8 @@ void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmplea
 //    free(arbolPaciente);
     free(listaEmpleados);
 //    free(listaPracticas);
-
 }
+
 int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
 {
     char clave[20];
