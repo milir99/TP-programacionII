@@ -38,67 +38,7 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
 
 int main()
 {
-    char seguir;
-    int ingreso;
-    ingresos dato;
-  nodoPracticasLaboratorio * listaPracticas=NULL;
-     listaPracticas=ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
-
-    int existe = mostrarPracticasQueComienzanCon(listaPracticas);
-    if (existe==0)
-    {
-        printf("No se encontro una practica con ese comienzo.\n");
-    }
-
-     system("pause");
-    nodoArbolPacientes* arbol= NULL;
-    mostrarDatosArchivo("lasPracticas.bin");
-    mostrarArchivoPacientes("pacientes.dat");
-    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
-    mostrarArbolINORDERPaciente(arbol);
-    mostrarPacienteDeDNI(arbol);
-    system("pause");
-
-    listaPracticas= ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
-    listaPracticas=modificacion_de_practica(listaPracticas);
-    system("pause");
-    mostrarListaPracticas(listaPracticas);
-    system("pause");
-    listaPracticas=alta_de_practica(listaPracticas);
-    printf("LLEGOOOO");
-     mostrarListaPracticas(listaPracticas);
-    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
-    do
-    {
-        mostrarArbolINORDERPaciente(arbol);
-        ingreso = cargarUnIngreso(arbol,&dato);
-        printf("dni %i",dato.dniPaciente);
-        if(ingreso==1){
-                printf("dni %i",dato.dniPaciente);
-        arbol = alta_de_ingreso (arbol,dato,listaPracticas);
-
-        printf("Desea dar de alta a otro ingreso (s/n)\n");
-        fflush(stdin);
-        scanf("%c",&seguir);
-        seguir = tolower(seguir);
-        while(seguir!='s'&& seguir!='n')
-        {
-            printf("Eleccion incorrecta, intentelo otra vez\n");
-            printf("Desea dar de alta a otro Paciente? (s/n)\n");
-            fflush(stdin);
-            scanf("%c",&seguir);
-            seguir = tolower(seguir);
-        }
-        }
-        else{
-                seguir='n';
-        }
-    }
-    while(seguir=='s');
-
-    cargarArchivoPaciente("pacientes.dat",arbol);
-    mostrarArchivoPacientes("pacientes.dat");
-
+    //system("mode con: cols=95 lines=25");
     system("color 5");
     //recuadroo (10, 3, 70, 22);
     InicioDelPrograma();

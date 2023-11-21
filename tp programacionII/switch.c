@@ -156,7 +156,7 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
             gotoxy(10, 14);printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
             Sleep(5000);
             intentos++;
-            if(intentos == 3)
+            if(intentos==3)
             {
                 clearScreen();
                 printf("Demasiados intentos fallidos.\n");
@@ -207,11 +207,9 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
         clearScreen();
         system("pause");
         printf("Bienvenido/a!\n");
-        printf("Ingrese la opcion que desee realizar.\n");
-        printf("0. Para finalizar.\n");
-        printf("1. Administrar practicas.\n");
-        printf("2. Ver pacientes. \n");
-
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
+        printf("1. Adminnistrar practicas.\n");
+        printf("1. Ver pacientes. \n");
         fflush(stdin);
         scanf("%i", &eleccion1);
 
@@ -221,8 +219,8 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                clearScreen();
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Agregar una practica.\n");
                 printf("2. Modificar una practica.\n");
                 printf("3. Buscar una practica.\n");
@@ -263,14 +261,15 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion2 != 0);
+            }
+            while(eleccion2 != 0);
 
         case 2:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                clearScreen();
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Ver pacientes.\n");
                 printf("2. Buscar un paciente.\n");
                 fflush(stdin);
@@ -304,10 +303,12 @@ void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*lista
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
         }
-    }while(eleccion1!=0);
+    }
+    while(eleccion1!=0);
 }
 
 //SWITCH PARA EMPLEADOS
@@ -326,8 +327,7 @@ void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados * listaEmp
           clearScreen();
         system("pause");
         printf("Bienvenido/a!\n");
-        printf("Ingrese la opcion que desee realizar.\n");
-        printf("0. Para finalizar.\n");
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar paciente.\n");
         printf("2. Ver practicas.\n");
         printf("3. Ingresos.\n");
@@ -340,8 +340,8 @@ void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados * listaEmp
             //modificar solo al paciente, agregar, dar de baja, buscar, mostrar
             do
             {
-                printf("Ingrese la opcion que desee realizar. \n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un paciente.\n");
                 printf("2. Modificar SOLO un paciente.\n");
                 printf("3. Buscar un paciente.\n");
@@ -390,17 +390,18 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion2 != 0);
+            }
+            while(eleccion2 != 0);
             break;
         case 2:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Ver practicas.\n");
                 printf("2. Buscar practica.\n");
-                fflush(stdin);
+clearScreen();
                 scanf("%i", &eleccion2);
 
                 switch(eleccion2)
@@ -423,14 +424,14 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
         case 3:
             //dar de alta, buscar, mostrar, modificar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un ingreso.\n");
                 printf("2. Modificar un ingreso.\n");
                 printf("3. Buscar un ingreso.\n");
@@ -459,7 +460,8 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
 
         default:
@@ -468,7 +470,8 @@ clearScreen();
                 printf("Error, la opcion que ingreso es invalida.\n");
             }
         }
-    }while(eleccion1!=0);
+    }
+    while(eleccion1!=0);
 }
 
 //SWITCH PARA ADMINISTRADORES
@@ -488,8 +491,7 @@ void switchAdmin(nodoArbolPacientes * arbolPacientes, nodoEmpleados * listaEmple
         clearScreen();
 
         printf("Bienvenido/a!\n");
-        printf("Ingrese la opcion que desee realizar.\n");
-        printf("0. Para finalizar.\n");
+        printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar usuario/empleado. \n");
         printf("2. Adminnistrar practicas.\n");
         printf("3. Administrar paciente.\n");
@@ -503,8 +505,8 @@ void switchAdmin(nodoArbolPacientes * arbolPacientes, nodoEmpleados * listaEmple
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un empleado.\n");
                 printf("2. Modificar un empleado.\n");
                 printf("3. Buscar un empleado.\n");
@@ -544,14 +546,15 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion2 != 0);
+            }
+            while(eleccion2 != 0);
 
         case 2:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Agregar una practica.\n");
                 printf("2. Modificar una practica.\n");
                 printf("3. Buscar una practica.\n");
@@ -593,14 +596,14 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
         case 3:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar.\n");
-                printf("0. Volver al menu anterior.\n");
+                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un paciente.\n");
                 printf("2. Modificar un paciente.\n");
                 printf("3. Buscar un paciente.\n");
@@ -650,7 +653,8 @@ clearScreen();
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }while(eleccion3 != 0);
+            }
+            while(eleccion3 != 0);
             break;
 
         default:
@@ -659,7 +663,8 @@ clearScreen();
                 printf("Error, la opcion que ingreso es invalida.\n");
             }
         }
-    }while(eleccion1!=0);
+    }
+    while(eleccion1!=0);
 }
 
 void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux)

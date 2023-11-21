@@ -173,11 +173,6 @@ void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil);
 int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
 
 
-//SWITCH INGRESOS
-void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[]);
-void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numeroIngreso);
-void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado);
-
 
 
 
