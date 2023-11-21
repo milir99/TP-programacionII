@@ -2,9 +2,18 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="funciones.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+	<File name="switch.c" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="77887" topLine="382" />
+			<Cursor1 position="1051" topLine="21" />
+		</Cursor>
+		<Folding>
+			<Collapse line="463" />
+			<Collapse line="655" />
+		</Folding>
+	</File>
+	<File name="funciones.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="75716" topLine="498" />
 		</Cursor>
 		<Folding>
 			<Collapse line="13" />
@@ -321,87 +330,40 @@
 			<Collapse line="2055" />
 			<Collapse line="2057" />
 			<Collapse line="2064" />
-			<Collapse line="2076" />
 			<Collapse line="2081" />
 			<Collapse line="2085" />
 			<Collapse line="2098" />
-			<Collapse line="2104" />
 			<Collapse line="2107" />
-			<Collapse line="2111" />
-			<Collapse line="2120" />
-			<Collapse line="2127" />
-			<Collapse line="2132" />
-			<Collapse line="2136" />
-			<Collapse line="2145" />
-			<Collapse line="2147" />
-			<Collapse line="2159" />
-			<Collapse line="2162" />
-			<Collapse line="2164" />
-			<Collapse line="2169" />
-			<Collapse line="2184" />
-			<Collapse line="2189" />
-			<Collapse line="2202" />
-			<Collapse line="2207" />
-			<Collapse line="2220" />
-			<Collapse line="2225" />
-			<Collapse line="2237" />
-			<Collapse line="2242" />
-			<Collapse line="2254" />
-			<Collapse line="2259" />
-			<Collapse line="2273" />
-			<Collapse line="2281" />
 			<Collapse line="2289" />
-			<Collapse line="2292" />
-			<Collapse line="2297" />
-			<Collapse line="2304" />
-			<Collapse line="2308" />
-			<Collapse line="2315" />
-			<Collapse line="2317" />
-			<Collapse line="2324" />
-			<Collapse line="2331" />
-			<Collapse line="2335" />
-			<Collapse line="2344" />
-			<Collapse line="2349" />
-			<Collapse line="2352" />
-			<Collapse line="2359" />
-			<Collapse line="2367" />
-			<Collapse line="2372" />
-			<Collapse line="2374" />
-			<Collapse line="2384" />
-			<Collapse line="2509" />
-			<Collapse line="2528" />
-			<Collapse line="2677" />
-			<Collapse line="2680" />
-			<Collapse line="2688" />
-			<Collapse line="2692" />
-			<Collapse line="2694" />
-			<Collapse line="2704" />
+			<Collapse line="2293" />
+			<Collapse line="2298" />
+			<Collapse line="2305" />
+			<Collapse line="2309" />
+			<Collapse line="2316" />
+			<Collapse line="2318" />
+			<Collapse line="2325" />
+			<Collapse line="2332" />
+			<Collapse line="2336" />
+			<Collapse line="2345" />
+			<Collapse line="2350" />
+			<Collapse line="2353" />
+			<Collapse line="2360" />
+			<Collapse line="2368" />
+			<Collapse line="2373" />
+			<Collapse line="2375" />
+			<Collapse line="2385" />
+			<Collapse line="2459" />
+			<Collapse line="2464" />
+			<Collapse line="2474" />
+			<Collapse line="2479" />
+			<Collapse line="2487" />
+			<Collapse line="2492" />
+			<Collapse line="2511" />
+			<Collapse line="2643" />
+			<Collapse line="2691" />
 			<Collapse line="2707" />
-			<Collapse line="2723" />
-			<Collapse line="2729" />
-			<Collapse line="2734" />
-			<Collapse line="2743" />
-			<Collapse line="2746" />
-			<Collapse line="2752" />
-			<Collapse line="2764" />
-		</Folding>
-	</File>
-	<File name="funciones.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1099" topLine="42" />
-		</Cursor>
-	</File>
-	<File name="switch.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="14273" topLine="223" />
-		</Cursor>
-		<Folding>
-			<Collapse line="68" />
-			<Collapse line="77" />
-			<Collapse line="127" />
-			<Collapse line="153" />
-			<Collapse line="242" />
-			<Collapse line="594" />
+			<Collapse line="2726" />
+			<Collapse line="2732" />
 		</Folding>
 	</File>
 	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -409,9 +371,14 @@
 			<Cursor1 position="1209" topLine="8" />
 		</Cursor>
 	</File>
+	<File name="funciones.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="983" topLine="40" />
+		</Cursor>
+	</File>
 	<File name="switch.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="956" topLine="0" />
+			<Cursor1 position="1173" topLine="3" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

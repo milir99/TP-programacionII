@@ -2239,7 +2239,7 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
                     correcto=0;
                     printf("Ingrese el nuevo telefono: ");
                     fflush(stdin);
-                    if (scanf("%i",&existeDNI->empleado.telefono)!= 1)
+                    if (fgets(existeDNI->empleado.telefono, sizeof(existeDNI->empleado.telefono), stdin) == NULL)
                     {
                         correcto=1;
                         printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
@@ -2282,12 +2282,13 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
     {
         printf("El DNI ingresado es incorrecto, no se pueden hacer modificaciones.\n");
     }
-    return existeDNI;
+    return listaEmpleados;
 }
 
 //FUNCION DE BUSCAR Y MOSTRAR UN EMPLEADO EN ESPECIFICO
-void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoperfil)
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil)
 {
+    int dniAbuscar;
     int correcto;
     do
     {
@@ -2325,7 +2326,7 @@ void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil)
 {
     printf("\n-------------------\n");
     printf("DNI: %i\n", aux.dni);
-    printf("Telefono: %i\n", aux.telefono);
+    printf("Telefono: %s\n", aux.telefono);
     printf("Apellido y nombre: %s\n", aux.apellidoYnombre);
     printf("Usuario: %s\n", aux.usuario);
     if(tipoperfil == 1)
@@ -2420,16 +2421,23 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
     {
         do
         {
-            correcto=0;
+            correcto = 0;
             printf("Ingrese el telefono: ");
             fflush(stdin);
-            if (scanf("%i",&nuevoEmpleado.telefono)!= 1)
+            if (fgets(nuevoEmpleado.telefono, sizeof(nuevoEmpleado.telefono), stdin) == NULL)
             {
-                correcto=1;
+                correcto = 1;
                 printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
             }
-        }
-        while(correcto==1);
+            else
+            {
+
+                nuevoEmpleado.telefono[strcspn(nuevoEmpleado.telefono, "\n")] = '\0';
+
+            }
+
+              } while (correcto==1);
+
 
         do
         {
@@ -2704,7 +2712,7 @@ nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
         printf("ERROR: No se pudo crear el nodo para el empleado.\n");
     }
     aux->empleado.dni = dato.dni;
-    aux->empleado.telefono = dato.telefono;
+    strcpy(aux->empleado.telefono , dato.telefono);
     strcpy(aux->empleado.apellidoYnombre, dato.apellidoYnombre);
     strcpy(aux->empleado.clave, dato.clave);
     strcpy(aux->empleado.usuario, dato.usuario);
@@ -2735,33 +2743,3 @@ void clearScreen()
 #endif
 }
 
-void recuadro (int xs, int ys, int xi, int yi)
-{
-    int i;
-    for(i=xs; i<=xi; i++)
-    {
-        gotoxy(i,ys); printf("%c", 196);
-        gotoxy(i,yi); printf("%c", 196);
-    }
-
-    for(i=ys; i<=yi; i++)
-    {
-        gotoxy(xs,i); printf("%c", 179);
-        gotoxy(xi,i); printf("%c", 179);
-    }
-    gotoxy(xs,ys); printf("%c", 218);
-    gotoxy(xi,yi); printf("%c", 217);
-    gotoxy(xi,ys); printf("%c", 191);
-    gotoxy(xs,yi); printf("%c", 192);
-}
-
-//FUNCION GOTOXY
-
-void gotoxy(int x, int y){
-	HANDLE hcon;
-	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD dwPos;
-	dwPos.X = x;
-	dwPos.Y= y;
-	SetConsoleCursorPosition(hcon,dwPos);
-}
