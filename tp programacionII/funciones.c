@@ -6,11 +6,12 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h>
-#include <conio.h>
 
 //FUNCIONES DE PRACTICAS
-//FUNCION MOSTRAR PRACTICAS DE LABORATORIO ORGANIZADAS POR NOMBRE
-//FUNCION mostrar las practicas que comiencen con
+//FUNCION MOSTRAR LA PRACTICA QUE COMIENCE CON
+/*Esta función solicita al usuario ingresar las iniciales de una práctica de laboratorio. Luego, busca en una lista enlazada de
+prácticas aquellas cuyos nombres coincidan con las iniciales ingresadas, mostrando información detallada de las prácticas encontradas y
+devolviendo un indicador de existencia.*/
 int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas)
 {
     int correcto;
@@ -63,6 +64,8 @@ int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas)
 }
 
 // Función para ordenar la lista por nombre de práctica (usando el algoritmo de selección)
+/*Esta función ordena una lista enlazada de prácticas de laboratorio por nombre en orden ascendente. Utiliza el algoritmo de selección
+para encontrar el menor elemento en cada iteración y realiza intercambios para lograr la ordenación.*/
 void mostrarListaPorNombre(nodoPracticasLaboratorio *listaPracticas)
 {
     if (listaPracticas == NULL)
@@ -82,7 +85,9 @@ void mostrarListaPorNombre(nodoPracticasLaboratorio *listaPracticas)
     }
 }
 
-// Función para mostrar la lista de prácticas
+/// FUNCION PARA MOSTRAR LA LISTA DE PRACTICAS
+/*Esta función muestra en la consola un listado detallado de prácticas de laboratorio no eliminadas, incluyendo el
+número y nombre de cada práctica en una presentación estructurada.*/
 void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas)
 {
     while (listaPracticas != NULL)
@@ -103,7 +108,7 @@ void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas)
 
 
 ///FUNCION DE LISTA PRACTICA A ARCHIVO(chequeada)
-//escribe los datos de una lista enlazada de practicas de laboratorio en un archivo binario.
+/*escribe los datos de una lista enlazada de practicas de laboratorio en un archivo binario.*/
 void listaPracticaAArchivo(char archivoPraticas[],nodoPracticasLaboratorio* lista)
 {
     FILE *arch;
@@ -173,7 +178,9 @@ nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*
 
     return listaPracticas;
 }
-//FUNCION PRACTICA EN INGRESO
+///FUNCION PRACTICA EN INGRESO
+/*Esta función busca la existencia de una práctica (identificada por nroPractica) en los ingresos
+de pacientes almacenados en un árbol binario de búsqueda (arbolpaciente), actualizando un indicador de existencia.*/
 void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * existencia)
 {
     while(arbolpaciente!=NULL)
@@ -202,8 +209,9 @@ int buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica)
     }
 return existe;
 }
-/// FUNCION DE ARCHIVO A LISTA DE PRACTICAS(chequeada)
-//lee datos de un archivo binario de practicas de laboratorio y construye una lista enlazada a partir de ellos.
+///FUNCION DE BUSCAR UNA PRACTICA EN LOS INGRESOS
+/*Esta función busca la existencia de una práctica específica (nroPractica)
+en una lista de ingresos, retornando 1 si existe y 0 si no se encuentra en la lista.*/
 nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPracticasLaboratorio* lista)
 {
     FILE *arch;
@@ -237,8 +245,8 @@ nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPrac
 }
 ///FUNCION MODIFICACION DE PRACTICAS (chequeada)
 /*/ solicita el nombre de una practica a modificar. Luego, busca la practica en una lista enlazada.
-Si encuentra la practica, solicita el nuevo nombre y realiza la modificaci�n.
- Retorna la lista de practicas actualizada. La entrada se valida para asegurar un nombre v�lido./*/
+Si encuentra la practica, solicita el nuevo nombre y realiza la modificacion.
+ Retorna la lista de practicas actualizada. La entrada se valida para asegurar un nombre valido./*/
 nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lista)
 {
     char nombrePractica[30];
@@ -306,7 +314,9 @@ nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lis
 }
 
 ///FUNCION DE ALTA DE PRACTICAS(chequeada)
-// agrega una nueva practica al principio de la lista enlazada de practicas de laboratorio si no existe previamente, verificando por nombre
+/*
+Esta función realiza el alta de una nueva práctica de laboratorio. Solicita al usuario el nombre de la práctica, verifica su
+existencia en la lista, y la agrega al final si no existe o la restaura si fue eliminada previamente.*/
 
 nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracticas)
 {
@@ -372,6 +382,8 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
     return listaPracticas;
 }
 ///FUNCION DE PROXIMO NUMERO DE PRACTICA(chequeada)
+/*Esta función determina el próximo número de práctica disponible al recorrer una lista de prácticas de
+laboratorio y devolver el valor más alto incrementado en uno.*/
 int proximoNumeroPractica (nodoPracticasLaboratorio* listaPracticas)
 {
     int nroPractica=0;
@@ -385,6 +397,9 @@ int proximoNumeroPractica (nodoPracticasLaboratorio* listaPracticas)
 }
 
 ///FUNCION MOSTRAR LISTA (chequeada)
+/*
+Esta función muestra en la consola un listado detallado de prácticas de laboratorio
+no eliminadas, incluyendo el número y nombre de cada práctica en un formato estructurado.*/
 void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica)
 {
     while(listaPractica!=NULL)
@@ -439,7 +454,9 @@ nodoPracticasLaboratorio* agregarFinPracticaLaboratorio(nodoPracticasLaboratorio
 }
 
 ///FUNCION CREAR NODO PRACTICA LABORATORIO (chequeada)
-//crea un nodo de practicas de laboratorio
+/*
+Esta función crea y devuelve un nuevo nodo para una lista de prácticas de laboratorio, inicializando
+sus datos con la información proporcionada y configurando el indicador de eliminación en 0.*/
 nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practicasLaboratorio dato)
 {
     nodoPracticasLaboratorio*aux=(nodoPracticasLaboratorio*)malloc(sizeof(nodoPracticasLaboratorio));
@@ -458,7 +475,8 @@ nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practicasLaboratorio dato)
 
 
 ///FUNCION PASAR DE LA LISTA DE INGRESOS A ARCHIVO DE INGRESOS(chequeada)
-//crea un archivo binario y escribe la informaci�n de los ingresos de un �rbol binario de pacientes en �l.
+/*Esta función guarda la información de los ingresos de pacientes almacenados en
+un árbol binario de búsqueda (arbol) en un archivo binario (archivoIngresos).*/
 void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
 {
     FILE* arch;
@@ -485,6 +503,8 @@ void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
 //
 //FUNCIONES DE INGRESO///
 //FUNCION FILTRAR INGRESO POR FECHA
+/*Esta función solicita al usuario ingresar un rango de fechas (desde hasta hasta). Luego, utiliza un filtro
+para mostrar los ingresos de pacientes en ese intervalo de tiempo almacenados en un árbol binario de búsqueda.*/
 void mostrarIngresosConFiltro(nodoArbolPacientes*arbol)
 {
     char desde[11];
@@ -550,7 +570,9 @@ void mostrarIngresosConFiltro(nodoArbolPacientes*arbol)
     }
     mostrarIngresosConFiltroRecursivo(arbol,desde,hasta);
 }
-
+///FUNCION MOSTRAR INGRESOS DE FORMA RECURSIVA
+/*Esta función realiza una búsqueda recursiva en un árbol binario de pacientes, filtrando y mostrando
+los ingresos cuyas fechas de ingreso están dentro del rango especificado (fechaDesde a fechaHasta).*/
 
 void mostrarIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesde[], char fechaHasta[])
 {
@@ -580,7 +602,9 @@ void mostrarIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesd
         mostrarIngresosConFiltroRecursivo(arbol->der, fechaDesde, fechaHasta);
     }
 }
-//funcion mostrar un ingreso
+///FUNCION MOSTRAR UN INGRESO
+/*Esta función muestra en la consola la información detallada de un
+ingreso, incluyendo número, fechas, DNI del paciente y matrícula profesional en un formato estructurado.*/
 void mostrarUnIngreso(ingresos dato)
 {
 
@@ -592,9 +616,9 @@ void mostrarUnIngreso(ingresos dato)
     printf("----------------------------------------\n");
 
 }
-//FUNCION RECURSIVA DE ESCRIBIR LOS INGRESOS EN EL ARCHIVO
-/*/ recorre un �rbol binario de pacientes, escribiendo la informaci�n de los ingresos en un archivo mediante un recorrido in-order.
-La funci�n utiliza una estructura recursiva para acceder a la lista de ingresos de cada paciente y escribir sus datos correspondientes en el archivo./*/
+///FUNCION RECURSIVA DE ESCRIBIR LOS INGRESOS EN EL ARCHIVO
+/*/ recorre un arbol binario de pacientes, escribiendo la informacion de los ingresos en un archivo mediante un recorrido in-order.
+La funcion utiliza una estructura recursiva para acceder a la lista de ingresos de cada paciente y escribir sus datos correspondientes en el archivo.*/
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
 {
     if (arbol)
@@ -612,7 +636,9 @@ void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
         escribirIngresosEnArchivo(arbol->der, archivo);
     }
 }
-// FUNCION ARCHIVO DE INGRESOS A LISTA DE INGRESOS
+/// FUNCION ARCHIVO DE INGRESOS A LISTA DE INGRESOS
+/*Esta función lee un archivo binario de ingresos (archivo) y agrega la información al árbol
+binario de pacientes (arbol), creando nodos de ingresos para cada registro del archivo.*/
 nodoArbolPacientes* archivoAListaIngresos(char archivo[], nodoArbolPacientes* arbol)
 {
     FILE* arch;
@@ -967,7 +993,9 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasL
     return paciente;
 }
 /// FUNCION CARGAR UN INGRESO (chequeada)
-/**/
+/*Esta función solicita al usuario ingresar información para un nuevo ingreso, como DNI del paciente, fechas de
+ingreso y retiro, y matrícula del profesional. Verifica la validez de las entradas y actualiza datosIngreso. Retorna 1 si
+la carga es exitosa, 0 si el usuario decide no ingresar el DNI nuevamente.*/
 int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * datosIngreso)
 {
     ingresos nuevoIngreso;
@@ -1335,6 +1363,10 @@ nodoIngresos*crearNodoIngreso(ingresos dato)
     }
     return aux;
 }
+///FUNCION MOSTRAR LISTA DE INGRESOS
+/*Esta función muestra en la consola un listado detallado de ingresos, excluyendo aquellos
+marcados como eliminados, incluyendo información como número de ingreso, fechas
+y detalles asociados a cada ingreso en un formato estructurado.*/
 void mostrarListaIngresos(nodoIngresos* listaIngresos)
 {
     while(listaIngresos!=NULL)
@@ -1362,7 +1394,10 @@ nodoPracticasLaboratorio * inicListaPracticas()
 //
 //FUNCIONES DE PRACTICAS X INGRESO///
 
-//FUNCION MODIFICAR PXI(corregir)
+///FUNCION MODIFICAR PXI(corregir)
+/*Esta función permite modificar información asociada a una práctica en un ingreso específico. Solicita al
+usuario elegir entre modificar el número de práctica o el resultado de la misma, actualizando
+los datos correspondientes si la práctica existe en la lista de ingresos.*/
 nodoArbolPacientes* modificar_PXI( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas)
 {
     nodoPracticasXIngreso* existe=BuscarPXIparaModificar(arbol,listaPracticas);
@@ -1439,7 +1474,9 @@ nodoArbolPacientes* modificar_PXI( nodoArbolPacientes*arbol,nodoPracticasLaborat
     }
     return arbol;
 }
-//FUNCION buscar practica x ingreso que se desea modificar (corregir)
+///FUNCION buscar practica x ingreso que se desea modificar (corregir)
+/*Esta función busca y devuelve el nodo de la lista de prácticas en un ingreso específico que coincide con el número de ingreso y el
+nombre de la práctica proporcionados por el usuario, facilitando así la modificación de datos asociados a esa práctica.*/
 nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas)
 {
     int nroIngreso;
@@ -1494,8 +1531,9 @@ nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPract
     return seg;
 
 }
-// FUNCION PASAR DE LISTA DE PRACTICAS POR INGRESO A ARCHIVO DE PXI
-//crea un archivo binario y escribe la informacion de las practicas por ingreso de un arbol binario de pacientes en el.
+/// FUNCION PASAR DE LISTA DE PRACTICAS POR INGRESO A ARCHIVO DE PXI
+/*Esta función guarda la información de las prácticas asociadas a los ingresos de
+pacientes almacenados en un árbol binario de búsqueda (arbol) en un archivo binario (archivoIngresos).*/
 void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
 {
     FILE* arch;
@@ -1512,8 +1550,9 @@ void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
     }
 }
 
-// FUNCION ESCRIBIR  LAS PRACTICAS POR INGRESO EN EL  ARCHIVO DE PXI
-//recorre un arbol binario de pacientes y escribe la informacion de las practicas por ingreso en un archivo mediante un recorrido in-order.
+/// FUNCION ESCRIBIR  LAS PRACTICAS POR INGRESO EN EL  ARCHIVO DE PXI
+/*Esta función realiza una escritura recursiva en un archivo binario, guardando la información de las
+prácticas asociadas a los ingresos de pacientes almacenados en un árbol binario de búsqueda (arbol).*/
 void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
 {
     if (arbol)
@@ -1537,7 +1576,9 @@ void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
         escribirPXIEnArchivo(arbol->der, archivo);
     }
 }
-//FUNCION ARCHIVO PXI A LISTA PXI
+///FUNCION ARCHIVO PXI A LISTA PXI
+/*Esta función lee un archivo binario (archivo) que contiene información de
+prácticas asociadas a ingresos y actualiza la estructura de datos de un árbol binario de pacientes (arbol) con esta información.*/
 nodoArbolPacientes* archivoAListaPXI(char archivo[], nodoArbolPacientes* arbol)
 {
     practicasXIngreso aux;
@@ -1583,9 +1624,12 @@ nodoArbolPacientes* archivoAListaPXI(char archivo[], nodoArbolPacientes* arbol)
     return arbol;
 }
 
-/// FUNCION DE ALTA DE PRACTICAS POR INGRESO (chequeada)
-/*/agrega practicas a un ingreso, solicitando codigos de practicas, verificando su existencia, y creando nodos en una lista enlazada. Retorna la lista actualizada/*/
-
+// FUNCION DE ALTA DE PRACTICAS POR INGRESO (chequeada)
+/*Esta función permite agregar prácticas asociadas a un ingreso en una lista (lista) de prácticas por ingreso.
+Solicita el nombre de la práctica a realizar, verifica su existencia en otra lista de prácticas (listaPracticas), y en
+caso de existir, crea un nodo con la información del ingreso y la práctica y lo agrega al principio de la lista.
+Luego, pregunta al usuario si desea ingresar otra práctica y repite el proceso. Finalmente, muestra
+un mensaje indicando si la lista se ha cargado exitosamente o está vacía.*/
 nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso,nodoPracticasLaboratorio* listaPracticas)
 {
     char eleccion;
@@ -1666,7 +1710,9 @@ nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso,
 
 }
 ///FUNCION AGREGAR AL PRINCIPIO PRACTICAXINGRESO(chequeada)
-//Añade un nodo al principio de una lista enlazada de practicas por ingreso.
+/*Esta función agrega un nuevo nodo al principio de la lista de prácticas por ingreso (lista). Si la
+lista está vacía, asigna el nuevo nodo como el primero. En caso contrario, enlaza el nuevo nodo con la
+lista existente y actualiza la cabeza de la lista. Finalmente, devuelve la lista actualizada.*/
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso)
 {
     if(lista==NULL)
@@ -1702,8 +1748,9 @@ nodoPracticasLaboratorio* BuscarPractica(nodoPracticasLaboratorio*lista, char no
 }
 
 
-//FUNCION CREAR NODO PRACTICAS X INGRESO
-///Crea un nodo de practicas por ingreso.(chequeada)
+///FUNCION BUSCAR PRACTICA EN EL ARCHIVO.(chequeada)
+/*Esta función busca una práctica en una lista enlazada por su nombre. Recorre la lista y devuelve
+el nodo de la práctica si encuentra una coincidencia de nombre, de lo contrario, devuelve NULL.*/
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
 {
     nodoPracticasXIngreso*aux=(nodoPracticasXIngreso*) malloc(sizeof(nodoPracticasXIngreso));
@@ -1717,6 +1764,9 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica)
     aux->siguiente=NULL;
     return aux;
 }
+
+///FUNCION CREAR NODO PRACTICAS X INGRESO
+/*Crea un nodo de tipo pxi*/
 void mostrarListaPXI(nodoPracticasXIngreso* listaPXI)
 {
     while(listaPXI!=NULL)
@@ -1725,6 +1775,9 @@ void mostrarListaPXI(nodoPracticasXIngreso* listaPXI)
         listaPXI=listaPXI->siguiente;
     }
 }
+
+///FUNCION DE MOSTRAR UNA PRACTICA X INGRESO
+/*Muestra una practica por ingreso*/
 void mostrarUnaPXI(practicasXIngreso dato)
 {
     printf("Numero de Ingreso: %d\n", dato.nroIngreso);
@@ -1741,7 +1794,11 @@ void mostrarUnaPXI(practicasXIngreso dato)
 //
 //
 //
+///FUNCIONES DE ARBOLES DE PACIENTES///
+
 ///ARBOLES DE PACIENTES(chequeada)
+/*Esta función muestra los ingresos de cada paciente en un árbol de pacientes. Recorre el
+árbol en orden, mostrando la lista de ingresos de cada paciente.*/
 void mostrarPacienteEIngresos( nodoArbolPacientes*arbol)
 {
     while(arbol)
@@ -1751,6 +1808,10 @@ void mostrarPacienteEIngresos( nodoArbolPacientes*arbol)
         mostrarPacienteEIngresos(arbol->der);
     }
 }
+///MOSTRAR PACIENTE POR DNI
+/*Esta función solicita al usuario ingresar un DNI y luego busca y
+muestra información sobre el paciente correspondiente en un árbol, incluyendo
+sus ingresos y las prácticas asociadas a esos ingresos.*/
 void mostrarPacienteDeDNI(nodoArbolPacientes* arbol)
 {
     int dniAbuscar;
@@ -1783,6 +1844,7 @@ void mostrarPacienteDeDNI(nodoArbolPacientes* arbol)
         printf("El DNI ingresado no pertenece a un paciente.");
     }
 }
+///INICIAR ARBOL
 nodoArbolPacientes * iniciarArbol ()
 {
     return NULL;
@@ -1805,6 +1867,9 @@ nodoArbolPacientes * crearNodoArbol (paciente datoP)
 }
 
 ///INSERTAR NODO ARBOL PACIENTE(chequeada)
+/*Esta función inserta un nuevo nodo en un árbol binario de búsqueda de pacientes. Compara el
+apellido y nombre del nuevo nodo con el nodo actual y lo inserta en la rama izquierda o
+derecha según sea necesario, manteniendo la propiedad de orden del ABB.*/
 nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes,nodoArbolPacientes* nuevoNodo)
 {
     if(arbolPacientes == NULL)
@@ -1829,7 +1894,10 @@ nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacient
 }
 
 ///MODIFICACION DEL PACIENTE EN EL ARBOL(chequeada)
-/*Antes de usar esta funcion, se debe chequear que el arbol no este vacio, y que lo que devuelva no sea NULL*/
+/*Antes de usar esta funcion, se debe chequear que el arbol no este vacio, y que lo que devuelva no sea NULL
+Esta función permite modificar los datos de un paciente en el árbol. Solicita al usuario el
+DNI del paciente a modificar, luego ofrece opciones para modificar nombre y apellido, edad, DNI, dirección
+y teléfono. Se reintroduce el nodo en el árbol ya que cambiar el nombre podría alterar su posición en el orden del árbol.*/
 nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPaciente)
 {
     // RE INTRODUCIR EL NODO EN EL ARBOL YA QUE SI CAMBIA NOMBRE SE CAMBIA EL ORDEN
@@ -1983,7 +2051,8 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
     return arbolPaciente;
 }
 ///FUNCION PARA REUBICAR NODO QUE CAMBIA DE NOMBRE (chequeada)
-//desvincula el nodo con el DNI especificado del árbol, luego lo inserta nuevamente, manteniendo la estructura del árbol binario de búsqueda.
+/*Esta función reubica un nodo en el árbol de pacientes. Primero, remueve el nodo del árbol por su nombre. Luego, inserta el
+mismo nodo en la posición correcta según su nuevo nombre, manteniendo la estructura ordenada del árbol.*/
 nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacientes *nodoAReubicar)
 {
 
@@ -1995,7 +2064,9 @@ nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol,nodoArbolPacie
 }
 
 /// FUNCION REMOVER NODO DE UN ARBOL(chequeada)
-/* desvincula un nodo con un DNI específico del árbol binario de pacientes, preservando la estructura del árbol sin liberar la memoria del nodo.*/
+/*Esta función elimina un nodo del árbol de pacientes según su
+nombre. Si el nombre coincide, elimina el nodo manteniendo la estructura
+ordenada del árbol, considerando los casos en que el nodo a eliminar tiene 0, 1 o 2 hijos.*/
 nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arbol,  char nombre[])
 {
     if (arbol == NULL)
@@ -2050,6 +2121,8 @@ nodoArbolPacientes *removerNodoPacienteDelArbolPorNombre(nodoArbolPacientes *arb
 
 
 ///ALTA PACIENTE EN EL ARBOL(chequeada)
+/*Esta función agrega un nuevo paciente al árbol de pacientes si el DNI no existe o si el paciente
+ fue eliminado anteriormente. Si el paciente fue eliminado, da la opción de restaurarlo.*/
 nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
 {
     paciente dato;
@@ -2097,7 +2170,9 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
     return arbolPacientes;
 }
 
-///DAR DE BAJA PACIENTEchequeada)
+///DAR DE BAJA PACIENTE (chequeada)
+/*Esta función marca a un paciente con el DNI proporcionado como
+eliminado en el árbol de pacientes, estableciendo el estado "eliminado" en 1.*/
 nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
 {
     int dniAbuscar;
@@ -2121,6 +2196,9 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
     return existeDNIpaciente;
 }
 ///CARGAR PACIENTE(chequeada)
+/*Esta función solicita al usuario ingresar información sobre un
+paciente, incluyendo nombre, edad, DNI, dirección y teléfono. Realiza
+validaciones para asegurar la entrada correcta de datos y devuelve la estructura de paciente con la información ingresada.*/
 paciente cargarUnPaciente()
 {
     paciente nuevoPaciente;
@@ -2198,6 +2276,8 @@ paciente cargarUnPaciente()
     return nuevoPaciente;
 }
 ///MOSTRAR EN ORDEN EL ARBOL(chequeada)
+/*Esta función realiza un recorrido inorden en un árbol de pacientes, mostrando
+la información de cada paciente, incluyendo apellido y nombre, edad, DNI, dirección y teléfono, en un formato estructurado.*/
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
 {
     if(arbolPacientes!= NULL)
@@ -2216,6 +2296,8 @@ void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes)
 }
 
 ///ARCHIVO DE PACIENTES(chequeada)
+/*Esta función imprime la información de un paciente, incluyendo
+apellido y nombre, edad, DNI, dirección y teléfono, en un formato estructurado.*/
 void mostrarUnPaciente (paciente nuevoPaciente)
 {
     printf("\n------------------------------------\n");
@@ -2227,6 +2309,8 @@ void mostrarUnPaciente (paciente nuevoPaciente)
     printf("------------------------------------\n");
 }
 ///FUNCION DE MOSTRAR EL ARCHIVO DE PACIENTES (chequeada)
+/*Esta función lee un archivo binario de pacientes, muestra la información
+de cada paciente en un formato estructurado y luego cierra el archivo.*/
 void mostrarArchivoPacientes (char nombreArcPacientes[])
 {
 
@@ -2247,6 +2331,9 @@ void mostrarArchivoPacientes (char nombreArcPacientes[])
 }
 
 ///CARGAR DE ARBOL A ARCHIVO DE PACIENTES(chequeada)
+/*Esta función crea o sobrescribe un archivo binario de pacientes, carga la información de
+pacientes desde un árbol y luego cierra el archivo. Imprime un mensaje indicando que los
+datos del árbol se cargaron en el archivo.*/
 void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes)
 {
     FILE *archi=fopen(nombreArcPacientes,"wb");
@@ -2262,6 +2349,8 @@ void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbol
     printf("Se cargaron los datos del arbol al archivo.\n");
 }
 ///FUNCION ESCRIBIR EN EL ARCHIVO LO DEL ARBOL (chequeada)
+/*Esta función realiza un recorrido inorden en un árbol de pacientes, escribiendo cada paciente
+en un archivo binario proporcionado. Se utiliza para cargar datos de pacientes desde un árbol a un archivo.*/
 void cargarArchivoPacientesDelArbol (FILE * archi,nodoArbolPacientes * arbolPacientes)
 {
     if(arbolPacientes)
@@ -2309,7 +2398,11 @@ nodoArbolPacientes* archivoAArbolPacientes  ( char archivo[],nodoArbolPacientes*
 //
 //
 //
-//FUNCION DAR DE BAJA A UN EMPLEADO
+///FUNCION DAR DE BAJA A UN EMPLEADO
+/*Esta función elimina un empleado de una lista enlazada según el DNI
+proporcionado. Busca el nodo con ese DNI, ajusta los punteros del nodo anterior
+y siguiente, y luego libera la memoria del nodo eliminado. Si no se encuentra
+ningún empleado con el DNI proporcionado, muestra un mensaje de error.*/
 nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
 {
     int dniEmpleado;
@@ -2360,17 +2453,19 @@ nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
     }
     return listaEmpleados;
 }
-//FUNCION MODIFICAR EMPLEADO
+///FUNCION MODIFICAR EMPLEADO
+/*Esta función permite modificar información de un empleado, identificado por su DNI. Solicita
+la opción de modificación (nombre, usuario, DNI, clave, teléfono, perfil) y realiza los cambios
+correspondientes. Si el DNI ingresado es incorrecto, muestra un mensaje de error.*/
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
 {
     int eleccionModificar;
     int dniAbuscar;
     int correcto;
-    int perfil;
     do
     {
         correcto=0;
-        printf("\nIngrese el DNI del paciente que quiere modificar: ");
+        printf("Ingrese el DNI del paciente que quiere modificar: ");
         if (scanf("%i",&dniAbuscar)!=1)
         {
             correcto=1;
@@ -2489,35 +2584,22 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
                 puts("\n----------------------------------------\n");
                 break;
             case 6:
-                 do
-        {
-            correcto=0;
-            printf("Ingrese el perfil (1=administrador, 2=profesional, 3=administrativo): ");
-            fflush(stdin);
-            if (scanf("%i",&perfil)!=1)
-            {
-                correcto=1;
-                printf("Respuesta invalida. Vuelva a intentarlo.\n");
-            }
-        }
-        while(correcto==1);
-        if (perfil==1)
-        {
-            strcpy(existeDNI->empleado.perfil,"administrador");
-        }else if(perfil==2)
-        {
-           strcpy(existeDNI->empleado.perfil,"profesional");
-        }
-        else if(perfil==3)
-        {
-           strcpy(existeDNI->empleado.perfil,"administrativo");
-        }
-
-
+                do
+                {
+                    correcto=0;
+                    printf("Ingrese el nuevo perfil: ");
+                    fflush(stdin);
+                    if (fgets(existeDNI->empleado.perfil, sizeof(existeDNI->empleado.perfil), stdin) == NULL)
+                    {
+                        correcto=1;
+                        printf("La respuesta no es valida. Por favor, ingrese el perfil del empleado.\n");
+                    }
+                }
+                while (correcto == 1);
                 puts("----------------------------------------\n");
                 printf("perfil cambiado exitosamente.\n");
                 puts("\n----------------------------------------\n");
-            break;
+                break;
 
 
             default:
@@ -2536,7 +2618,10 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
     return listaEmpleados;
 }
 
-//FUNCION DE BUSCAR Y MOSTRAR UN EMPLEADO EN ESPECIFICO
+///FUNCION BUSCAR Y MOSTRAR EMPLEADO MEDIANTE UN DNI
+/*Esta función busca y muestra la información de un empleado por su DNI en una lista de empleados. Verifica la validez de la entrada y, si
+encuentra el empleado, muestra sus detalles según un tipo de perfil especificado. Si no encuentra al empleado, emite un
+mensaje de no coincidencia.*/
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil)
 {
     int dniAbuscar;
@@ -2563,7 +2648,9 @@ void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil)
     }
 }
 
-//FUNCION MOSTRAR LISTA DOBLE EMPLEADOS
+///FUNCION MOSTRAR LISTA DOBLE EMPLEADOS
+/*Esta función muestra la información de los empleados en una lista, considerando
+un tipo de perfil específico. Recorre la lista y utiliza otra función para mostrar los detalles de cada empleado.*/
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil)
 {
     if(listaEmpleados != NULL)
@@ -2572,6 +2659,9 @@ void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil)
         mostrarListaEmpleados(listaEmpleados->siguiente, tipoperfil);
     }
 }
+///FUNCION DE MOSTRAR UN EMPLEADO
+/*Esta función imprime la información de un empleado de laboratorio, considerando un tipo de perfil específico.
+Muestra el DNI, teléfono, apellido y nombre, usuario, y, si es un perfil específico, la clave; finalmente, muestra el perfil.*/
 
 void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil)
 {
@@ -2592,7 +2682,10 @@ void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil)
     printf("-------------------\n");
 }
 
-//FUNCION PASAR DE LA LISTA DOBLE AL ARCHIVO
+///FUNCION PASAR DE LA LISTA DOBLE AL ARCHIVO
+/*Esta función guarda en un archivo binario la información del primer empleado de
+laboratorio en una lista, proporcionando el nombre del archivo. La escritura se realiza
+en modo binario ("wb"), y se cierra el archivo después de la operación.*/
 void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[])
 {
     FILE * archi = fopen(nombreArchivo, "wb");
@@ -2615,6 +2708,10 @@ void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArch
 
 
 ///FUNCION PASAR DE ARCHIVO A LISTA DOBLE EMPLEADOS
+/*Esta función lee un archivo binario de empleados de laboratorio, comparando el apellido y nombre
+de cada empleado con los existentes en una lista doble enlazada. Si encuentra un empleado en el archivo
+con un apellido y nombre mayores en orden lexicográfico, lo agrega al principio de la lista. La función imprime
+un mensaje informativo y devuelve la lista actualizada.*/
 nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados * listaEmpleados)
 {
     FILE * archi = fopen(nombreArchivo, "rb");
@@ -2655,6 +2752,10 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 //
 //
 ///FUNCION ALTA EMPLEADOS
+/*Esta función recibe una lista de empleados y un nuevo empleado. Verifica si ya existe un
+empleado con el mismo DNI en la lista. Si no existe, crea un nuevo nodo con el empleado y lo
+agrega a la lista en orden, imprimiendo un mensaje de éxito. Si ya existe, imprime un mensaje
+indicando que el empleado ya está en la lista y no realiza ninguna acción. La función devuelve la lista actualizada.*/
 nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 {
     empleadosDeLaboratorio nuevoEmpleado;
@@ -2732,12 +2833,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         while(correcto==1);
         usuario[strcspn(usuario, "\n")] = '\0';
         strcpy(nuevoEmpleado.usuario,usuario);
-      if(listaEmpleados==NULL)
-      {
-          strcpy(nuevoEmpleado.perfil,"administrador");
-      }
-      else
-      {
+
         do
         {
             correcto=0;
@@ -2761,32 +2857,25 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         {
            strcpy(nuevoEmpleado.perfil,"administrativo");
         }
-    }
 
+        do
+        {
             correcto=0;
             printf("Ingrese la clave: ");
-             int i = 0;
-        while (1) {
-            char tecla = _getch();
-            if (tecla == 13) {
-                clave[i] = '\0';
-                break;
-            } else if (tecla == 8) {
-                if (i > 0) {
-                    i--;
-                    printf("\b \b");
-                }
-            } else {
-                clave[i] = tecla;
-                printf("*");
-                i++;
+            fflush(stdin);
+            if (fgets(clave, sizeof(clave), stdin) == NULL)
+            {
+                correcto=1;
+                printf("Respuesta invalida. Vuelva a intentarlo.\n");
             }
         }
+        while(correcto==1);
         clave[strcspn(clave, "\n")] = '\0';
         strcpy(nuevoEmpleado.clave,clave);
 
 
         nodoEmpleados * nuevo = crearNodoEmpleados(nuevoEmpleado);
+        printf("%s datos",nuevo->empleado.apellidoYnombre);
 
         listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
 
@@ -2801,7 +2890,10 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 }
 
 
-//FUNCION AGREGAR A LA LISTA ORDENADO POS APELLIDO Y NOMBRE
+///FUNCION AGREGAR A LA LISTA ORDENADO POS APELLIDO Y NOMBRE
+/*Esta función recibe una lista de empleados y un nuevo nodo de empleado. Inserta el
+nuevo nodo en orden alfabético por apellido y nombre en la lista doblemente
+enlazada, ajustando los punteros de manera adecuada. La función devuelve la lista actualizada.*/
 nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo)
 {
     // Caso base: lista vacía o el nuevo nodo va antes del primer nodo
@@ -2815,8 +2907,9 @@ nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpl
         printf("Se ha agregado a %s a la lista.\n", nuevoNodo->empleado.apellidoYnombre);
         return nuevoNodo;
     }
-
-    // Buscar la posición adecuada en la lista
+///FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
+/*Esta función agrega un nuevo nodo de empleado al principio de la lista
+doblemente enlazada, ajustando los punteros correctamente. Devuelve la lista actualizada.*/
     nodoEmpleados * actual = listaEmpleados;
     while (actual->siguiente != NULL && strcmpi(nuevoNodo->empleado.apellidoYnombre, actual->siguiente->empleado.apellidoYnombre) > 0)
     {
@@ -2840,8 +2933,9 @@ nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpl
     return listaEmpleados;
 }
 
-
 ///FUNCION SI EXISTE UN EMPLEADO
+/*Esta función busca un empleado por su número de DNI en una lista doblemente enlazada.
+Devuelve un puntero al nodo del empleado si se encuentra, de lo contrario, devuelve NULL.*/
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
 {
     nodoEmpleados * actual = empleado;
@@ -2857,7 +2951,10 @@ nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado)
     return NULL;
 }
 
+
 ///FUNCION DE CREAR NODO TIPO EMPLEADO
+/*Esta función crea un nuevo nodo para la lista doblemente enlazada de empleados, asignando
+los datos proporcionados al nodo y estableciendo los punteros en NULL. Retorna el nodo recién creado.*/
 nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato)
 {
     nodoEmpleados * aux = (nodoEmpleados*)malloc(sizeof(nodoEmpleados));
@@ -2896,4 +2993,5 @@ void clearScreen()
     system("clear");
 #endif
 }
+
 
