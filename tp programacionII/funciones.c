@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
+#include <windows.h>
 
 //FUNCIONES DE PRACTICAS
 //FUNCION MOSTRAR PRACTICAS DE LABORATORIO ORGANIZADAS POR NOMBRE
@@ -183,7 +184,7 @@ void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * 
 }
 //Busca la practica en los ingresos
 /**/
-int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica)
+int buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica)
 {  int existe=0;
     while(listaIngreso!=NULL)
     {
@@ -197,9 +198,7 @@ int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica)
 
         seg=seg->siguiente;
     }
-
     }
-
 return existe;
 }
 /// FUNCION DE ARCHIVO A LISTA DE PRACTICAS(chequeada)
@@ -2044,7 +2043,7 @@ nodoArbolPacientes* archivoAArbolPacientes  ( char archivo[],nodoArbolPacientes*
 //
 //
 //FUNCION DAR DE BAJA A UN EMPLEADO
-void darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
+nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
 {
     int dniEmpleado;
     int correcto;
@@ -2092,6 +2091,7 @@ void darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
     {
         printf("No se encontró ningún empleado con el DNI proporcionado.\n");
     }
+    return listaEmpleados;
 }
 //FUNCION MODIFICAR EMPLEADO
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
@@ -2259,19 +2259,17 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoperfil)
 {
     int correcto;
-    printf("Ingrese el DNI del empleado que quiera buscar: ");
-    fflush(stdin);
     do
     {
         correcto=0;
-        printf("Ingrese el DNI del paciente que quiere modificar: ");
+        printf("Ingrese el DNI del empleado que quiera buscar: ");
+        fflush(stdin);
         if (scanf("%i",&dniAbuscar)!=1)
         {
             correcto=1;
             printf("La respuesta no es valida. Por favor, ingrese el DNI del empleado.\n");
         }
-    }
-    while(correcto==1);
+    }while(correcto==1);
     nodoEmpleados * existeDni = existeEmpleado(listaEmpleados, dniAbuscar);
     if(existeDni != NULL)
     {
@@ -2368,24 +2366,6 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 {
     empleadosDeLaboratorio aux;
-    int cargaEmpleado = cargarUnEmpleado(&aux,listaEmpleados);
-
-    if(cargaEmpleado == 1)
-    {
-        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
-        listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
-        printf("El empleado fue agregado.\n");
-    }
-    else
-    {
-        printf("Ya existe un empleado con ese DNI.\n");
-    }
-    return listaEmpleados;
-}
-
-//FUNCION CARGAR UN EMPLEADO
-int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados)
-{
     empleadosDeLaboratorio nuevoEmpleado;
     int correcto;
     do
@@ -2430,6 +2410,12 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
             }
         }
         while(correcto==1);
+        size_t longitud = strlen(nuevoEmpleado.apellidoYnombre);
+        if (nuevoEmpleado.apellidoYnombre[longitud - 1] == '\n')
+        {
+            nuevoEmpleado.apellidoYnombre[longitud - 1] = '\0';
+        }
+
 
         do
         {
@@ -2443,6 +2429,10 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
             }
         }
         while(correcto==1);
+        longitud = strlen(nuevoEmpleado.usuario);
+        if (nuevoEmpleado.usuario[longitud - 1] == '\n')
+            {
+            nuevoEmpleado.usuario[longitud - 1] = '\0';}
 
         do
         {
@@ -2469,14 +2459,145 @@ int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmplea
             }
         }
         while(correcto==1);
+        longitud = strlen(nuevoEmpleado.clave);
+        if (nuevoEmpleado.clave[longitud - 1] == '\n')
+            {
+        nuevoEmpleado.clave[longitud - 1] = '\0';}
+        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+        listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
+        printf("El empleado fue agregado.\n");
 
-        *datos=nuevoEmpleado;
-
-        return 1;
     }
-    printf("El dni ingresado ya existe.\n");
-    return 0;
+    else
+    {
+        printf("Ya existe un empleado con ese DNI.\n");
+    }
+    return listaEmpleados;
 }
+//nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
+//{
+//    empleadosDeLaboratorio aux;
+//    int cargaEmpleado = cargarUnEmpleado(&aux,listaEmpleados);
+//
+//    if(cargaEmpleado == 1)
+//    {
+//        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+//        listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
+//        printf("El empleado fue agregado.\n");
+//    }
+//    else
+//    {
+//        printf("Ya existe un empleado con ese DNI.\n");
+//    }
+//    return listaEmpleados;
+//}
+//
+////FUNCION CARGAR UN EMPLEADO
+//int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados)
+//{
+//    empleadosDeLaboratorio nuevoEmpleado;
+//    int perfilAux;
+//    int correcto;
+//    do
+//    {
+//        correcto=0;
+//        printf("Ingrese el DNI: ");
+//        fflush(stdin);
+//        if(scanf("%i", &nuevoEmpleado.dni)!=1)
+//        {
+//            correcto = 1;
+//            printf("Respuesta invalida. Intente nuevamente: \n");
+//        }
+//    }
+//    while(correcto == 1);
+//
+//    nodoEmpleados * existeUnEmpleado = existeEmpleado(listaEmpleados, nuevoEmpleado.dni);
+//
+//    if(existeUnEmpleado==NULL)
+//    {
+//        do
+//        {
+//            correcto=0;
+//            printf("Ingrese el telefono: ");
+//            fflush(stdin);
+//            if (scanf("%i",&nuevoEmpleado.telefono)!= 1)
+//            {
+//                correcto=1;
+//                printf("La respuesta no es valida. Por favor, ingrese el telefono del empleado.\n");
+//            }
+//        }
+//        while(correcto==1);
+//
+//        do
+//        {
+//            correcto=0;
+//            printf("Ingrese el apellido y nombre: ");
+//            fflush(stdin);
+//            if (fgets(nuevoEmpleado.apellidoYnombre, sizeof(nuevoEmpleado.apellidoYnombre), stdin) == NULL)
+//            {
+//                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+//                correcto=1;
+//            }
+//        }
+//        while(correcto==1);
+//
+//        do
+//        {
+//            correcto = 0;
+//            printf("Ingrese el nuevo usuario: ");
+//            fflush(stdin);
+//            if(fgets(nuevoEmpleado.usuario, sizeof(nuevoEmpleado.usuario), stdin) == NULL)
+//            {
+//                correcto = 1;
+//                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+//            }
+//        }
+//        while(correcto==1);
+//
+//        do
+//        {
+//            correcto=0;
+//            printf("Ingrese el perfil (1=administrador, 2=profesional, 3=administrativo): ");
+//            fflush(stdin);
+//            if (scanf("%i",&perfilAux)!= 1)
+//            {
+//                correcto=1;
+//                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+//            }
+//        }
+//        while(correcto==1);
+//
+//        do
+//        {
+//            correcto=0;
+//            printf("Ingrese la clave: ");
+//            fflush(stdin);
+//            if (fgets(nuevoEmpleado.clave, sizeof(nuevoEmpleado.clave), stdin) == NULL)
+//            {
+//                correcto=1;
+//                printf("Respuesta invalida. Vuelva a intentarlo.\n");
+//            }
+//        }
+//        while(correcto==1);
+//
+//        if(perfilAux == 1)
+//        {
+//            strcpy(nuevoEmpleado.perfil, "administrador");
+//        }else if(perfilAux == 2)
+//        {
+//            strcpy(nuevoEmpleado.perfil, "profesional");
+//        }else if(perfilAux == 3)
+//        {
+//            strcpy(nuevoEmpleado.perfil, "administrativo");
+//        }
+//
+//        *datos=nuevoEmpleado;
+//
+//        return 1;
+//    }
+//    printf("El dni ingresado ya existe.\n");
+//    return 0;
+//}
 
 //FUNCION AGREGAR A LA LISTA ORDENADO POS APELLIDO Y NOMBRE
 nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmpleados *nuevoNodo)
@@ -2582,4 +2703,35 @@ void clearScreen()
 #else
     system("clear");
 #endif
+}
+
+void recuadro (int xs, int ys, int xi, int yi)
+{
+    int i;
+    for(i=xs; i<=xi; i++)
+    {
+        gotoxy(i,ys); printf("%c", 196);
+        gotoxy(i,yi); printf("%c", 196);
+    }
+
+    for(i=ys; i<=yi; i++)
+    {
+        gotoxy(xs,i); printf("%c", 179);
+        gotoxy(xi,i); printf("%c", 179);
+    }
+    gotoxy(xs,ys); printf("%c", 218);
+    gotoxy(xi,yi); printf("%c", 217);
+    gotoxy(xi,ys); printf("%c", 191);
+    gotoxy(xs,yi); printf("%c", 192);
+}
+
+//FUNCION GOTOXY
+
+void gotoxy(int x, int y){
+	HANDLE hcon;
+	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD dwPos;
+	dwPos.X = x;
+	dwPos.Y= y;
+	SetConsoleCursorPosition(hcon,dwPos);
 }

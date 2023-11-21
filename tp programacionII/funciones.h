@@ -93,8 +93,9 @@ void listaPracticaAArchivo(char archivoPraticas[],nodoPracticasLaboratorio* list
 int proximoNumeroPractica (nodoPracticasLaboratorio* listaPracticas);
 void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * existencia);
 nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*listaPracticas,nodoArbolPacientes* arbolPacientes);
-int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
+int buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
 void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica);
+void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
 int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas);
 
 //FUNCIONES DE INGRESO
@@ -165,7 +166,7 @@ void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArch
 void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil);
 void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil);
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
-void darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
+nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoperfil);
 int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);

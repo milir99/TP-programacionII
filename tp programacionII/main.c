@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h"
+#include "switch.h"
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
@@ -38,9 +39,9 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
 
 int main()
 {
-    system("mode con: cols=90 lines=30");
+    //system("mode con: cols=90 lines=30");
     system("color 5");
-
+    //recuadroo (10, 3, 70, 22);
     InicioDelPrograma();
 //    char seguir;
 //    int ingreso;
