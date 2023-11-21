@@ -867,7 +867,7 @@ Verifica la existencia del paciente, obtiene el numero del ultimo ingreso,
  crea un nuevo nodo de ingreso, y añade practicas a dicho ingreso. Si tiene exito,
   actualiza la lista de ingresos del paciente y retorna el arbol de pacientes.
 En caso de error, muestra un mensaje apropiado y retorna NULL. /*/
-nodoArbolPacientes * alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato, nodoPracticasLaboratorio* listaPracticas)
+nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente, ingresos dato,nodoPracticasLaboratorio* listaPracticas)
 {
 
     nodoArbolPacientes * existencia = existePaciente(paciente,dato.dniPaciente);
@@ -1080,7 +1080,7 @@ nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
 ///FUNCION DE EXISTENCIA DE PACIENTE(DONE)/(chequeada)
 /*/busca un paciente por su numero de DNI en un arbol binario de busqueda.
 Retorna el nodo del paciente si existe, de lo contrario, devuelve NULL/*/
-nodoArbolPacientes * existePaciente(nodoArbolPacientes* pacientes, int dniPaciente)
+nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente)
 {
     if (pacientes == NULL)
     {
@@ -1106,7 +1106,7 @@ nodoArbolPacientes * existePaciente(nodoArbolPacientes* pacientes, int dniPacien
         return resultadoDerecho;
     }
 
-    //printf("\n.%i no encontrado. \n", pacientes->dato.dni);
+    printf("\n.%i no encontrado. \n", pacientes->dato.dni);
     return NULL;
 
 
@@ -1347,7 +1347,7 @@ nodoArbolPacientes* archivoAListaPXI (char archivo[],nodoArbolPacientes*arbol)
             ingreso->listaDePracticas=agregarPpioPXI(ingreso->listaDePracticas,crearNodoPXI(aux.nroIngreso,aux.nroPractica));
         }
         fclose(arch);
-        //printf("PXI cargadas a los ingresos");
+        printf("PXI cargadas a los ingresos");
 
     }
     else
@@ -1877,7 +1877,7 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
     int dniAbuscar;
     do
     {
-        printf("Ingrese el DNI del paciente que quiere dar de baja: ");
+        printf("Ingrese el DNI del paciente que quiere modificar: ");
         if (scanf("%i",&dniAbuscar)!=1)
         {
             while(getchar() != '\n');
@@ -2065,7 +2065,7 @@ nodoArbolPacientes* archivoAArbolPacientes  ( char archivo[],nodoArbolPacientes*
     {
         printf("Error al abrir el archivo.\n");
     }
-    //printf("Se cargaron los datos del Archivo al arbol.\n");
+    printf("Se cargaron los datos del Archivo al arbol.\n");
     return arbol;
 }
 //
@@ -2286,9 +2286,8 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
 }
 
 //FUNCION DE BUSCAR Y MOSTRAR UN EMPLEADO EN ESPECIFICO
-void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil)
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoperfil)
 {
-    int dniAbuscar;
     int correcto;
     do
     {
@@ -2324,7 +2323,6 @@ void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil)
 
 void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil)
 {
-
     printf("\n-------------------\n");
     printf("DNI: %i\n", aux.dni);
     printf("Telefono: %i\n", aux.telefono);
@@ -2362,7 +2360,7 @@ void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArch
     {
         printf("No se pudo abrir el archivo para escritura.\n");
     }
-    //printf("se pasaro los datos de la lisat de empleados al archivo");
+    printf("se pasaro los datos de la lisat de empleados al archivo");
 }
 
 ///FUNCION PASAR DE ARCHIVO A LISTA DOBLE EMPLEADOS
@@ -2737,3 +2735,33 @@ void clearScreen()
 #endif
 }
 
+void recuadro (int xs, int ys, int xi, int yi)
+{
+    int i;
+    for(i=xs; i<=xi; i++)
+    {
+        gotoxy(i,ys); printf("%c", 196);
+        gotoxy(i,yi); printf("%c", 196);
+    }
+
+    for(i=ys; i<=yi; i++)
+    {
+        gotoxy(xs,i); printf("%c", 179);
+        gotoxy(xi,i); printf("%c", 179);
+    }
+    gotoxy(xs,ys); printf("%c", 218);
+    gotoxy(xi,yi); printf("%c", 217);
+    gotoxy(xi,ys); printf("%c", 191);
+    gotoxy(xs,yi); printf("%c", 192);
+}
+
+//FUNCION GOTOXY
+
+void gotoxy(int x, int y){
+	HANDLE hcon;
+	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD dwPos;
+	dwPos.X = x;
+	dwPos.Y= y;
+	SetConsoleCursorPosition(hcon,dwPos);
+}
