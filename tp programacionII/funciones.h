@@ -94,18 +94,19 @@ int proximoNumeroPractica (nodoPracticasLaboratorio* listaPracticas);
 void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * existencia);
 nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*listaPracticas,nodoArbolPacientes* arbolPacientes);
 int buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
-void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica);
+void mostrarListaPorNombre(nodoPracticasLaboratorio *listaPracticas);
 void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
 int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas);
-void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
+void mostrarListaPracticas(nodoPracticasLaboratorio *listaPracticas);
+void mostrarListaPracticasadmin (nodoPracticasLaboratorio* listaPractica);
 
 //FUNCIONES DE INGRESO
-nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato,nodoPracticasLaboratorio* listaPracticas);
+nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasLaboratorio* listaPracticas);
 nodoIngresos*crearNodoIngreso(ingresos dato);
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
 nodoIngresos* buscarIngreso(nodoArbolPacientes* arbol, int nroIngreso);
-nodoIngresos*modificacion_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
+nodoArbolPacientes*modificacion_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
 nodoIngresos* baja_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
 int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * nuevoIngreso);

@@ -3,9 +3,9 @@
 
 void InicioDelPrograma();
 int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,empleadosDeLaboratorio*datoUsuario);
-void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas);
-void switchAdministrativo(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas);
-void switchAdmin(nodoArbolPacientes * arbolPacientes, nodoEmpleados * listaEmpleados, nodoPracticasLaboratorio * listaPracticas);
+void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**listaEmpleados,nodoPracticasLaboratorio**listaPracticas);
+void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados**listaEmpleados,nodoPracticasLaboratorio**listaPracticas);
+void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados ** listaEmpleados, nodoPracticasLaboratorio ** listaPracticas);
 
 void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas);
 int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados);
