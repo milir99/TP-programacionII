@@ -1,14 +1,16 @@
 # depslib dependency file v1.0
-1700426858 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\main.c
+1700583067 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
+	"switch.h"
 	<ctype.h>
 	<string.h>
 	<time.h>
 	<unistd.h>
+	<windows.h>
 
-1700366966 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.h
+1700583067 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.h
 
 1700570733 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\main.c
 	<stdio.h>
@@ -73,17 +75,18 @@
 
 1700546979 c:\users\usuario\desktop\github\tp programacionii\funciones.h
 
-1700287557 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.c
+1700585332 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 	<ctype.h>
 	<string.h>
 	"switch.h"
+	<windows.h>
 
-1700285138 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.h
+1700583067 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.h
 
-1700426824 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.c
+1700584759 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -91,6 +94,7 @@
 	<ctype.h>
 	<string.h>
 	<time.h>
+	<windows.h>
 
 1700547560 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
 	<stdio.h>

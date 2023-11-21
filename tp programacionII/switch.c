@@ -31,8 +31,19 @@ void InicioDelPrograma()
 
     arbolPacientes = archivoAListaPXI(archivoPXI,arbolPacientes);
 
+    if(listaEmpleados==NULL)
+    {
+        printf(" _ ____  _                           _     _         __    _ \n");
+    printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
+    printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
+    printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
+    printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
 
 
+    printf("Acontinuacion debe ingresar sus datos para generar el primer usuario del programa.\n");
+        listaEmpleados=alta_de_empleados(listaEmpleados);
+
+    }
     int perfil = usuarioYclavePrincipio(listaEmpleados);
 
     if(perfil==1)
@@ -590,7 +601,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
         printf("1. Administrar usuario/empleado. \n");
         printf("2. Adminnistrar practicas.\n");
         printf("3. Administrar paciente.\n");
-        printf("4. Ingresar al sistema con otro perfil");
+        printf("4. Ingresar al sistema con otro perfil.\n");
 
         fflush(stdin);
         scanf("%i", &eleccion1);
@@ -794,7 +805,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
             switch(eleccion5)
             {
             case 1:
-                switchProfesionales(&(*arbolPacientes),&(*listaEmpleados),&(*listaPracticas));
+                switchProfesionales(arbolPacientes,listaEmpleados,listaPracticas);
                 break;
 
             case 2:

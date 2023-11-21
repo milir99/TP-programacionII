@@ -215,10 +215,22 @@ nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPrac
             lista= agregarFinPracticaLaboratorio(lista,CrearNodoPracticaLaboratorio(aux));
         }
         fclose(arch);
+        printf("lista practica pasada exitosamente.\n");
     }
     else
     {
-        printf("Error al abrir el archivo de practicas");
+         arch = fopen(archivoPraticas, "wb");
+        if (arch != NULL)
+        {
+            printf("Se creo el archivode practicas.\n");
+            fclose(arch);
+        }
+        else
+        {
+            printf("Error al abrir el archivo de practicas");
+        }
+
+
     }
     return lista;
 }
@@ -604,10 +616,12 @@ nodoArbolPacientes* archivoAListaIngresos(char archivo[], nodoArbolPacientes* ar
 {
     FILE* arch;
     ingresos aux;
+
     arch = fopen(archivo, "rb");
 
-    if (arch != NULL && arbol != NULL)
+    if (arch != NULL)
     {
+
         while (fread(&aux, sizeof(ingresos), 1, arch) == 1)
         {
             nodoArbolPacientes* existe = existePaciente(arbol, aux.dniPaciente);
@@ -627,11 +641,22 @@ nodoArbolPacientes* archivoAListaIngresos(char archivo[], nodoArbolPacientes* ar
     }
     else
     {
-        printf("Error al abrir el archivo de ingresos.\n");
+
+        arch = fopen(archivo, "wb");
+        if (arch != NULL)
+        {
+            printf("Se creó el archivo: %s\n", archivo);
+            fclose(arch);
+        }
+        else
+        {
+            printf("Error al abrir el archivo de ingresos.\n");
+        }
     }
 
     return arbol;
 }
+
 
 
 ///FUNCION PARA COMPARAR FECHAS (chequeada)
@@ -1541,7 +1566,17 @@ nodoArbolPacientes* archivoAListaPXI(char archivo[], nodoArbolPacientes* arbol)
     }
     else
     {
-        printf("Error al abrir el archivo de prácticas por ingreso.\n");
+       arch = fopen(archivo, "wb");
+        if (arch != NULL)
+        {
+            printf("Se creó el archivo: %s\n", archivo);
+            fclose(arch);
+        }
+        else
+        {
+            printf("Error al abrir el archivo de ingresos.\n");
+        }
+
     }
 
     return arbol;
@@ -2250,12 +2285,23 @@ nodoArbolPacientes* archivoAArbolPacientes  ( char archivo[],nodoArbolPacientes*
         }
 
         fclose(archi);
+        printf("Se cargaron los datos del Archivo al arbol.\n");
     }
     else
     {
-        printf("Error al abrir el archivo.\n");
+        archi = fopen(archivo, "wb");
+        if (archi != NULL)
+        {
+            printf("Se creó el archivo: %s\n", archivo);
+            fclose(archi);
+        }
+        else
+        {
+            printf("Error al abrir el archivo de ingresos.\n");
+        }
+
     }
-    printf("Se cargaron los datos del Archivo al arbol.\n");
+
     return arbol;
 }
 //
@@ -2570,12 +2616,23 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
         }
 
         fclose(archi);
+        printf("Se pasaron los datos del archivo a la lista doble.\n"); //BORRAR ANTES DE LA PRESENTACION
     }
     else
     {
-        printf("No se pudo abrir el archivo.\n");
+        archi = fopen(nombreArchivo, "wb");
+        if (archi != NULL)
+        {
+            printf("Se creo el archivo: %s\n", nombreArchivo);
+            fclose(archi);
+        }
+        else
+        {
+            printf("Error al abrir el archivo de empleados.\n");
+        }
+
     }
-    printf("Se pasaron los datos del archivo a la lista doble.\n"); //BORRAR ANTES DE LA PRESENTACION
+
     return listaEmpleados;
 }
 
