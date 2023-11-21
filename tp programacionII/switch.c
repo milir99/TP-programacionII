@@ -77,7 +77,7 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
         //gotoxy(1, 2); printf("\n   Ingrese su nombre de usuario: ");
 
         //recuadro(10, 5, 70, 15);
-        recuadro(10, 10, 70, 15);
+        recuadro(5, 5, 80, 20);
         gotoxy(33, 8);
         printf("INICIO DE SESION");
         gotoxy(25, 10);
@@ -121,9 +121,9 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
         {
             ocultarCursor();
             centrarTexto("C A R G A N D O...",21);
-            for(i = 3; i <= 76; i++)
+            for(i = 4; i <= 76; i++)
             {
-                gotoxy(i, 23); printf("%c",177);
+                gotoxy(i, 23); printf("%c",170);
             }
             for(i = 3; i <= 76; i++)
             {
@@ -205,11 +205,10 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
     {
         clearScreen();
         printf("Ingresado como Profesional");
-        system("pause");
         printf("Bienvenido/a!\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar practicas.\n");
-        printf("1. Ver pacientes. \n");
+        printf("2. Administrar pacientes. \n");
         fflush(stdin);
         scanf("%i", &eleccion1);
 
@@ -222,7 +221,7 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                 clearScreen();
                 printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Agregar una practica.\n");
-                printf("2. Modificar una practica.\n");
+                printf("2. Modificar una practica .\n");
                 printf("3. Buscar una practica.\n");
                 printf("4. Mostrar todas las practicas.\n");
                 printf("5. Dar de baja una practica.\n");
@@ -248,7 +247,33 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                     break;
 
                 case 4:
-                    mostrarListadoPracticas(*listaPracticas);
+                     do
+                    {
+                        printf("Mostrar las practicas organizadas por: \n");
+                        printf("1. Nombre de Practica \n");
+                        printf("2. Nro de Practica.\n");
+                        printf("0. Volver.\n");
+                        fflush(stdin);
+                        scanf("%i", &eleccion1);
+                        clearScreen();
+                        switch(eleccion1)
+                        {
+                        case 1:
+                            mostrarListaPorNombre(*listaPracticas);
+                            break;
+                        case 2:
+                            mostrarListaPracticasadmin(*listaPracticas);
+                            break;
+                        default:
+                            if(eleccion1!=0)
+                            {
+                                printf("Error, la opcion que ingreso es invalida.\n");
+                            }
+                            break;
+                        }
+
+                    }
+                    while(eleccion1!=0);
                     break;
 
                 case 5:
@@ -272,6 +297,7 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                 printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Ver pacientes.\n");
                 printf("2. Buscar un paciente.\n");
+                printf("3. Ingresar resultados.\n");
                 fflush(stdin);
                 scanf("%i", &eleccion3);
 
@@ -296,6 +322,9 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                     existe = existePaciente(*arbolPaciente,dniPacienteAbuscar);
                     mostrarUnPaciente(existe->dato);
                     break;
+                    case 3:
+                         modificar_PXI(*arbolPaciente,*listaPracticas);
+                        break;
 
                 default:
                     if(eleccion3!=0)
@@ -323,12 +352,12 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
     int buscarPractica;
     nodoArbolPacientes * existe = iniciarArbol();
     int nroIngreso;
+     nodoIngresos* buscado;
 
     do
     {
-          clearScreen();
-          printf("Ingresado como administrativo\n");
-        system("pause");
+        clearScreen();
+        printf("Ingresado como administrativo\n");
         printf("Bienvenido/a!\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar paciente.\n");
@@ -492,9 +521,25 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                                    break;
 
                 case 3:
+                    do
+                    {
+                        correcto = 0;
+                        printf("\nIngrese el Nro de ingreso: ");
+                        fflush(stdin);
+                        if (scanf("%i",&nroIngreso) != 1)
+                        {
+                            printf("Entrada no valida. Por favor, ingrese el DNI del paciente.\n");
+                            correcto = 1;
+                        }
+
+                    }
+                    while (correcto == 1);
+                     buscado=buscarIngreso(*arbolPaciente,nroIngreso);
+                     mostrarUnIngreso(buscado->dato);
                     break;
 
                 case 4:
+                    switchXingreso(*arbolPaciente);
                     mostrarIngresosConFiltro(*arbolPaciente);
                     break;
                 case 5:
@@ -753,7 +798,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
                 break;
 
             case 2:
-                switchAdministrativo(&(*arbolPacientes),&(*listaEmpleados),&(*listaPracticas));
+                switchAdministrativo(arbolPacientes,listaEmpleados,listaPracticas);
                 break;
             default:
                 if(eleccion5!=0)

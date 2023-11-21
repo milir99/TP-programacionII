@@ -1100,6 +1100,7 @@ int buscarUltimoNroIngreso(nodoIngresos* lista)
 de lo contrario, enlaza el nuevo ingreso al principio y actualiza la cabeza de la lista. Retorna la lista actualizada/*/
 nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
 {
+    //
     if(lista==NULL)
     {
         lista=nuevoIngreso;
@@ -1112,6 +1113,149 @@ nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso)
     return lista;
 
 }
+
+//SWITCH DE INGRESO
+/*
+Esta función permite al usuario seleccionar un método para buscar y mostrar
+información sobre ingresos en un árbol de pacientes. Ofrece opciones para
+buscar por fecha de ingreso, número de ingreso o DNI del paciente.*/
+void switchXingreso (nodoArbolPacientes * arbolPaciente)
+{
+    int eleccion;
+    int correcto;
+    char fechaIngresada[11];
+    int numeroIngreso;
+    int dniIngresado;
+    do
+    {
+        printf("Como desea buscar el ingreso?  \n");
+        printf("0. Para finalizar.\n ");
+        printf("1. Por fecha de ingreso.\n");
+        printf("2. Por Nro de ingreso.\n");
+        printf("3. Por DNI del paciente.\n");
+
+        fflush(stdin);
+        scanf("%i",&eleccion);
+        switch (eleccion)
+        {
+        case 1:
+            do
+            {
+                correcto = 0;
+                printf("Ingrese la fecha de ingreso: ");
+                fflush(stdin);
+                if (fgets(fechaIngresada, sizeof(fechaIngresada),stdin)==NULL)
+                {
+                    correcto = 1;
+                    printf("La fecha no es valida. Por favor, ingrese la fecha de ingreso.\n");
+                }
+                else if(analizarFecha(fechaIngresada)!=1)
+                {
+                    printf("No hay registros de un ingreso en esa fecha.\n");
+                }
+            }
+
+            while(correcto == 1);
+
+                mostrarIngresoXfechaIngreso (arbolPaciente, fechaIngresada);
+
+
+            break;
+        case 2:
+            do
+            {
+                correcto = 0;
+                printf("Ingrese el nro de ingreso: ");
+                if (scanf("%i",&numeroIngreso)!=1)
+                {
+                    correcto = 1;
+                    printf("La respuesta no es valida. Por favor, ingrese el N° de ingreso.\n");
+                }
+            }
+            while(correcto == 1);
+
+
+            mostrarIngresoXnumeroIngreso (arbolPaciente, numeroIngreso);
+            break;
+        case 3:
+            do
+            {
+                correcto = 0;
+                printf("Ingrese el DNI: ");
+                if (scanf("%i",&dniIngresado)!=1)
+                {
+                    correcto = 1;
+                    printf("La respuesta no es valida. Por favor, ingrese el DNI.\n");
+                }
+            }
+            while(correcto == 1);
+            mostrarIngresoXdni (arbolPaciente,dniIngresado);
+            break;
+        default:
+            if(eleccion != 0)
+            {
+                printf("Error, la opcion que ingreso es invalida, intentelo otra vez.\n");
+            }
+        }
+    }while(eleccion!=0);
+}
+
+///SWITCH INGRESO POR FECHA
+/*
+Esta función realiza una búsqueda recursiva en un árbol binario de pacientes, mostrando todos los
+ingresos y prácticas asociadas cuya fecha de ingreso coincida con la fecha proporcionada (fechaIngresada).*/
+void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[])
+{
+    while(arbolPaciente!=NULL)
+    {
+        mostrarIngresoXfechaIngreso (arbolPaciente->izq, fechaIngresada);
+        if(strcmpi(arbolPaciente->listaIngresos->dato.fechaIngreso, fechaIngresada)==0)
+        {
+            mostrarUnIngreso(arbolPaciente->listaIngresos->dato); //muestra de forma inorder todos los ingresos dentro de esta fecha
+            mostrarListaPXI(arbolPaciente->listaIngresos->listaDePracticas); //muestra todas las practicas
+        }
+        mostrarIngresoXfechaIngreso (arbolPaciente->der, fechaIngresada);
+    }
+}
+
+
+///SWITCH INGRESO POR NUMERO DE INGRESO
+/*Esta función busca un ingreso específico en un árbol binario de pacientes por su número (numeroIngreso). Si se
+encuentra, muestra detalladamente la información de ese ingreso y las prácticas asociadas; de lo contrario, imprime
+ un mensaje indicando la ausencia de registros.*/
+void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numeroIngreso)
+{
+
+    if (buscarIngreso(arbolPaciente, numeroIngreso) != NULL) //la funcion buscarIngreso retorna el nodo del numero ingresado o null
+    {
+        mostrarUnIngreso(arbolPaciente->listaIngresos->dato); //muestra solo el ingreso del numero ingresado
+        mostrarListaPXI(arbolPaciente->listaIngresos->listaDePracticas); //muestra todas las practicas
+    }
+    else
+    {
+        printf("No hay registro del numero ingresado.\n");
+    }
+}
+
+///SWITCH INGRESO POR DNI PACIENTE
+/*
+Esta función busca un paciente en un árbol binario por su DNI (dniIngresado). Si el paciente existe, muestra
+detalladamente la información de su ingreso y las prácticas asociadas; de lo contrario, imprime un mensaje indicando la ausencia de registros.*/
+void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado)
+{
+    if(existePaciente(arbolPaciente,dniIngresado)!=NULL) //busca el DNI en el arbol y retorta el nodo del paciente si existe, sino retorna NULL
+    {
+        mostrarUnIngreso(arbolPaciente->listaIngresos->dato); //muestra solo el ingreso de ese dni
+        mostrarListaPXI(arbolPaciente->listaIngresos->listaDePracticas); //muestra todas las practicas
+    }
+    else
+    {
+        printf("No hay registros de DNI ingresado.\n");
+    }
+}
+
+
+
 ///FUNCION DE EXISTENCIA DE PACIENTE(DONE)/(chequeada)
 /*/busca un paciente por su numero de DNI en un arbol binario de busqueda.
 Retorna el nodo del paciente si existe, de lo contrario, devuelve NULL/*/
@@ -1238,6 +1382,7 @@ nodoArbolPacientes* modificar_PXI( nodoArbolPacientes*arbol,nodoPracticasLaborat
                     volverIngresar=0;
 
                     printf("Ingrese el Resultado: ");
+                    fflush(stdin);
                     if (fgets(nuevoResultado, sizeof(nuevoResultado), stdin) == NULL)
                     {
                         printf("Entrada invalida\n.Intentelo otra vez.\n");
@@ -1546,8 +1691,8 @@ void mostrarListaPXI(nodoPracticasXIngreso* listaPXI)
 }
 void mostrarUnaPXI(practicasXIngreso dato)
 {
-    printf("Número de Ingreso: %d\n", dato.nroIngreso);
-    printf("Número de practica: %d\n", dato.nroPractica);
+    printf("Numero de Ingreso: %d\n", dato.nroIngreso);
+    printf("Numero de practica: %d\n", dato.nroPractica);
     printf("Resultado: %s\n", dato.resultado);
 
     printf("----------------------------------------\n");

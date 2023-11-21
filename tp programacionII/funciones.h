@@ -117,6 +117,11 @@ int analizarFecha(char *fechaIngresada);
 int esAnterior(const char *fecha_ingreso, const char *fecha_retiro);
 nodoArbolPacientes* archivoAListaIngresos(char archivo[],nodoArbolPacientes* arbol);
 void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[]);
+void switchXingreso (nodoArbolPacientes * arbolPaciente);
+void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[]);
+void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numeroIngreso);
+void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado);
+
 
 
 
@@ -133,6 +138,7 @@ void mostrarListaPXI(nodoPracticasXIngreso* listaPXI);
 nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas);
 nodoArbolPacientes* archivoAListaPXI (char archivo[],nodoArbolPacientes*arbol);
 
+nodoArbolPacientes* modificar_PXI( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas);
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
 
 //FUNCIONES DE PACIENTES
