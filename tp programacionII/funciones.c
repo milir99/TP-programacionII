@@ -2601,38 +2601,37 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 //}
 
 //FUNCION AGREGAR A LA LISTA ORDENADO POS APELLIDO Y NOMBRE
-nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmpleados *nuevoNodo)
+nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo)
 {
-    if (listaEmpleados == NULL)
+    // Caso base: lista vacía o el nuevo nodo va antes del primer nodo
+    if (listaEmpleados == NULL || strcmp(nuevoNodo->empleado.apellidoYnombre, listaEmpleados->empleado.apellidoYnombre) < 0)
     {
+        nuevoNodo->siguiente = listaEmpleados;
+        if (listaEmpleados != NULL)
+        {
+            listaEmpleados->anterior = nuevoNodo;
+        }
+        printf("Se ha agregado a %s a la lista.\n", nuevoNodo->empleado.apellidoYnombre);
         return nuevoNodo;
     }
 
-    nodoEmpleados *actual = listaEmpleados;
-    while (actual != NULL && strcmp(nuevoNodo->empleado.apellidoYnombre, actual->empleado.apellidoYnombre) > 0)
+    // Buscar la posición adecuada en la lista
+    nodoEmpleados * actual = listaEmpleados;
+    while (actual->siguiente != NULL && strcmp(nuevoNodo->empleado.apellidoYnombre, actual->siguiente->empleado.apellidoYnombre) > 0)
     {
         actual = actual->siguiente;
     }
-    if (actual == NULL)
-    {
-        nuevoNodo->anterior = actual->anterior;
-        actual->siguiente = nuevoNodo;
-    }
-    else
-    {
-        nuevoNodo->siguiente = actual;
-        nuevoNodo->anterior = actual->anterior;
-        actual->anterior = nuevoNodo;
 
-        if (nuevoNodo->anterior != NULL)
-        {
-            nuevoNodo->anterior->siguiente = nuevoNodo;
-        }
-        else
-        {
-            return nuevoNodo;
-        }
+    // Insertar el nuevo nodo en la posición encontrada
+    nuevoNodo->siguiente = actual->siguiente;
+    nuevoNodo->anterior = actual;
+    if (actual->siguiente != NULL)
+    {
+        actual->siguiente->anterior = nuevoNodo;
     }
+    actual->siguiente = nuevoNodo;
+
+    printf("Se ha agregado a %s a la lista.\n", nuevoNodo->empleado.apellidoYnombre);
 
     return listaEmpleados;
 }

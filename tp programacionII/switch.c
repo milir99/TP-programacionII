@@ -85,7 +85,7 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
 
 
         recuadro(10, 5, 70, 15);
-        gotoxy(35, 8);
+        gotoxy(33, 8);
         printf("INICIO DE SESION");
         gotoxy(25, 10);
         printf("Usuario: ");
@@ -94,16 +94,17 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
         size_t longitud = strlen(usuario);
 
         if (usuario[longitud - 1] == '\n')
-            {
+        {
             usuario[longitud - 1] = '\0';}
 
-        gotoxy(25, 12);
-        printf("Clave: ");
-        scanf("%s", clave);
-        longitud = strlen(clave);
+            gotoxy(25, 12);
+            printf("Clave: ");
+            scanf("%s", clave);
+            longitud = strlen(clave);
         if (clave[longitud - 1] == '\n')
-            {
-            clave[longitud - 1] = '\0';}
+        {
+            clave[longitud - 1] = '\0';
+        }
 
         existe=compararUsuario(clave,usuario,listaEmpleados,&datosEmpleado);
         ocultarCursor();
@@ -124,6 +125,7 @@ int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados)
     gotoxy(3,23); printf("                                                                    ");
 
     activarCursor();
+
         if (existe!=0)
         {
             clearScreen();
