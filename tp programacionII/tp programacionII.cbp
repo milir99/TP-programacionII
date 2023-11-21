@@ -31,10 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="PXI.bin" />
+		<Unit filename="empleados.bin" />
 		<Unit filename="funciones.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="funciones.h" />
+		<Unit filename="ingresos.bin" />
+		<Unit filename="lasPracticas.bin" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h"
+#include "switch.h"
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <windows.h>
 
 void mostrarDatosArchivo(const char *nombreArchivo) {
     FILE *archivo;
@@ -13,7 +15,7 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
     // Abre el archivo en modo lectura binaria
     archivo = fopen(nombreArchivo, "rb");
 
-    // Verifica si el archivo se abrió correctamente
+    // Verifica si el archivo se abriï¿½ correctamente
     if (archivo == NULL) {
         perror("Error al abrir el archivo");
         return;
@@ -23,8 +25,8 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
     while (fread(&practica, sizeof(practicasLaboratorio), 1, archivo) == 1) {
         // Muestra los datos solo si no han sido marcados como eliminados
         if (!practica.eliminado) {
-            printf("Número de Práctica: %d\n", practica.nroPractica);
-            printf("Nombre de Práctica: %s\n", practica.nombreDePractica);
+            printf("Nï¿½mero de Prï¿½ctica: %d\n", practica.nroPractica);
+            printf("Nombre de Prï¿½ctica: %s\n", practica.nombreDePractica);
             printf("Eliminado: %d\n", practica.eliminado);
             printf("--------------------------\n");
         }
@@ -33,13 +35,22 @@ void mostrarDatosArchivo(const char *nombreArchivo) {
     // Cierra el archivo
     fclose(archivo);
 }
+
+
 int main()
 {
-    char seguir;
-    int ingreso;
-    ingresos dato;
-  nodoPracticasLaboratorio * listaPracticas=NULL;
+    //system("mode con: cols=90 lines=30");
+    system("color 5");
+    //recuadroo (10, 3, 70, 22);
+    InicioDelPrograma();
+
+//    char seguir;
+//    int ingreso;
+//    ingresos dato;
+//  nodoPracticasLaboratorio * listaPracticas=NULL;
+//  mostrarListadoPracticas(listaPracticas);
 //     listaPracticas=ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
+//     listaPracticaAArchivo("lasPracticas.bin",listaPracticas);
 //
 //    int existe = mostrarPracticasQueComienzanCon(listaPracticas);
 //    if (existe==0)
@@ -48,22 +59,22 @@ int main()
 //    }
 //
 //     system("pause");
-    nodoArbolPacientes* arbol= NULL;
-    mostrarDatosArchivo("lasPracticas.bin");
-    mostrarArchivoPacientes("pacientes.dat");
-    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
-    mostrarArbolINORDERPaciente(arbol);
-    mostrarPacienteDeDNI(arbol);
-    system("pause");
-
-    listaPracticas= ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
-    listaPracticas=modificacion_de_practica(listaPracticas);
-    system("pause");
-    mostrarListaPracticas(listaPracticas);
-    system("pause");
-    listaPracticas=alta_de_practica(listaPracticas);
-    printf("LLEGOOOO");
-     mostrarListaPracticas(listaPracticas);
+//    nodoArbolPacientes* arbol= NULL;
+//    mostrarDatosArchivo("lasPracticas.bin");
+//    mostrarArchivoPacientes("pacientes.dat");
+//    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
+//    mostrarArbolINORDERPaciente(arbol);
+//    mostrarPacienteDeDNI(arbol);
+//    system("pause");
+//
+//    listaPracticas= ArchivoAListaPracticas("lasPracticas.bin",listaPracticas);
+//    listaPracticas=modificacion_de_practica(listaPracticas);
+//    system("pause");
+//    mostrarListaPracticas(listaPracticas);
+//    system("pause");
+//    listaPracticas=alta_de_practica(listaPracticas);
+//    printf("LLEGOOOO");
+//     mostrarListaPracticas(listaPracticas);
 //    arbol=archivoAArbolPacientes("pacientes.dat",arbol);
 //    do
 //    {
@@ -92,21 +103,21 @@ int main()
 //        }
 //    }
 //    while(seguir=='s');
-
-    cargarArchivoPaciente("pacientes.dat",arbol);
-    mostrarArchivoPacientes("pacientes.dat");
-
-    system("color 5");
-    /*/para cuando ingrese fechas
-  char fechaIngresada[20];
-
-    do {
-        printf("Ingresa una fecha (YYYY-MM-DD): ");
-        if (scanf("%19s", fechaIngresada) != 1) {
-            printf("Entrada invalida.\n");
-            return 1;
-        }
-    } while (!analizarFecha(fechaIngresada));/*/
+//
+//    cargarArchivoPaciente("pacientes.dat",arbol);
+//    mostrarArchivoPacientes("pacientes.dat");
+//
+//    system("color 5");
+//    /*/para cuando ingrese fechas
+//  char fechaIngresada[20];
+//
+//    do {
+//        printf("Ingresa una fecha (YYYY-MM-DD): ");
+//        if (scanf("%19s", fechaIngresada) != 1) {
+//            printf("Entrada invalida.\n");
+//            return 1;
+//        }
+//    } while (!analizarFecha(fechaIngresada));/*/
 
     return 0;
 }

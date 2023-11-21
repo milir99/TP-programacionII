@@ -49,7 +49,7 @@ typedef struct
 {
     int dni;
     int telefono;
-    char apellidoYNombre[40];
+    char apellidoYnombre[40];
     char usuario[20];
     char clave[20];
     char perfil[20];
@@ -93,9 +93,11 @@ void listaPracticaAArchivo(char archivoPraticas[],nodoPracticasLaboratorio* list
 int proximoNumeroPractica (nodoPracticasLaboratorio* listaPracticas);
 void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * existencia);
 nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*listaPracticas,nodoArbolPacientes* arbolPacientes);
-int  buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
+int buscarPracticaEnIngreso(nodoIngresos* listaIngreso,int nroPractica);
 void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica);
+void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
 int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas);
+void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
 
 //FUNCIONES DE INGRESO
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes *paciente,ingresos dato,nodoPracticasLaboratorio* listaPracticas);
@@ -112,7 +114,8 @@ void mostrarUnIngreso(ingresos dato);
 void mostrarIngresosConFiltro(nodoArbolPacientes*arbol);
 int analizarFecha(char *fechaIngresada);
 int esAnterior(const char *fecha_ingreso, const char *fecha_retiro);
-nodoArbolPacientes* mostrarPacienteDeDNI(nodoArbolPacientes* arbol);
+nodoArbolPacientes* archivoAListaIngresos(char archivo[],nodoArbolPacientes* arbol);
+void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[]);
 
 
 
@@ -126,7 +129,8 @@ void listaPXIsAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[]);
 void escribirPXIEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
 void mostrarUnaPXI(practicasXIngreso dato);
 void mostrarListaPXI(nodoPracticasXIngreso* listaPXI);
-
+nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPracticasLaboratorio*listaPracticas);
+nodoArbolPacientes* archivoAListaPXI (char archivo[],nodoArbolPacientes*arbol);
 
 nodoArbolPacientes* existePaciente(nodoArbolPacientes* pacientes, int dniPaciente);
 
@@ -148,6 +152,8 @@ nodoArbolPacientes *reubicarNodoEnArbol(nodoArbolPacientes *arbol, nodoArbolPaci
 void mostrarUnPaciente (paciente nuevoPaciente);
 void mostrarListaIngresos(nodoIngresos* listaIngresos);
 void mostrarPacienteEIngresos( nodoArbolPacientes*arbol);
+void mostrarPacienteDeDNI(nodoArbolPacientes* arbol);
+nodoPracticasLaboratorio * inicListaPracticas();
 
 
 //FUNCIONES EMPLEADOS
@@ -155,12 +161,18 @@ nodoEmpleados * iniclistaEmpleados();
 nodoEmpleados * crearNodoEmpleados(empleadosDeLaboratorio dato);
 nodoEmpleados * existeEmpleado(nodoEmpleados* empleado, int dniEmpleado);
 nodoEmpleados * agregarPpioEmpleados (nodoEmpleados * empleados, nodoEmpleados * nuevo);
-nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados, empleadosDeLaboratorio aux);
+nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados);
 nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados * listaEmpleados);
 void pasarListaEmpleadosAarchivo(nodoEmpleados * listaEmpleados, char nombreArchivo[]);
-void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoPerfil);
-void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoPerfil);
-nodoEmpleados * modificarEmpleado (nodoEmpleados * listaEmpleados);
+void mostrarUnEmpleado(empleadosDeLaboratorio aux, int tipoperfil);
+void mostrarListaEmpleados(nodoEmpleados * listaEmpleados, int tipoperfil);
+nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
+nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
+nodoEmpleados * agregarEnOrdenEmpleados (nodoEmpleados  * listaEmpleados, nodoEmpleados * nuevo);
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int dniAbuscar, int tipoperfil);
+int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
+
+
 
 
 
