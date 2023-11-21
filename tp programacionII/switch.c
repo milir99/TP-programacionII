@@ -23,16 +23,13 @@ void InicioDelPrograma()
 
    listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
 
-   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
-
-    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
-
-    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
-
-    listaPracticasLaboratorio=ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
-
-     listaPracticaAArchivo(archivoPracticas,listaPracticasLaboratorio);
-     mostrarListadoPracticas(listaPracticasLaboratorio);
+//   arbolPacientes= archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+//
+//    arbolPacientes=archivoAListaIngresos(archivoIngresos,arbolPacientes);
+//
+//    arbolPacientes=archivoAListaPXI(archivoPXI,arbolPacientes);
+//
+//    listaPracticasLaboratorio =ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
 
 
     //recuadroo (10, 3, 70, 22);
@@ -393,7 +390,7 @@ void switchEmpleados(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmple
 }
 
 //SWITCH PARA ADMINISTRADORES
-void switchAdmin(nodoEmpleados * listaEmpleados, nodoArbolPacientes * arbolPacientes, nodoPracticasLaboratorio * listaPracticasDeLaboratorio)
+void switchAdmin(nodoEmpleados * listaEmpleados, nodoArbolPacientes * arbolPacientes, nodoPracticasLaboratorio * listaPracticas)
 {
     int eleccion1;
     int eleccion2;
@@ -635,23 +632,23 @@ void mostrarArchivo(char nombreArchivo[])
 //	SetConsoleCursorPosition(hcon,dwPos);
 //}
 
-void recuadroo (int xs, int ys, int xi, int yi)
-{
-    int i;
-    for(i=xs; i<=xi; i++)
-    {
-        gotoxy(i,ys); printf("%c", 196);
-        gotoxy(i,yi); printf("%c", 196);
-    }
-
-    for(i=ys; i<=yi; i++)
-    {
-        gotoxy(xs,i); printf("%c", 179);
-        gotoxy(xi,i); printf("%c", 179);
-    }
-    gotoxy(xs,ys); printf("%c", 218);
-    gotoxy(xi,yi); printf("%c", 217);
-    gotoxy(xi,ys); printf("%c", 191);
-    gotoxy(xs,yi); printf("%c", 192);
-}
-
+//void recuadroo (int xs, int ys, int xi, int yi)
+//{
+//    int i;
+//    for(i=xs; i<=xi; i++)
+//    {
+//        gotoxy(i,ys); printf("%c", 196);
+//        gotoxy(i,yi); printf("%c", 196);
+//    }
+//
+//    for(i=ys; i<=yi; i++)
+//    {
+//        gotoxy(xs,i); printf("%c", 179);
+//        gotoxy(xi,i); printf("%c", 179);
+//    }
+//    gotoxy(xs,ys); printf("%c", 218);
+//    gotoxy(xi,yi); printf("%c", 217);
+//    gotoxy(xi,ys); printf("%c", 191);
+//    gotoxy(xs,yi); printf("%c", 192);
+//}
+//

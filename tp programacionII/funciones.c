@@ -2395,8 +2395,11 @@ nodoEmpleados * pasarArchivoAlistaEmpleados(char nombreArchivo[], nodoEmpleados 
 ///FUNCION ALTA EMPLEADOS
 nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 {
-    empleadosDeLaboratorio aux;
     empleadosDeLaboratorio nuevoEmpleado;
+    char nombre[40];
+    char clave [40];
+    char usuario[20];
+
     int correcto;
     do
     {
@@ -2433,36 +2436,32 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
             correcto=0;
             printf("Ingrese el apellido y nombre: ");
             fflush(stdin);
-            if (fgets(nuevoEmpleado.apellidoYnombre, sizeof(nuevoEmpleado.apellidoYnombre), stdin) == NULL)
+            if (fgets(nombre, sizeof(nombre), stdin) == NULL)
             {
                 printf("Respuesta invalida. Vuelva a intentarlo.\n");
                 correcto=1;
             }
+
+
         }
         while(correcto==1);
-        size_t longitud = strlen(nuevoEmpleado.apellidoYnombre);
-        if (nuevoEmpleado.apellidoYnombre[longitud - 1] == '\n')
-        {
-            nuevoEmpleado.apellidoYnombre[longitud - 1] = '\0';
-        }
-
+             nombre[strcspn(nombre, "\n")] = '\0';
+             strcpy(nuevoEmpleado.apellidoYnombre,nombre);
 
         do
         {
             correcto = 0;
             printf("Ingrese el nuevo usuario: ");
             fflush(stdin);
-            if(fgets(nuevoEmpleado.usuario, sizeof(nuevoEmpleado.usuario), stdin) == NULL)
+            if(fgets(usuario, sizeof(usuario), stdin) == NULL)
             {
                 correcto = 1;
                 printf("Respuesta invalida. Vuelva a intentarlo.\n");
             }
         }
         while(correcto==1);
-        longitud = strlen(nuevoEmpleado.usuario);
-        if (nuevoEmpleado.usuario[longitud - 1] == '\n')
-            {
-            nuevoEmpleado.usuario[longitud - 1] = '\0';}
+        usuario[strcspn(usuario, "\n")] = '\0';
+        strcpy(nuevoEmpleado.usuario,usuario);
 
         do
         {
@@ -2482,20 +2481,22 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
             correcto=0;
             printf("Ingrese la clave: ");
             fflush(stdin);
-            if (fgets(nuevoEmpleado.clave, sizeof(nuevoEmpleado.clave), stdin) == NULL)
+            if (fgets(clave, sizeof(clave), stdin) == NULL)
             {
                 correcto=1;
                 printf("Respuesta invalida. Vuelva a intentarlo.\n");
             }
         }
         while(correcto==1);
-        longitud = strlen(nuevoEmpleado.clave);
-        if (nuevoEmpleado.clave[longitud - 1] == '\n')
-            {
-        nuevoEmpleado.clave[longitud - 1] = '\0';}
-        
-        nodoEmpleados * nuevo = crearNodoEmpleados(aux);
+        clave[strcspn(clave, "\n")] = '\0';
+        strcpy(nuevoEmpleado.clave,clave);
+
+
+        nodoEmpleados * nuevo = crearNodoEmpleados(nuevoEmpleado);
+        printf("%s datos",nuevo->empleado.apellidoYnombre);
+
         listaEmpleados = agregarEnOrdenEmpleados(listaEmpleados, nuevo);
+
         printf("El empleado fue agregado.\n");
 
     }
@@ -2639,6 +2640,7 @@ nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmplea
     }
 
     nodoEmpleados *actual = listaEmpleados;
+
     while (actual != NULL && strcmp(nuevoNodo->empleado.apellidoYnombre, actual->empleado.apellidoYnombre) > 0)
     {
         actual = actual->siguiente;
@@ -2665,7 +2667,7 @@ nodoEmpleados *agregarEnOrdenEmpleados(nodoEmpleados *listaEmpleados, nodoEmplea
 
         }
     }
-
+ printf("llega 4tmbaca\n");
     return listaEmpleados;
 }
 
