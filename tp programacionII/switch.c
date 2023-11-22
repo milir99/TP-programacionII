@@ -88,8 +88,7 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
     {
         clearScreen();
         recuadro(30, 5, 80, 20);
-        gotoxy(48, 8);
-        printf("INICIO DE SESION");
+        gotoxy(47, 8);printf("INICIO DE SESION");
         gotoxy(35, 10);
         printf("Usuario: ");
         fflush(stdin);
@@ -891,14 +890,14 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
 
 void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux)
 {
-    printf("\n-----------------\n");
+    puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
     printf("DNI: %i\n", aux.dni);
     printf("Apellido y nombre: %s\n",aux.apellidoYnombre);
     printf("Telefono: %s\n", aux.telefono);
     printf("Usuario: %s\n", aux.usuario);
     printf("Clave: %s\n", aux.clave);
     printf("perfil: %s\n", aux.perfil);
-    printf("-------------------\n");
+    puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
 }
 
 void mostrarArchivo(char nombreArchivo[])
