@@ -349,9 +349,10 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
         clearScreen();
         printf("Se agrego exitosamente la practica:\n");
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
-        printf("Numero de Practica: %d\n", listaPracticas->datos.nroPractica);
-        printf("Nombre de Practica: %s\n", listaPracticas->datos.nombreDePractica);
+        printf("Numero de Practica: %d\n", nuevaPractica.nroPractica);
+        printf("Nombre de Practica: %s\n", nuevaPractica.nombreDePractica);
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        system("pause");
         }
     else if (nodoPractica->datos.eliminado==1)
     {
@@ -378,6 +379,8 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
         printf("Numero de Practica: %d\n", nodoPractica->datos.nroPractica);
         printf("Nombre de Practica: %s\n", nodoPractica->datos.nombreDePractica);
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        system("pause");
+
         }
     }
     else
@@ -941,7 +944,7 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasL
         }
         else
         {
-            int nroIngreso = buscarUltimoNroIngreso(existencia->listaIngresos);
+            int nroIngreso = buscarMaxNroIngresoEnArbol(paciente)+1;
 
             dato.nroIngreso = nroIngreso;
             nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(dato);
@@ -955,7 +958,16 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasL
             else
             {
                 existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos,nuevoIngresoNodo);
-                 printf("Ingreso cargado Exitosamente.\n");
+                clearScreen();
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
+                printf("DNI: %i\n",nuevoIngresoNodo->dato.dniPaciente);
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
+                printf("Fecha De Ingreso: %s\n",nuevoIngresoNodo->dato.fechaIngreso);
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
+                printf("Fecha de Retiro: %s\n", nuevoIngresoNodo->dato.fechaRetiro);
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
+                printf("Matricula profesional: %i\n",nuevoIngresoNodo->dato.matriculaProfesional);
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
             }
         }
     }
@@ -1077,17 +1089,18 @@ int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * datosIngreso)
         }
     }while (correcto == 1);
 
+
+    *datosIngreso= nuevoIngreso;
     clearScreen();
-    puts("\n<<>><<>><<>><<>><<>><<>>\n");
+    puts("\n<<>><<>><<>><<>><<>><<>>");
     printf("DNI: %i\n",nuevoIngreso.dniPaciente);
-    puts("\n<<>><<>><<>><<>><<>><<>>\n");
+    puts("\n<<>><<>><<>><<>><<>><<>>");
     printf("Fecha De Ingreso: %s\n",nuevoIngreso.fechaIngreso);
-    puts("\n<<>><<>><<>><<>><<>><<>>\n");
+    puts("\n<<>><<>><<>><<>><<>><<>>");
     printf("Fecha de Retiro: %s\n", nuevoIngreso.fechaRetiro);
-    puts("\n<<>><<>><<>><<>><<>><<>>\n");
+    puts("\n<<>><<>><<>><<>><<>><<>>");
     printf("Matricula profesional: %i\n",nuevoIngreso.matriculaProfesional);
     puts("\n<<>><<>><<>><<>><<>><<>>\n");
-    *datosIngreso= nuevoIngreso;
 
     return 1;
 }
@@ -1097,22 +1110,39 @@ int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * datosIngreso)
  Recorre la lista hasta el final, actualizando el numero de ingreso a medida que avanza.
  Retorna el numero del ultimo ingreso encontrado o 0 si la lista esta vacia.
   La impresion dentro de la funcion no afecta el resultado y puede ser eliminada/*/
-int buscarUltimoNroIngreso(nodoIngresos* lista)
-{
-    int nroIngreso = 0;
 
-    if (lista != NULL)
-    {
-        nodoIngresos* seg = lista;
+int buscarMaxNroIngresoEnArbol(nodoArbolPacientes* arbol) {
+if (arbol == NULL) {
+        return -1;
+    }
 
-        while (seg != NULL)
-        {
-            nroIngreso = seg->dato.nroIngreso;
-            seg = seg->siguiente;
+    int maxNroIngreso = 0;
+
+
+    if (arbol->izq != NULL) {
+        maxNroIngreso = buscarMaxNroIngresoEnArbol(arbol->izq);
+    }
+
+
+    nodoIngresos* listaIngresos = arbol->listaIngresos;
+    while (listaIngresos != NULL) {
+        if (listaIngresos->dato.nroIngreso > maxNroIngreso) {
+            maxNroIngreso = listaIngresos->dato.nroIngreso;
+        }
+        listaIngresos = listaIngresos->siguiente;
+    }
+
+    // Recorrer el árbol a la derecha
+    if (arbol->der != NULL) {
+        int maxNroIngresoDerecho = buscarMaxNroIngresoEnArbol(arbol->der);
+        if (maxNroIngresoDerecho > maxNroIngreso) {
+            maxNroIngreso = maxNroIngresoDerecho;
         }
     }
-    return nroIngreso;
+
+    return maxNroIngreso;
 }
+
 
 ///FUNCION DE AGREGAR  INGRESO AL PRINCIPIO DE LA LISTA(DONE)(chequeada)
 /*/añade un nodo al principio de una lista enlazada de ingresos. Si la lista esta vacia, asigna el nuevo ingreso como el primer nodo;

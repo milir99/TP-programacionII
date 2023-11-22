@@ -121,7 +121,7 @@ void switchXingreso (nodoArbolPacientes * arbolPaciente);
 void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[]);
 void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numeroIngreso);
 void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado);
-
+int buscarMaxNroIngresoEnArbol(nodoArbolPacientes* arbol);
 
 
 
