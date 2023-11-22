@@ -178,7 +178,7 @@ nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo);
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil);
 int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
-
+nodoEmpleados * existeUsuario(nodoEmpleados* empleado,char usuario []);
 
 
 

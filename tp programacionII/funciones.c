@@ -2860,6 +2860,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
                 i++;
             }
         }
+        }while(correcto==1);
         clave[strcspn(clave, "\n")] = '\0';
         strcpy(nuevoEmpleado.clave,clave);
         clearScreen();
@@ -2882,6 +2883,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         clearScreen();
         printf("El empleado fue agregado.\n");
         system("pause");
+
 
     }
     else
