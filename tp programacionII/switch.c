@@ -88,8 +88,7 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
     {
         clearScreen();
         recuadro(30, 5, 80, 20);
-        gotoxy(48, 8);
-        printf("INICIO DE SESION");
+        gotoxy(47, 8);printf("INICIO DE SESION");
         gotoxy(35, 10);
         printf("Usuario: ");
         fflush(stdin);
@@ -150,36 +149,14 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
         }
 
         gotoxy(10, 21);
-        printf("                                                                    ");
+        printf("                                                                                                                                ");
         gotoxy(10, 23);
-        printf("                                                                    ");
+        printf("                                                                                                                                ");
 
         activarCursor();
 
         if (existe != 0)
         {
-            ocultarCursor();
-            centrarTexto("C A R G A N D O...", 21);
-
-            for (i = 4; i <= 76; i++)
-            {
-                gotoxy(i, 23);
-                printf("%c", 170);
-            }
-
-            for (i = 3; i <= 76; i++)
-            {
-                gotoxy(i, 23);
-                printf("%c", 219);
-            }
-
-            gotoxy(3, 21);
-            printf("                                                                    ");
-            gotoxy(3, 23);
-            printf("                                                                    ");
-
-            activarCursor();
-
             clearScreen();
 
             printf(" _ ____  _                           _     _         __    _ \n");
@@ -193,8 +170,7 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
             system("pause");
             return existe;
         } else {
-            gotoxy(23, 22);
-            printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
+            gotoxy(23, 22); printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
             Sleep(5000);
             intentos++;
 
@@ -254,7 +230,7 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
     {
         clearScreen();
         printf("Ingresado como Profesional");
-        printf("\Bienvenido/a!\n");
+        printf("\nBienvenido/a!\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar practicas.\n");
         printf("2. Administrar pacientes. \n");
@@ -848,14 +824,14 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
 
 void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux)
 {
-    printf("\n-----------------\n");
+    puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
     printf("DNI: %i\n", aux.dni);
     printf("Apellido y nombre: %s\n",aux.apellidoYnombre);
     printf("Telefono: %s\n", aux.telefono);
     printf("Usuario: %s\n", aux.usuario);
     printf("Clave: %s\n", aux.clave);
     printf("perfil: %s\n", aux.perfil);
-    printf("-------------------\n");
+    puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
 }
 
 void mostrarArchivo(char nombreArchivo[])

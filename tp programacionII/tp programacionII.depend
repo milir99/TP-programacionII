@@ -73,7 +73,7 @@
 	<unistd.h>
 	<windows.h>
 
-1700600622 c:\users\usuario\desktop\github\tp programacionii\funciones.h
+1700620487 c:\users\usuario\desktop\github\tp programacionii\funciones.h
 
 1700590133 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
@@ -98,7 +98,7 @@
 	<windows.h>
 	<conio.h>
 
-1700616817 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
+1700625064 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -108,9 +108,9 @@
 	<windows.h>
 	<conio.h>
 
-1700598779 c:\users\usuario\desktop\github\tp programacionii\switch.h
+1700620476 c:\users\usuario\desktop\github\tp programacionii\switch.h
 
-1700618523 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
+1700621633 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
