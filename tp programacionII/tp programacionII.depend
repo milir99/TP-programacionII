@@ -23,9 +23,9 @@
 	<unistd.h>
 	<windows.h>
 
-1700618345 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
+1700619157 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
 
-1700618222 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
+1700619395 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -34,7 +34,6 @@
 	<string.h>
 	<time.h>
 	<windows.h>
-	<conio.h>
 
 1699979706 source:c:\users\usuario\desktop\tp final\tp-programacionii\tp programacionii\main.c
 	<stdio.h>
@@ -57,7 +56,7 @@
 
 1700570708 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.h
 
-1700618470 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
+1700619157 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"

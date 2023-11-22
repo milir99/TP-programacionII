@@ -2319,19 +2319,21 @@ nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados)
 
     if (actual != NULL)
     {
-        // Ajustar los punteros del nodo anterior y siguiente
+
         if (anterior != NULL)
         {
             anterior->siguiente = actual->siguiente;
         }
         else
         {
-            // El nodo a eliminar es el primero de la lista
+
             listaEmpleados = actual->siguiente;
         }
 
-        // Liberar la memoria del nodo
         free(actual);
+        puts("-------------------------------------");
+        printf("Empleado dado de baja exitosamente.");
+         puts("-------------------------------------");
     }
     else
     {
@@ -2824,7 +2826,6 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
                 correcto=1;
                 printf("Respuesta invalida. Vuelva a intentarlo.\n");
             }
-        }
         }while(correcto==1);
         clave[strcspn(clave, "\n")] = '\0';
         strcpy(nuevoEmpleado.clave,clave);
