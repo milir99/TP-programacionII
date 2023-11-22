@@ -297,7 +297,13 @@ nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lis
         }
 
         strcpy(existe->datos.nombreDePractica, nuevoNombre);
-        printf("Practica modificada exitosamente.\n");
+        clearScreen();
+         printf("Se modifico exitosamente la practica:\n");
+        puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        printf("Numero de Practica: %d\n", existe->datos.nroPractica);
+        printf("Nombre de Practica: %s\n", existe->datos.nombreDePractica);
+        puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+
     }
     else
     {
@@ -340,7 +346,13 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
     {
         nuevaPractica.nroPractica= proximoNumeroPractica(listaPracticas);
         listaPracticas=agregarFinPracticaLaboratorio(listaPracticas,CrearNodoPracticaLaboratorio(nuevaPractica));
-    }
+        clearScreen();
+        printf("Se agrego exitosamente la practica:\n");
+        puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        printf("Numero de Practica: %d\n", listaPracticas->datos.nroPractica);
+        printf("Nombre de Practica: %s\n", listaPracticas->datos.nombreDePractica);
+        puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        }
     else if (nodoPractica->datos.eliminado==1)
     {
         char restaurar;
@@ -359,7 +371,13 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
         }
         if (restaurar=='s')
         {
-            nodoPractica->datos.eliminado=0;
+        nodoPractica->datos.eliminado=0;
+        clearScreen();
+        printf("Se restauroexitosamente la practica:\n");
+        puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        printf("Numero de Practica: %d\n", nodoPractica->datos.nroPractica);
+        printf("Nombre de Practica: %s\n", nodoPractica->datos.nombreDePractica);
+        puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         }
     }
     else
@@ -392,7 +410,7 @@ void mostrarListaPracticas(nodoPracticasLaboratorio* listaPractica)
     {
         if(listaPractica->datos.eliminado==0)
         {
-            puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+
             printf("Numero de Practica: %d\n", listaPractica->datos.nroPractica);
             printf("Nombre de Practica: %s\n", listaPractica->datos.nombreDePractica);
             puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
@@ -2380,8 +2398,7 @@ la opción de modificación (nombre, usuario, DNI, clave, teléfono, perfil) y r
 correspondientes. Si el DNI ingresado es incorrecto, muestra un mensaje de error.*/
 nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados)
 {
-int nuevoDNI;
-char usuario[20];
+
     int eleccionModificar;
     int dniAbuscar;
     int correcto;
@@ -2565,8 +2582,8 @@ char usuario[20];
                     printf("Error, la opcion que ingreso es invalida.\n");
                 }
             }
-        }
-    }while(eleccionModificar!=0);
+        }while(eleccionModificar!=0);
+
     }else
     {
         printf("El DNI ingresado es incorrecto, no se pueden hacer modificaciones.\n");
@@ -2575,22 +2592,6 @@ return listaEmpleados;
 }
 
 //FUNCION SI EXISTE UN USUARIO
-nodoEmpleados * existeUsuario(nodoEmpleados* empleado,char usuario [])
-{
-    nodoEmpleados * actual = empleado;
-
-    while(actual != NULL)
-    {
-        if (strcmp(actual->empleado.usuario,usuario)==0)
-        {
-            return actual;
-        }
-        actual = actual->siguiente;
-    }
-    return NULL;
-}
-
-
 nodoEmpleados * existeUsuario(nodoEmpleados* empleado,char usuario [])
 {
     nodoEmpleados * actual = empleado;
@@ -2976,19 +2977,15 @@ nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpl
         {
             listaEmpleados->anterior = nuevoNodo;
         }
-        printf("\nSe ha agregado a %s a la lista.\n", nuevoNodo->empleado.apellidoYnombre);
         return nuevoNodo;
     }
 
-///FUNCION AGREGAR AL PRINCIPIO LISTA DOBLE EMPLEADOS
-    /*Esta función agrega un nuevo nodo de empleado al principio de la lista
-    doblemente enlazada, ajustando los punteros correctamente. Devuelve la lista actualizada.*/
     nodoEmpleados * actual = listaEmpleados;
     while (actual->siguiente != NULL && strcmpi(nuevoNodo->empleado.apellidoYnombre, actual->siguiente->empleado.apellidoYnombre) > 0)
     {
         actual = actual->siguiente;
     }
-    // Insertar el nuevo nodo en la posición encontrada
+
     nuevoNodo->siguiente = actual->siguiente;
     nuevoNodo->anterior = actual;
     if (actual->siguiente != NULL)
@@ -2997,9 +2994,7 @@ nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpl
     }
     actual->siguiente = nuevoNodo;
     clearScreen();
-    puts("\n<<>><<>><<>><<>><<>><<>><<>>\n");
-    printf("\nSe ha agregado a %s a la lista.\n", nuevoNodo->empleado.apellidoYnombre);
-    puts("\n<<>><<>><<>><<>><<>><<>><<>>\n");
+
     return listaEmpleados;
 }
 
