@@ -24,9 +24,9 @@ void InicioDelPrograma()
 
     listaEmpleados = pasarArchivoAlistaEmpleados(archivoEmpleado,listaEmpleados);
 
-   listaPracticasLaboratorio = ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+    listaPracticasLaboratorio = ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
 
-   arbolPacientes = archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+    arbolPacientes = archivoAArbolPacientes(archivoPacientes,arbolPacientes);
 
     arbolPacientes = archivoAListaIngresos(archivoIngresos,arbolPacientes);
 
@@ -66,18 +66,13 @@ void InicioDelPrograma()
 
 }
 void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas)
-{    listaPracticaAArchivo(archivoPracticas,listaPracticas);
-        pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
+{
+    listaPracticaAArchivo(archivoPracticas,listaPracticas);
+    pasarListaEmpleadosAarchivo(listaEmpleados,archivoEmpleado);
     listaPXIsAArchivo(arbolPaciente,archivoPXI);
     listaIngresosAArchivo(arbolPaciente,archivoIngresos);
     cargarArchivoPaciente(archivoPacientes,arbolPaciente);
-
-
 }
-
-
-
-
 
 int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
     char clave[20];
@@ -89,10 +84,10 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
 
     do {
         clearScreen();
-        recuadro(5, 5, 80, 20);
-        gotoxy(33, 8);
+        recuadro(30, 5, 80, 20);
+        gotoxy(48, 8);
         printf("INICIO DE SESION");
-        gotoxy(25, 10);
+        gotoxy(35, 10);
         printf("Usuario: ");
         fflush(stdin);
         fgets(usuario, sizeof(usuario), stdin);
@@ -102,7 +97,7 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
             usuario[longitud - 1] = '\0';
         }
 
-        gotoxy(25, 12);
+        gotoxy(35, 12);
         printf("Clave: ");
 
          i = 0;
@@ -129,22 +124,22 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
 
         existe = compararUsuario(clave, usuario, listaEmpleados, &datosEmpleado);
         ocultarCursor();
-        centrarTexto("C A R G A N D O...", 21);
+        gotoxy(90,10);centrarTexto("C A R G A N D O...", 21);
 
-        for (i = 3; i <= 76; i++) {
+        for (i = 20; i <= 90; i++) {
             gotoxy(i, 23);
             printf("%c", 177);
         }
 
-        for (i = 3; i <= 76; i++) {
+        for (i = 20; i <= 90; i++) {
             gotoxy(i, 23);
             printf("%c", 219);
             Sleep(15);
         }
 
-        gotoxy(3, 21);
+        gotoxy(10, 21);
         printf("                                                                    ");
-        gotoxy(3, 23);
+        gotoxy(10, 23);
         printf("                                                                    ");
 
         activarCursor();
@@ -183,7 +178,7 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados) {
             system("pause");
             return existe;
         } else {
-            gotoxy(10, 14);
+            gotoxy(23, 22);
             printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
             Sleep(5000);
             intentos++;
@@ -678,8 +673,8 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
                 }
-            }
-            while(eleccion2 != 0);
+            }while(eleccion2 != 0);
+        break;
 
         case 2:
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
@@ -762,7 +757,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
+                printf("Ingrese la opcion que desee realizar: \n");
                 printf("1. Dar de alta un paciente.\n");
                 printf("2. Modificar un paciente.\n");
                 printf("3. Buscar un paciente.\n");
@@ -854,6 +849,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
     }
 }while(eleccion1!=0);
 }
+
 void mostrarUnaPersonaArchivo(empleadosDeLaboratorio aux)
 {
     printf("\n-----------------\n");
@@ -928,7 +924,7 @@ void activarCursor()
 void centrarTexto(char *texto, int y)
 {
     int longitud = strlen(texto);
-    gotoxy(40-(longitud/2),y); printf(texto);
+    gotoxy(56-(longitud/2),y); printf(texto);
 }
 
 void marcoEsteticoSwitch(char texto[])

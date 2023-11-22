@@ -62,7 +62,7 @@
 	"switch.h"
 	<windows.h>
 
-1700546445 source:c:\users\usuario\desktop\github\tp programacionii\main.c
+1700598779 source:c:\users\usuario\desktop\github\tp programacionii\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -73,7 +73,7 @@
 	<unistd.h>
 	<windows.h>
 
-1700546979 c:\users\usuario\desktop\github\tp programacionii\funciones.h
+1700600622 c:\users\usuario\desktop\github\tp programacionii\funciones.h
 
 1700590133 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
@@ -98,7 +98,7 @@
 	<windows.h>
 	<conio.h>
 
-1700547560 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
+1700616817 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -106,10 +106,11 @@
 	<string.h>
 	"switch.h"
 	<windows.h>
+	<conio.h>
 
-1700523376 c:\users\usuario\desktop\github\tp programacionii\switch.h
+1700598779 c:\users\usuario\desktop\github\tp programacionii\switch.h
 
-1700547088 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
+1700618523 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -118,4 +119,5 @@
 	<string.h>
 	<time.h>
 	<windows.h>
+	<conio.h>
 

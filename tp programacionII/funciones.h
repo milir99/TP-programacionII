@@ -179,6 +179,7 @@ nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpl
 void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil);
 int cargarUnEmpleado(empleadosDeLaboratorio * datos, nodoEmpleados * listaEmpleados);
 
+//int contieneNumeros(const char cadena);
 
 
 
