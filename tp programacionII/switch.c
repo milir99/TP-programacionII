@@ -253,8 +253,8 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
     do
     {
         clearScreen();
-        printf("Ingresado como Profesional");
-        printf("\Bienvenido/a!\n");
+        printf("Ingresado como Profesional.\n");
+        printf("Bienvenido/a!\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar practicas.\n");
         printf("2. Administrar pacientes. \n");
@@ -659,7 +659,6 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
                     break;
 
                 case 3:
-
                     printf("%i", tipoPerfil);
                     buscarUnEmpleadoXdni(*listaEmpleados,tipoPerfil);
                     break;

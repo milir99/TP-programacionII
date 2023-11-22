@@ -2076,6 +2076,9 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
     if (existeDNIpaciente!=NULL)
     {
         existeDNIpaciente->dato.eliminado=1;
+        puts("--------------------------------------------------------------------------");
+        printf("El paciente con dni %i se ha dado de baja exitosamente.\n",dniAbuscar);
+        puts("--------------------------------------------------------------------------");
     }
     return existeDNIpaciente;
 }

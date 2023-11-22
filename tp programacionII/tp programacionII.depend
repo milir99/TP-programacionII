@@ -42,9 +42,9 @@
 	<ctype.h>
 	<string.h>
 
-1700621739 c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.h
+1700626021 c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.h
 
-1700621813 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.c
+1700623189 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -138,7 +138,7 @@
 
 1700598489 c:\users\irina\desktop\tp-programacionii\tp programacionii\switch.h
 
-1700620512 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\switch.c
+1700627092 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
