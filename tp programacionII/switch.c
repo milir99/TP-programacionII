@@ -24,9 +24,9 @@ void InicioDelPrograma()
 
     listaEmpleados = pasarArchivoAlistaEmpleados(archivoEmpleado,listaEmpleados);
 
-   listaPracticasLaboratorio = ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+    listaPracticasLaboratorio = ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
 
-   arbolPacientes = archivoAArbolPacientes(archivoPacientes,arbolPacientes);
+    arbolPacientes = archivoAArbolPacientes(archivoPacientes,arbolPacientes);
 
     arbolPacientes = archivoAListaIngresos(archivoIngresos,arbolPacientes);
 
@@ -192,7 +192,7 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
             system("pause");
             return existe;
         } else {
-            gotoxy(10, 14);
+            gotoxy(23, 22);
             printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
             Sleep(5000);
             intentos++;
@@ -793,7 +793,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
             //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
-                printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
+                printf("Ingrese la opcion que desee realizar: \n");
                 printf("1. Dar de alta un paciente.\n");
                 printf("2. Modificar un paciente.\n");
                 printf("3. Buscar un paciente.\n");
