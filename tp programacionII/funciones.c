@@ -940,11 +940,11 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasL
         {
             printf("El Paciente NO existe.\n");
             printf("Debe darle de alta en el sistema ante de generar un ingreso.\n");
-            return NULL;
         }
         else
         {
             int nroIngreso = buscarMaxNroIngresoEnArbol(paciente)+1;
+
 
             dato.nroIngreso = nroIngreso;
             nodoIngresos*nuevoIngresoNodo=crearNodoIngreso(dato);
@@ -958,7 +958,9 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasL
             else
             {
                 existencia->listaIngresos= agregarPpioIngreso(existencia->listaIngresos,nuevoIngresoNodo);
-                clearScreen();
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
+                printf("Nro Ingreso: %i\n",nuevoIngresoNodo->dato.nroIngreso);
+                puts("\n<<>><<>><<>><<>><<>><<>>\n");
                 puts("\n<<>><<>><<>><<>><<>><<>>\n");
                 printf("DNI: %i\n",nuevoIngresoNodo->dato.dniPaciente);
                 puts("\n<<>><<>><<>><<>><<>><<>>\n");
@@ -968,6 +970,8 @@ nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasL
                 puts("\n<<>><<>><<>><<>><<>><<>>\n");
                 printf("Matricula profesional: %i\n",nuevoIngresoNodo->dato.matriculaProfesional);
                 puts("\n<<>><<>><<>><<>><<>><<>>\n");
+                system("pause");
+                clearScreen();
             }
         }
     }
