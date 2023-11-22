@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../lasPracticas.bin" />
 		<Unit filename="PXI.bin" />
 		<Unit filename="empleados.bin" />
 		<Unit filename="funciones.c">
