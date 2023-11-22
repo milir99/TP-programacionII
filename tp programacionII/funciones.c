@@ -322,7 +322,7 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
     do
     {
         correcto = 0;
-        printf("Ingrese nombre de la practica:\n");
+        printf("Ingrese nombre de la practica: ");
         fflush(stdin);
         if (fgets(nuevaPractica.nombreDePractica, sizeof(practicasLaboratorio),stdin)==NULL)
         {
@@ -347,7 +347,7 @@ nodoPracticasLaboratorio* alta_de_practica(nodoPracticasLaboratorio* listaPracti
         nuevaPractica.nroPractica= proximoNumeroPractica(listaPracticas);
         listaPracticas=agregarFinPracticaLaboratorio(listaPracticas,CrearNodoPracticaLaboratorio(nuevaPractica));
         clearScreen();
-        printf("Se agrego exitosamente la practica:\n");
+        printf("Se agrego exitosamente la practica: ");
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         printf("Numero de Practica: %d\n", listaPracticas->datos.nroPractica);
         printf("Nombre de Practica: %s\n", listaPracticas->datos.nombreDePractica);
@@ -1178,7 +1178,7 @@ void switchXingreso (nodoArbolPacientes * arbolPaciente)
             do
             {
                 correcto = 0;
-                printf("Ingrese el nro de ingreso: ");
+                printf("Ingrese el N° de ingreso: ");
                 if (scanf("%i",&numeroIngreso)!=1)
                 {
                     correcto = 1;
