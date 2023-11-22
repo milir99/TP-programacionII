@@ -12,7 +12,7 @@
 
 1700583067 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.h
 
-1700570733 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\main.c
+1700571182 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -23,9 +23,9 @@
 	<unistd.h>
 	<windows.h>
 
-1700570708 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
+1700620406 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
 
-1700570708 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
+1700625756 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -34,6 +34,7 @@
 	<string.h>
 	<time.h>
 	<windows.h>
+	<conio.h>
 
 1699979706 source:c:\users\usuario\desktop\tp final\tp-programacionii\tp programacionii\main.c
 	<stdio.h>
@@ -57,7 +58,7 @@
 
 1700570708 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.h
 
-1700570708 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
+1700623258 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -65,6 +66,7 @@
 	<string.h>
 	"switch.h"
 	<windows.h>
+	<conio.h>
 
 1700598779 source:c:\users\usuario\desktop\github\tp programacionii\main.c
 	<stdio.h>
