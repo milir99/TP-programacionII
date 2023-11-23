@@ -2398,7 +2398,7 @@ paciente cargarUnPaciente(nodoArbolPacientes* arbol)
     {
 
     puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
-    printf("Cargando un Paciente\n");
+    printf("Cargando un Paciente");
     puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
         correcto = 0;
         printf("Ingrese nombre y apellido del paciente: ");
@@ -3127,7 +3127,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 
     int correcto;
      puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
-    printf("Cargando un Empleado\n");
+    printf("Cargando un Empleado");
     puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
     do
         {
