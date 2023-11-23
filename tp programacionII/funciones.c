@@ -65,18 +65,18 @@ int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas)
 /*Esta función ordena una lista enlazada de prácticas de laboratorio por nombre en orden ascendente. Utiliza el algoritmo de selección
 para encontrar el menor elemento en cada iteración y realiza intercambios para lograr la ordenación.*/
 void mostrarListaPorNombre(nodoPracticasLaboratorio *listaPracticas,int perfil)
-{
-    if (listaPracticas == NULL)
+{   nodoPracticasLaboratorio*aux1=listaPracticas;
+    if (aux1 == NULL)
     {
         printf("La lista esta vacia.\n");
         return;
     }
 
-    nodoPracticasLaboratorio *aux;
+    nodoPracticasLaboratorio *aux=NULL;
 
     printf("Lista de Practicas Ordenada por Nombre: ");
 
-    for (aux = listaPracticas; aux != NULL; aux = aux->siguiente)
+    for (aux = aux1; aux != NULL; aux = aux->siguiente)
     {
         if((perfil== 1||perfil==2 )&& aux->datos.eliminado==1)
         {
@@ -99,8 +99,8 @@ void mostrarListaPorNombre(nodoPracticasLaboratorio *listaPracticas,int perfil)
     }
 }
 void ordenarListaPorNombreAuxYMostrar(nodoPracticasLaboratorio* listaPracticas,int perfil)
-{
-    if (listaPracticas == NULL || listaPracticas->siguiente == NULL)
+{    nodoPracticasLaboratorio* seg=listaPracticas;
+    if (seg == NULL || seg->siguiente == NULL)
     {
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>");
       printf("La lista esta vacia.\n");
@@ -108,7 +108,7 @@ void ordenarListaPorNombreAuxYMostrar(nodoPracticasLaboratorio* listaPracticas,i
     }
 
     nodoPracticasLaboratorio *listaAux = NULL;
-    nodoPracticasLaboratorio *actual = listaPracticas;
+    nodoPracticasLaboratorio *actual = seg;
 
     while (actual != NULL)
     {
@@ -530,23 +530,7 @@ nodoPracticasLaboratorio*CrearNodoPracticaLaboratorio(practicasLaboratorio dato)
 }
 
 
-///FUNCION PASAR DE LA LISTA DE INGRESOS A ARCHIVO DE INGRESOS(chequeada)
-/*Esta función guarda la información de los ingresos de pacientes almacenados en
-un árbol binario de búsqueda (arbol) en un archivo binario (archivoIngresos).*/
-void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
-{
-    FILE* arch;
-    arch= fopen(archivoIngresos,"wb");
-    if(arch!=NULL)
-    {
-        escribirIngresosEnArchivo(arbol,arch);
-        fclose(arch);
-    }
-    else
-    {
-        printf("Error al abrir el archivo de practicas.\n");
-    }
-}
+
 //
 //
 //
@@ -690,6 +674,23 @@ void mostrarUnIngreso(ingresos dato)
 ///FUNCION RECURSIVA DE ESCRIBIR LOS INGRESOS EN EL ARCHIVO
 /*/ recorre un arbol binario de pacientes, escribiendo la informacion de los ingresos en un archivo mediante un recorrido in-order.
 La funcion utiliza una estructura recursiva para acceder a la lista de ingresos de cada paciente y escribir sus datos correspondientes en el archivo.*/
+//FUNCION PASAR DE LA LISTA DE INGRESOS A ARCHIVO DE INGRESOS(chequeada)
+/*Esta función guarda la información de los ingresos de pacientes almacenados en
+un árbol binario de búsqueda (arbol) en un archivo binario (archivoIngresos).*/
+void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[])
+{
+    FILE* arch;
+    arch= fopen(archivoIngresos,"wb");
+    if(arch!=NULL)
+    {
+        escribirIngresosEnArchivo(arbol,arch);
+        fclose(arch);
+    }
+    else
+    {
+        printf("Error al abrir el archivo de practicas.\n");
+    }
+}
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo)
 {
     if (arbol)
@@ -824,10 +825,15 @@ nodoArbolPacientes* baja_de_ingreso(nodoArbolPacientes*arbol, int nroIngreso)
     {
         existe->dato.eliminado=1;
         existe->listaDePracticas= baja_de_PXI_EnCascada(existe->listaDePracticas);
+         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        printf("Ingreso dado de baja exitosamente.\n");
+         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
+
     }
     else
-    {
+    { puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         printf("EL nro de ingreso no coincide con los ingresos.\n");
+         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
     }
     return arbol;
 }
@@ -1873,7 +1879,7 @@ nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasX
     return lista;
 }
 
-///FUNCION BUSCAR PRACTICA EN EL ARCHIVO.(chequeada)
+///FUNCION BUSCAR PRACTICA EN LA LISTA.
 /*La función busca una práctica de laboratorio por nombre en una lista enlazada, utilizando
 comparación de cadenas. Retorna el nodo correspondiente si encuentra la práctica, de lo contrario, retorna NULL.*/
 nodoPracticasLaboratorio* BuscarPractica(nodoPracticasLaboratorio*lista, char nombrePractica[])
@@ -1903,9 +1909,8 @@ nodoPracticasLaboratorio* BuscarPracticaXNro(nodoPracticasLaboratorio*lista, int
 }
 
 
-///FUNCION BUSCAR PRACTICA EN EL ARCHIVO.(chequeada)
-/*Esta función busca una práctica en una lista enlazada por su nombre. Recorre la lista y devuelve
-el nodo de la práctica si encuentra una coincidencia de nombre, de lo contrario, devuelve NULL.*/
+///FUNCION CREA NODO DE  PXI.
+
 nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica, char resultado[])
 {
     nodoPracticasXIngreso*aux=(nodoPracticasXIngreso*) malloc(sizeof(nodoPracticasXIngreso));
@@ -1920,8 +1925,7 @@ nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica, char resultad
     return aux;
 }
 
-///FUNCION CREAR NODO PRACTICAS X INGRESO
-/*Crea un nodo de tipo pxi*/
+///FUNCION MOSTRAR LISTA PXI
 void mostrarListaPXI(nodoPracticasXIngreso* listaPXI)
 {
     while(listaPXI!=NULL)
@@ -2612,27 +2616,6 @@ void mostrarUnPaciente (paciente nuevoPaciente)
     printf("Direccion: %s\n",nuevoPaciente.direccion);
     printf("Telefono: %s\n",nuevoPaciente.telefono);
     puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
-}
-
-///FUNCION DE MOSTRAR EL ARCHIVO DE PACIENTES (chequeada)
-/*Esta función lee un archivo binario de pacientes, muestra la información
-de cada paciente en un formato estructurado y luego cierra el archivo.*/
-void mostrarArchivoPacientes (char nombreArcPacientes[])
-{
-    paciente nuevoPaciente;
-    FILE *archi=fopen(nombreArcPacientes,"rb");
-    if(archi!=NULL)
-    {
-        while(!feof(archi))
-        {
-            fread(&nuevoPaciente,sizeof(paciente),1,archi);
-            if(!feof(archi))
-            {
-                mostrarUnPaciente (nuevoPaciente);
-            }
-        }
-        fclose(archi);
-    }
 }
 
 ///CARGAR DE ARBOL A ARCHIVO DE PACIENTES(chequeada)

@@ -325,9 +325,9 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                     clearScreen();
                      do
                     {clearScreen();
-                        printf("Mostrar las practicas organizadas por: \n");
-                        printf("1. Nombre de Practica \n");
-                        printf("2. Nro de Practica.\n");
+                         printf("Mostrar las practicas organizadas por: \n");
+                        printf("1. Nro de Practica.\n");
+                        printf("2. Nombre de Practica \n");
                         printf("0.Volver al menu anterior.\n");
                         fflush(stdin);
                         scanf("%i", &eleccion1);
@@ -336,12 +336,13 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                         {
                            case 1:
                             clearScreen();
-                            ordenarListaPorNombreAuxYMostrar(*listaPracticas,2);
+                            mostrarListaPracticas(*listaPracticas,2);
                             system("pause");
                             break;
                         case 2:
+
                             clearScreen();
-                            mostrarListaPracticas(*listaPracticas,2);
+                            ordenarListaPorNombreAuxYMostrar(*listaPracticas,2);
                             system("pause");
                             break;
                         default:
@@ -390,6 +391,8 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                 case 1:
                     clearScreen();
                     mostrarArbolINORDERPaciente(*arbolPaciente);
+                    system("pause");
+
                     break;
 
                 case 2:
@@ -407,6 +410,7 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                     }while(correcto == 1);
                     existe = existePaciente(*arbolPaciente,dniPacienteAbuscar);
                     mostrarUnPaciente(existe->dato);
+                    system("pause");
                     break;
                     case 3:
                         clearScreen();
@@ -415,6 +419,7 @@ void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**lista
                         case 4:
                             clearScreen();
                             switchXingreso(*arbolPaciente,*listaPracticas);
+                            system("pause");
                             break;
 
                 default:
@@ -539,22 +544,23 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                    do
                     {clearScreen();
                         printf("Mostrar las practicas organizadas por: \n");
-                        printf("1. Nombre de Practica \n");
-                        printf("2. Nro de Practica.\n");
-                        printf("0.Volver al menu anterior.\n ");
+                        printf("1. Nro de Practica.\n");
+                        printf("2. Nombre de Practica \n");
+                        printf("0.Volver al menu anterior.\n");
                         fflush(stdin);
                         scanf("%i", &eleccion4);
                         clearScreen();
                         switch(eleccion4)
                         {
-                        case 1:
+                           case 1:
                             clearScreen();
-                            ordenarListaPorNombreAuxYMostrar(*listaPracticas,3);
+                            mostrarListaPracticas(*listaPracticas,3);
                             system("pause");
                             break;
                         case 2:
+
                             clearScreen();
-                            mostrarListaPracticas(*listaPracticas,3);
+                            ordenarListaPorNombreAuxYMostrar(*listaPracticas,3);
                             system("pause");
                             break;
                         default:
@@ -600,7 +606,7 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                 printf("3. Buscar un ingreso.\n");
                 printf("4. Mostra ingresos por rango de fechas .\n");
                 printf("5. Mostrar pacientes\n");
-                printf("6. Dar de baja un Ingreso.");
+                printf("6. Dar de baja un Ingreso.\n");
                 printf("0. Volver al menu anterior\n");
                 fflush(stdin);
                 scanf("%i", &eleccion3);
@@ -664,10 +670,11 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                     }
                     else
                     {
-                        printf("El nro ingresado nmo existe\n");
+                        printf("El nro ingresado nro existe\n");
 
                     }
                     system("pause");
+
 break;
 
                 default:
@@ -676,8 +683,8 @@ break;
                     {
                         printf("Error, la opcion que ingreso es invalida.\n");
                     }
-                }
-            }while(eleccion3 != 0);
+
+            }}while(eleccion3 != 0);
             break;
                 case 4:
                     clearScreen();
