@@ -645,6 +645,7 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                 case 4:
                     clearScreen();
                     mostrarIngresosConFiltro(*arbolPaciente);
+                    system("pause");
                     break;
                 case 5:
                     clearScreen();

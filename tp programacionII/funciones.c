@@ -189,23 +189,27 @@ nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*
     {
         practicaACambiar[longitud - 1] = '\0';
     }
-
+    printf("llego aca1\n");
     nodoPracticasLaboratorio* nodoPractica= BuscarPractica(listaPracticas,practicaACambiar);
-
+printf("llego aca1\n");
     if(nodoPractica!=NULL)
-    {
+    {printf("llego aca1\n");
         int usada;
         practicaEnIngreso(arbolPacientes,nodoPractica->datos.nroPractica,&usada);
+        printf("llego aca1\n");
         if(usada != 0)
         {
+            printf("llego aca1\n");
             nodoPractica->datos.eliminado = 1;
             puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>");
             printf("Practica dada de baja exitosamente.\n");
             puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+            system("pause");
         }
         else
         {
             printf("La practica se encuentra en un ingreso, no puede ser eliminada.\n");
+            system("pause");
         }
     }
     else
@@ -220,10 +224,11 @@ nodoPracticasLaboratorio* baja_de_practicasLaboratorio(nodoPracticasLaboratorio*
 de pacientes almacenados en un árbol binario de búsqueda (arbolpaciente), actualizando un indicador de existencia.*/
 void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * existencia)
 {
-    while(arbolpaciente!=NULL)
+    if(arbolpaciente!=NULL)
     {
         practicaEnIngreso(arbolpaciente->izq,nroPractica,existencia);
         *existencia= buscarPracticaEnIngreso(arbolpaciente->listaIngresos,nroPractica);
+        printf("existe %i",*existencia);
         practicaEnIngreso(arbolpaciente->der,nroPractica,existencia);
     }
 }
@@ -233,7 +238,6 @@ void practicaEnIngreso(nodoArbolPacientes* arbolpaciente, int nroPractica,int * 
 de los nodos principales y sus sublistas, estableciendo "existe" en 1 si encuentra el número de práctica. Retorna el resultado de la búsqueda.*/
 int buscarPracticaEnIngreso(nodoIngresos* listaIngreso, int nroPractica)
 {
-    int existe = 0;
 
     while (listaIngreso != NULL)
     {
@@ -243,22 +247,20 @@ int buscarPracticaEnIngreso(nodoIngresos* listaIngreso, int nroPractica)
         {
             if (nroPractica == seg->dato.nroPractica)
             {
-                existe = 1;
+                printf("existe %i",nroPractica);
+                return 1;
                 break;
             }
 
             seg = seg->siguiente;
         }
 
-        if (existe)
-        {
-            break;
-        }
+
 
         listaIngreso = listaIngreso->siguiente;
     }
 
-    return existe;
+    return 0;
 }
 
 
@@ -1382,7 +1384,7 @@ void mostrarIngresoXfechaIngreso(nodoArbolPacientes* arbolPaciente, char fechaIn
 {
     if (arbolPaciente != NULL)
     {
-        mostrarIngresoXfechaIngreso(arbolPaciente->izq, fechaIngresada,listaPracticas,existe);
+
 
         nodoIngresos* listaIngresos = arbolPaciente->listaIngresos;
 
@@ -1399,7 +1401,7 @@ void mostrarIngresoXfechaIngreso(nodoArbolPacientes* arbolPaciente, char fechaIn
             }
             listaIngresos = listaIngresos->siguiente;
         }
-
+        mostrarIngresoXfechaIngreso(arbolPaciente->izq, fechaIngresada,listaPracticas,existe);
         mostrarIngresoXfechaIngreso(arbolPaciente->der, fechaIngresada,listaPracticas,existe);
     }
 }
@@ -1431,7 +1433,6 @@ detalladamente la información de su ingreso y las prácticas asociadas; de lo c
   void mostrarIngresoXdni(nodoArbolPacientes* arbolPaciente, int dniIngresado,nodoPracticasLaboratorio*listaPracticas,int * existe)
 {
     nodoArbolPacientes* nodoPaciente = existePaciente(arbolPaciente, dniIngresado);
-    printf("paciente %i",nodoPaciente->dato.dni);
 
     if (nodoPaciente != NULL)
     {
