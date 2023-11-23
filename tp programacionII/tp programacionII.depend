@@ -23,9 +23,9 @@
 	<unistd.h>
 	<windows.h>
 
-1700620406 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
+1700691839 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
 
-1700625756 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
+1700698989 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -56,9 +56,9 @@
 	<windows.h>
 	<conio.h>
 
-1700570708 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.h
+1700676412 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.h
 
-1700623258 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
+1700698209 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -79,7 +79,7 @@
 	<unistd.h>
 	<windows.h>
 
-1700600622 c:\users\usuario\desktop\github\tp programacionii\funciones.h
+1700620487 c:\users\usuario\desktop\github\tp programacionii\funciones.h
 
 1700590133 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.c
 	<stdio.h>
@@ -104,7 +104,7 @@
 	<windows.h>
 	<conio.h>
 
-1700616817 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
+1700625064 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
@@ -114,9 +114,9 @@
 	<windows.h>
 	<conio.h>
 
-1700598779 c:\users\usuario\desktop\github\tp programacionii\switch.h
+1700620476 c:\users\usuario\desktop\github\tp programacionii\switch.h
 
-1700618523 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
+1700621633 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"

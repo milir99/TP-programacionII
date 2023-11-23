@@ -16,8 +16,7 @@ void recuadro (int xs, int ys, int xi, int yi);
 void mostrarLinea(int cantidad);
 void marcoEsteticoSwitch(char texto[]);
 void centrarTexto(char *texto, int y);
-
 void activarCursor();
 void ocultarCursor();
-void recuadro (int xs, int ys, int xi, int yi);
+
 #endif // SWITCH_H_INCLUDED

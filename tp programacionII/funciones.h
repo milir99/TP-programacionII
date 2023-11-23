@@ -99,7 +99,7 @@ void mostrarListadoPracticas(nodoPracticasLaboratorio *listaPracticas);
 int mostrarPracticasQueComienzanCon(nodoPracticasLaboratorio *listaPracticas);
 void mostrarListaPracticas(nodoPracticasLaboratorio *listaPracticas);
 void mostrarListaPracticasadmin (nodoPracticasLaboratorio* listaPractica);
-
+nodoPracticasLaboratorio* BuscarPracticaXNro(nodoPracticasLaboratorio*lista, int nroPractica);
 //FUNCIONES DE INGRESO
 nodoArbolPacientes* alta_de_ingreso(nodoArbolPacientes * paciente,nodoPracticasLaboratorio* listaPracticas);
 nodoIngresos*crearNodoIngreso(ingresos dato);
@@ -110,18 +110,20 @@ nodoArbolPacientes*modificacion_de_ingreso(nodoArbolPacientes * arbol, int nroIn
 nodoIngresos* baja_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
 int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * nuevoIngreso);
-void mostrarIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesde[], char fechaHasta[]);
-void mostrarUnIngreso(ingresos dato);
 void mostrarIngresosConFiltro(nodoArbolPacientes*arbol);
+void mostrarUnIngreso(ingresos dato);
+nodoIngresos* acumularIngresosConFiltroRecursivo(nodoArbolPacientes* arbol, char fechaDesde[], char fechaHasta[], nodoIngresos* listaAux);
+nodoIngresos* insertarIngresoOrdenado(nodoIngresos* lista, ingresos nuevoIngreso);
 int analizarFecha(char *fechaIngresada);
 int esAnterior(const char *fecha_ingreso, const char *fecha_retiro);
 nodoArbolPacientes* archivoAListaIngresos(char archivo[],nodoArbolPacientes* arbol);
 void listaIngresosAArchivo(nodoArbolPacientes*arbol, char archivoIngresos[]);
-void switchXingreso (nodoArbolPacientes * arbolPaciente);
-void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente, char fechaIngresada[]);
-void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente, int numeroIngreso);
-void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado);
-
+void switchXingreso (nodoArbolPacientes * arbolPaciente,nodoPracticasLaboratorio*listaPracticas);
+void mostrarIngresoXfechaIngreso (nodoArbolPacientes * arbolPaciente,char fechaIngresada[],nodoPracticasLaboratorio*listaPracticas, int * existe);
+void mostrarIngresoXnumeroIngreso (nodoArbolPacientes * arbolPaciente,int numeroIngreso,nodoPracticasLaboratorio*listaPracticas, int * existe);
+void mostrarIngresoXdni (nodoArbolPacientes * arbolPaciente, int dniIngresado,nodoPracticasLaboratorio*listaPracticas,int * existe);
+int buscarMaxNroIngresoEnArbol(nodoArbolPacientes* arbol);
+void mostrarListaPXIConNombre(nodoPracticasXIngreso* listaPXI,nodoPracticasLaboratorio* listaPractica);
 
 
 
