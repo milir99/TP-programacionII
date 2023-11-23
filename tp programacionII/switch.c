@@ -20,17 +20,25 @@ void InicioDelPrograma()
 
     nodoArbolPacientes* arbolPacientes=iniciarArbol();
 
+
     nodoEmpleados* listaEmpleados= iniclistaEmpleados();
+
 
     listaEmpleados = pasarArchivoAlistaEmpleados(archivoEmpleado,listaEmpleados);
 
+
+
     listaPracticasLaboratorio = ArchivoAListaPracticas(archivoPracticas,listaPracticasLaboratorio);
+
 
     arbolPacientes = archivoAArbolPacientes(archivoPacientes,arbolPacientes);
 
+
     arbolPacientes = archivoAListaIngresos(archivoIngresos,arbolPacientes);
 
+
     arbolPacientes = archivoAListaPXI(archivoPXI,arbolPacientes);
+
 
     if(listaEmpleados == NULL)
     {

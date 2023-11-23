@@ -706,18 +706,12 @@ nodoArbolPacientes* archivoAListaIngresos(char archivo[], nodoArbolPacientes* ar
     {
         while (fread(&aux, sizeof(ingresos), 1, arch) == 1)
         {
-            mostrarUnIngreso(aux);
             nodoArbolPacientes* existe = existePaciente(arbol, aux.dniPaciente);
 
             if (existe != NULL)
             {
                 existe->listaIngresos = agregarPpioIngreso(existe->listaIngresos, crearNodoIngreso(aux));
             }
-            else
-            {
-                printf("No se encontró el paciente con DNI %i en el árbol.\n", aux.dniPaciente);
-            }
-            printf("dni del paciente%i\n",existe->listaIngresos->dato.dniPaciente);
         }
         fclose(arch);
 
@@ -1727,14 +1721,11 @@ nodoArbolPacientes* archivoAListaPXI(char archivo[], nodoArbolPacientes* arbol)
             {
                 ingreso->listaDePracticas = agregarPpioPXI(ingreso->listaDePracticas, crearNodoPXI(aux.nroIngreso, aux.nroPractica));
             }
-            else
-            {
-                printf("No se encontró el ingreso con número %i en el árbol.\n", aux.nroIngreso);
-            }
         }
+
         fclose(arch);
-        //printf("Prácticas por ingreso cargadas exitosamente.\n");
     }
+
     else
     {
        arch = fopen(archivo, "wb");
@@ -2407,7 +2398,7 @@ paciente cargarUnPaciente(nodoArbolPacientes* arbol)
     {
 
     puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
-    printf("Cargando un Paciente");
+    printf("Cargando un Paciente\n");
     puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
         correcto = 0;
         printf("Ingrese nombre y apellido del paciente: ");
@@ -2452,7 +2443,7 @@ paciente cargarUnPaciente(nodoArbolPacientes* arbol)
         }
         else if(existePaciente(arbol,nuevoPaciente.dni)!=NULL)
         {
-            printf("Ya existe un paciente con ese DNI.\N");
+            printf("Ya existe un paciente con ese DNI.\n");
         }
         int contador=0;
         int nuevoDNI = nuevoPaciente.dni;
@@ -3136,7 +3127,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
 
     int correcto;
      puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
-    printf("Cargando un Empleado");
+    printf("Cargando un Empleado\n");
     puts("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><>>");
     do
         {
