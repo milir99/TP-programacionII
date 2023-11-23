@@ -6,7 +6,7 @@ int compararUsuario(char clave[], char usuario[], nodoEmpleados *listaEmpleados,
 void switchProfesionales(nodoArbolPacientes **arbolPaciente,nodoEmpleados**listaEmpleados,nodoPracticasLaboratorio**listaPracticas);
 void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados**listaEmpleados,nodoPracticasLaboratorio**listaPracticas);
 void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados ** listaEmpleados, nodoPracticasLaboratorio ** listaPracticas);
-
+void InicioConListaEmpleadosVacia();
 void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmpleados,nodoPracticasLaboratorio*listaPracticas);
 int usuarioYclavePrincipio(nodoEmpleados*listaEmpleados);
 void mostrarArchivo (char nombreArchivo[]);

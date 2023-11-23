@@ -42,14 +42,9 @@ void InicioDelPrograma()
 
     if(listaEmpleados == NULL)
     {
-        printf(" _ ____  _                           _     _         __    _ \n");
-    printf("(_) __ )(_) ___ _ ____   _____ _ __ (_) __| | ___   / /_ _| |\n");
-    printf("| |  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| |/ _` |/ _ \\ / / _` | |\n");
-    printf("| | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) / / (_| |_|\n");
-    printf("|_|____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/_/ \\__,_(_)\n");
 
 
-    printf("Acontinuacion debe ingresar sus datos para generar el primer usuario del programa.\n");
+       InicioConListaEmpleadosVacia();
         listaEmpleados=alta_de_empleados(listaEmpleados);
 
     }
@@ -81,8 +76,49 @@ void FinDelPrograma(nodoArbolPacientes * arbolPaciente,nodoEmpleados*listaEmplea
     listaIngresosAArchivo(arbolPaciente,archivoIngresos);
     cargarArchivoPaciente(archivoPacientes,arbolPaciente);
 }
+void InicioConListaEmpleadosVacia()
+{
+    int i;
+
+clearScreen();
+centrarTexto("¡BIENVENIDO!", 7);
+recuadro(30, 5, 80, 20);
+gotoxy(47, 8);
+printf("INICIO DE SESION");
+
+gotoxy(35, 10);
+printf("A CONTINUACION DEBERA INGRESAR DATOS\n");
+gotoxy(39, 11);
+printf("PARA GENERAR EL PRIMER USUARIO\n");
+fflush(stdin);
+
+gotoxy(35, 13);
+system("pause");
+ocultarCursor();
+        gotoxy(90,10);centrarTexto("C A R G A N D O...", 21);
+
+        for ( i = 20; i <= 90; i++) {
+            gotoxy(i, 23);
+            printf("%c", 177);
+        }
+
+        for (i = 20; i <= 90; i++) {
+            gotoxy(i, 23);
+            printf("%c", 219);
+            Sleep(15);
+        }
+
+        gotoxy(10, 21);
+        printf("                                                                                                                                ");
+        gotoxy(10, 23);
+        printf("                                                                                                                                ");
+
+        activarCursor();
 
 
+            clearScreen();
+
+}
 int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
 {
     char clave[20];
@@ -178,8 +214,9 @@ int usuarioYclavePrincipio(nodoEmpleados* listaEmpleados)
             system("pause");
             return existe;
         } else {
+            ocultarCursor();
             gotoxy(23, 22); printf("Usuario o clave ingresado incorrectamente. Intentelo otra vez.\n");
-            Sleep(5000);
+            Sleep(3000);
             intentos++;
 
             if (intentos == 3)

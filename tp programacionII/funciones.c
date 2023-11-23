@@ -294,7 +294,7 @@ nodoPracticasLaboratorio* ArchivoAListaPracticas(char archivoPraticas[],nodoPrac
     return lista;
 }
 
-///FUNCION MODIFICACION DE PRACTICAS (chequeada)
+///FUNCION MODIFICACION DE PRACTICAS
 /*/ solicita el nombre de una practica a modificar. Luego, busca la practica en una lista enlazada.
 Si encuentra la practica, solicita el nuevo nombre y realiza la modificacion.
  Retorna la lista de practicas actualizada. La entrada se valida para asegurar un nombre valido./*/
@@ -356,6 +356,7 @@ nodoPracticasLaboratorio* modificacion_de_practica(nodoPracticasLaboratorio* lis
         printf("Numero de Practica: %d\n", existe->datos.nroPractica);
         printf("Nombre de Practica: %s\n", existe->datos.nombreDePractica);
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        system("pause");
 
     }
     else
@@ -1618,6 +1619,7 @@ nodoArbolPacientes* modificar_PXI( nodoArbolPacientes*arbol,nodoPracticasLaborat
     else
     {
         printf("El numero de ingreso NO existe O fue eliminado.\n");
+        system("pause");
     }
     return arbol;
 }
@@ -1630,6 +1632,7 @@ nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPract
     int nroIngreso;
     char nombrePractica[30];
     int  correcto ;
+    nodoPracticasXIngreso *seg=NULL;
 
     do
     {
@@ -1645,6 +1648,10 @@ nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPract
     } while(correcto==1);
 
     nodoIngresos* existeIngreso= buscarIngreso(arbol,nroIngreso);
+    if(existeIngreso == NULL)
+    {
+        printf("No se encontro un ingreso con ese numero.\n");
+    }else{
 
     do
     {
@@ -1668,7 +1675,7 @@ nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPract
             printf("La practica ingresada no existe .Por favor, intentelo otra vez\n");
             correcto=1;
         }
-        if(buscarPracticaEnIngreso(existeIngreso,existe->datos.nroPractica)==0&& correcto==0)
+        if(correcto==0 && buscarPracticaEnIngreso(existeIngreso,existe->datos.nroPractica)==0 )
         {
             printf("La practica no existe dentro del numero de ingreso.Por favor, intentelo otra vez\n");
             correcto=1;
@@ -1676,7 +1683,7 @@ nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPract
     }while(correcto==1);
 
     nodoPracticasLaboratorio*practica= BuscarPractica(listaPracticas,nombrePractica);
-    nodoPracticasXIngreso *seg=existeIngreso->listaDePracticas;
+    seg=existeIngreso->listaDePracticas;
     while(seg!=NULL)
     {
         if(seg->dato.nroPractica==practica->datos.nroPractica)
@@ -1684,7 +1691,8 @@ nodoPracticasXIngreso*BuscarPXIparaModificar( nodoArbolPacientes*arbol,nodoPract
             break;
         }
         seg=seg->siguiente;
-    }
+    }}
+
     return seg;
 }
 
@@ -2252,6 +2260,7 @@ nodoArbolPacientes * modificacionPacientesArbol (nodoArbolPacientes * arbolPacie
                     puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
                     printf("Error, la opcion que ingreso es invalida.\n");
                     puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+                    system("pause");
                 }
             }
         }while(eleccionModificar!=0);
@@ -2355,6 +2364,7 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         printf("Paciente dado de alta exitosamente.\n");
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+        system("pause");
 
     }
     else if(aux->dato.eliminado==1)
@@ -2379,6 +2389,7 @@ nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes)
     else
     {
         printf("Este paciente ya existe, intentelo otra vez!\n");
+        system("pause");
     }
     return arbolPacientes;
 }
@@ -2408,6 +2419,7 @@ nodoArbolPacientes * darBajaPaciente (nodoArbolPacientes* arbolPaciente)
     puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
     printf("Paciente dado de baja exitosamente.\n");
     puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
+    system("pause");
     }
 
     return arbolPaciente;
@@ -3169,6 +3181,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         }while(correcto==1);
         nombre[strcspn(nombre, "\n")] = '\0';
         strcpy(nuevoEmpleado.apellidoYnombre,nombre);
+        clearScreen();
          puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         printf(" APELLIDO Y NOMBRE:%s.\n",nuevoEmpleado.apellidoYnombre);
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
@@ -3291,7 +3304,7 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         printf(" USUARIO:%s.\n",nuevoEmpleado.usuario);
         puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
-
+        if(listaEmpleados!=NULL){
         do
         {
             correcto=0;
@@ -3316,6 +3329,11 @@ nodoEmpleados * alta_de_empleados (nodoEmpleados * listaEmpleados)
         {
             strcpy(nuevoEmpleado.perfil,"administrativo");
         }
+        }
+        else{
+          strcpy(nuevoEmpleado.perfil,"administrador");
+        }
+
         clearScreen();
          puts("\n<<>><<>><<>><<>><<>><<>><<>><<>><<>>\n");
         printf(" APELLIDO Y NOMBRE:%s.\n",nuevoEmpleado.apellidoYnombre);
