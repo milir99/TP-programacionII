@@ -129,7 +129,7 @@ void mostrarListaPXIConNombre(nodoPracticasXIngreso* listaPXI,nodoPracticasLabor
 
 
 //FUNCIONES PRACTICAS X INGRESO
-nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica);
+nodoPracticasXIngreso*crearNodoPXI(int nroIngreso,int nroPractica, char resultado[]);
 nodoPracticasLaboratorio* BuscarPractica(nodoPracticasLaboratorio*lista, char nombrePractica[]);
 nodoPracticasXIngreso*agregarPpioPXI (nodoPracticasXIngreso*lista,nodoPracticasXIngreso* nuevoIngreso);
 nodoPracticasXIngreso *alta_de_pxi(nodoPracticasXIngreso*lista,int nroDeIngreso,nodoPracticasLaboratorio* listaPracticas);
@@ -149,7 +149,7 @@ nodoArbolPacientes * iniciarArbol ();
 nodoArbolPacientes *crearNodoArbol (paciente datoP);
 nodoArbolPacientes * insertarNodoArbolPaciente (nodoArbolPacientes *arbolPacientes, nodoArbolPacientes* dato);
 nodoArbolPacientes * altaArbolPacientes (nodoArbolPacientes *arbolPacientes);
-paciente cargarUnPaciente ();
+paciente cargarUnPaciente(nodoArbolPacientes* arbol);
 void mostrarArbolINORDERPaciente (nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPacientesDelArbol (FILE * archi, nodoArbolPacientes * arbolPacientes);
 void cargarArchivoPaciente (char nombreArcPacientes[],nodoArbolPacientes * arbolPacientes);
@@ -180,6 +180,7 @@ nodoEmpleados * modificarEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * darDeBajaEmpleado(nodoEmpleados * listaEmpleados);
 nodoEmpleados * agregarEnOrdenEmpleados(nodoEmpleados * listaEmpleados, nodoEmpleados * nuevoNodo);
 nodoEmpleados * existeUsuario(nodoEmpleados* empleado,char usuario []);
+void buscarUnEmpleadoXdni (nodoEmpleados * listaEmpleados, int tipoperfil);
 
 
 
