@@ -11,7 +11,7 @@
  char archivoPracticas[]="lasPracticas.bin";
  char archivoPXI []="PXI.bin";
  char archivoIngresos []="ingresos.bin";
- char archivoPacientes []= "paciente.bin";
+ char archivoPacientes []= "pacientes.bin";
 //PASARLE A LOS SWITCH, EL ARBOL, Y LISTAS
 
 void InicioDelPrograma()
@@ -388,13 +388,13 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
     int buscarPractica;
     nodoArbolPacientes * existe = iniciarArbol();
     int nroIngreso;
-     nodoIngresos* buscado;
+
 
     do
     {
         clearScreen();
         printf("Ingresado como administrativo\n");
-        printf("\nBienvenido/a!\n");
+        printf("Bienvenido/a!\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar paciente.\n");
         printf("2. Ver practicas.\n");
@@ -470,6 +470,7 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
             clearScreen();
             do
             {
+                clearScreen();
                 printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Ver practicas.\n");
                 printf("2. Buscar practica.\n");
@@ -530,15 +531,15 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
             }while(eleccion2 != 0);
             break;
         case 3:
-            clearScreen();
-            //dar de alta, buscar, mostrar, modificar.
+
             do
             {
+                clearScreen();
                 printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
                 printf("1. Dar de alta un ingreso.\n");
                 printf("2. Modificar un ingreso.\n");
                 printf("3. Buscar un ingreso.\n");
-                printf("4. Mostrar todos los ingresos.\n");
+                printf("4. Mostra ingresos por rango de fechas .\n");
                 printf("5. Mostrar pacientes\n");
                 fflush(stdin);
                 scanf("%i", &eleccion3);
@@ -571,24 +572,11 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
 
                 case 3:
                     clearScreen();
-                    do
-                    {
-                        correcto = 0;
-                        printf("\nIngrese el Nro de ingreso: ");
-                        fflush(stdin);
-                        if (scanf("%i",&nroIngreso) != 1)
-                        {
-                            printf("Entrada no valida. Por favor, ingrese el DNI del paciente.\n");
-                            correcto = 1;
-                        }
-                    }while (correcto == 1);
-                     buscado=buscarIngreso(*arbolPaciente,nroIngreso);
-                     mostrarUnIngreso(buscado->dato);
+                    switchXingreso(*arbolPaciente,*listaPracticas);
                     break;
 
                 case 4:
                     clearScreen();
-                    switchXingreso(*arbolPaciente);
                     mostrarIngresosConFiltro(*arbolPaciente);
                     break;
                 case 5:
@@ -635,7 +623,7 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
         clearScreen();
         printf("Ingresado como administrador\n");
 
-        printf("\nBienvenido/a!\n");
+        printf("Bienvenido/a!\n");
         printf("Ingrese la opcion que desee realizar o 0 para finalizar.\n");
         printf("1. Administrar usuario/empleado. \n");
         printf("2. Adminnistrar practicas.\n");
@@ -649,7 +637,6 @@ void switchAdmin(nodoArbolPacientes ** arbolPacientes, nodoEmpleados * *listaEmp
         {
         case 1:
             clearScreen();
-            //Funciones para dar de alta, modificar, dar de baja, buscar y mostrar.
             do
             {
                 printf("Ingrese la opcion que desee realizar o 0 para finalizar: \n");
