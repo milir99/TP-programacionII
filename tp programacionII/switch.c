@@ -600,6 +600,7 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                 printf("3. Buscar un ingreso.\n");
                 printf("4. Mostra ingresos por rango de fechas .\n");
                 printf("5. Mostrar pacientes\n");
+                printf("6. Dar de baja un Ingreso.");
                 printf("0. Volver al menu anterior\n");
                 fflush(stdin);
                 scanf("%i", &eleccion3);
@@ -643,6 +644,31 @@ void switchAdministrativo(nodoArbolPacientes ** arbolPaciente,nodoEmpleados ** l
                     clearScreen();
                     mostrarArbolINORDERPaciente(*arbolPaciente);
                     break;
+                case 6:
+                     do
+                    {
+                        correcto = 0;
+                        printf("\nIngrese el Nro de ingreso: ");
+                        fflush(stdin);
+                        if (scanf("%i",&nroIngreso) != 1)
+                        {
+                            printf("Entrada no valida. Por favor, ingrese el DNI del paciente.\n");
+                            correcto = 1;
+                        }
+
+                    }while (correcto == 1);
+                    nodoIngresos*existe= buscarIngreso(*arbolPaciente,nroIngreso);
+                    if(existe!=NULL)
+                    {
+                    *arbolPaciente = baja_de_ingreso(*arbolPaciente,nroIngreso);
+                    }
+                    else
+                    {
+                        printf("El nro ingresado nmo existe\n");
+
+                    }
+                    system("pause");
+break;
 
                 default:
                     clearScreen();

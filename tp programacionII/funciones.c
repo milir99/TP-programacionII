@@ -816,7 +816,7 @@ int analizarFecha(char *fechaIngresada)
 /*/marca como eliminado el ingreso con el numero especificado y elimina en cascada la lista de practicas asociadas.
 Primero busca el ingreso en la lista y, si lo encuentra, establece el indicador "eliminado" en 1 y procede a eliminar la lista de practicas en cascada.
  Retorna la lista de ingresos actualizada. Si el numero de ingreso no coincide, muestra un mensaje de error./*/
-nodoIngresos* baja_de_ingreso(nodoArbolPacientes*arbol, int nroIngreso)
+nodoArbolPacientes* baja_de_ingreso(nodoArbolPacientes*arbol, int nroIngreso)
 {
     //en el main tenemos que buscar el nodo arbol paciente con el dni de la persona
     nodoIngresos*existe= buscarIngreso(arbol,nroIngreso);
@@ -827,9 +827,9 @@ nodoIngresos* baja_de_ingreso(nodoArbolPacientes*arbol, int nroIngreso)
     }
     else
     {
-        printf("EL nro de ingreso no coincide con los ingresos del paciente.\n");
+        printf("EL nro de ingreso no coincide con los ingresos.\n");
     }
-    return arbol->listaIngresos;
+    return arbol;
 }
 
 ///FUNCION BAJA DE PXI en cascada. (chequeada)

@@ -108,7 +108,7 @@ nodoIngresos*agregarPpioIngreso(nodoIngresos*lista,nodoIngresos* nuevoIngreso);
 int buscarUltimoNroIngreso(nodoIngresos*lista);
 nodoIngresos* buscarIngreso(nodoArbolPacientes* arbol, int nroIngreso);
 nodoArbolPacientes*modificacion_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
-nodoIngresos* baja_de_ingreso(nodoArbolPacientes * arbol, int nroIngreso);
+nodoArbolPacientes* baja_de_ingreso(nodoArbolPacientes*arbol, int nroIngreso);
 void escribirIngresosEnArchivo(nodoArbolPacientes* arbol, FILE* archivo);
 int cargarUnIngreso(nodoArbolPacientes* arbol,ingresos * nuevoIngreso);
 void mostrarIngresosConFiltro(nodoArbolPacientes*arbol);
