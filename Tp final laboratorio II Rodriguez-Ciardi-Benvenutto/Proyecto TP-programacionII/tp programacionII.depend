@@ -1,0 +1,152 @@
+# depslib dependency file v1.0
+1700765431 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<unistd.h>
+	<windows.h>
+
+1700765433 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.h
+
+1700786297 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<unistd.h>
+	<windows.h>
+
+1700791923 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.h
+
+1700793358 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	<conio.h>
+
+1699979706 source:c:\users\usuario\desktop\tp final\tp-programacionii\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+
+1700621739 c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.h
+
+1700621813 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	<conio.h>
+
+1700757121 c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.h
+
+1700792022 source:c:\users\user\desktop\facultad\utn\programacion ii\tp-programacionii\tp programacionii\switch.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	"switch.h"
+	<windows.h>
+	<conio.h>
+
+1700598779 source:c:\users\usuario\desktop\github\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<unistd.h>
+	<windows.h>
+
+1700620487 c:\users\usuario\desktop\github\tp programacionii\funciones.h
+
+1700773527 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	"switch.h"
+	<windows.h>
+	<conio.h>
+
+1700765433 c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\switch.h
+
+1700775774 source:c:\users\propietario\onedrive\facultad\utn\programacion y laboratorio ii\tp-programacionii\tp programacionii\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	<conio.h>
+
+1700625064 source:c:\users\usuario\desktop\github\tp programacionii\switch.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	"switch.h"
+	<windows.h>
+	<conio.h>
+
+1700620476 c:\users\usuario\desktop\github\tp programacionii\switch.h
+
+1700621633 source:c:\users\usuario\desktop\github\tp programacionii\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	<conio.h>
+
+1700573745 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	"switch.h"
+	<ctype.h>
+	<string.h>
+	<time.h>
+	<unistd.h>
+	<windows.h>
+
+1700598489 c:\users\irina\desktop\tp-programacionii\tp programacionii\switch.h
+
+1700620512 source:c:\users\irina\desktop\tp-programacionii\tp programacionii\switch.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<ctype.h>
+	<string.h>
+	"switch.h"
+	<windows.h>
+	<conio.h>
+
